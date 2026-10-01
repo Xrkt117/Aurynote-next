@@ -1,6 +1,7 @@
 import { sounds } from "./sounds";
 import { tunings, type Tuning } from "./tuning";
 import type { Instrument } from "./music";
+import { isValid, parseISO } from "date-fns";
 export interface Attempt {
   day: string;
   target: number;
@@ -105,17 +106,19 @@ export function decode(raw: string | null): Profile {
         finite(value.errors?.[i], 0, 20, 0),
       ),
       learned: Array.isArray(value.learned)
-        ? value.learned.filter(
+        ? [...new Set<number>(value.learned.filter(
             (n: unknown) =>
               Number.isInteger(n) && Number(n) >= 0 && Number(n) < 12,
-          )
+          ))]
         : [],
       attempts: Array.isArray(value.attempts)
         ? value.attempts
             .filter(
               (a: Attempt) =>
                 a &&
+                typeof a.day === "string" &&
                 /^\d{4}-\d{2}-\d{2}$/.test(a.day) &&
+                isValid(parseISO(a.day)) &&
                 Number.isInteger(a.target) &&
                 a.target >= 0 &&
                 a.target < 12 &&
@@ -149,7 +152,8 @@ export function record(
   mode: string,
 ): Profile {
   const errors = [...profile.errors];
-  errors[target] = Math.max(0, Math.min(20, errors[target] + (right ? -1 : 2)));
+  if (mode === "ear")
+    errors[target] = Math.max(0, Math.min(20, errors[target] + (right ? -1 : 2)));
   return {
     ...profile,
     errors,

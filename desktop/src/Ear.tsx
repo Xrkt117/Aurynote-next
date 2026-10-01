@@ -194,6 +194,8 @@ export default function Ear() {
             ? "The next guided lesson is now available."
             : custom
               ? "Your custom-session results have been saved."
+              : degree
+                ? "Your scale-degree session has been saved."
               : profile.passedLessons.length === 5
                 ? "You have passed all five guided lessons."
                 : "Session saved. Aim for 80% to pass this guided lesson."}
@@ -459,13 +461,13 @@ export default function Ear() {
           />
           {phase === "result" && !right && (
             <div
-              className={`feedback ${right ? "success" : "mistake"}`}
+              className="feedback mistake"
               role="status"
             >
               <div>
-                {right ? <Check size={19} /> : <X size={19} />}
+                <X size={19} />
                 <strong>
-                  {right ? "Correct" : "Not quite"} · {label(target)}
+                  Not quite · {label(target)}
                 </strong>
               </div>
               <span>
@@ -473,12 +475,12 @@ export default function Ear() {
                   ? "Paused for a closer listen."
                   : busy
                     ? "Comparing your note with the answer…"
-                    : `Next question in ${right ? "1.4" : "3.2"} seconds`}
+                    : "Next question in 3.2 seconds"}
               </span>
               {!paused && !busy && (
                 <i
                   className="countdown"
-                  style={{ animationDuration: `${right ? 1.4 : 3.2}s` }}
+                  style={{ animationDuration: "3.2s" }}
                 />
               )}
             </div>

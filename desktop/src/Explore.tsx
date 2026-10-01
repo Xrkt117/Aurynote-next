@@ -205,6 +205,7 @@ export default function Explore() {
               <span className="micro muted">Root marked 1 · one octave</span>
             </div>
             <Piano
+              onlyPool
               active={active}
               pool={tones.map((n) => n.midi)}
               root={displayRoot}
