@@ -1,7 +1,9 @@
 import { test, expect, chromium } from "@playwright/test";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-test("a synthetic microphone tone is recognized and the input stops", async () => {
+test("a synthetic microphone tone is recognized and the input stops", async ({
+  baseURL,
+}) => {
   mkdirSync("artifacts", { recursive: true });
   const rate = 48000,
     count = rate * 3;
@@ -35,7 +37,7 @@ test("a synthetic microphone tone is recognized and the input stops", async () =
   try {
     const context = await browser.newContext({ permissions: ["microphone"] });
     const page = await context.newPage();
-    await page.goto("http://127.0.0.1:5173");
+    await page.goto(baseURL!);
     await page
       .getByRole("button", { name: "Play it back", exact: true })
       .click();
