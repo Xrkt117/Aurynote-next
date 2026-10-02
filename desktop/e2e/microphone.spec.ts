@@ -55,7 +55,7 @@ test("a synthetic microphone tone is recognized and the input stops", async ({
       .poll(() =>
         page.evaluate(() => {
           const saved = JSON.parse(
-            localStorage.getItem("aurynote.studio.v1") || "null",
+            localStorage.getItem("aurynote.next.v1") || "null",
           );
           return saved?.attempts?.length ?? 0;
         }),

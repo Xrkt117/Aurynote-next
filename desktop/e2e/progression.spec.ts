@@ -98,7 +98,7 @@ test("build, reorder, transpose, save, and export a chord chart", async ({
   await expect(chart.locator("desc")).toContainText("1. Dm7: D, F, A, C");
   expect(
     await page.evaluate(
-      () => JSON.parse(localStorage.getItem("aurynote.studio.v1")!).attempts,
+      () => JSON.parse(localStorage.getItem("aurynote.next.v1")!).attempts,
     ),
   ).toEqual([]);
 });

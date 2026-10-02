@@ -47,7 +47,7 @@ export const fresh = (): Profile => ({
   tourSeen: false,
   song: emptySong(),
 });
-const key = "aurynote.studio.v1";
+const key = "aurynote.next.v1";
 export function decode(raw: string | null): Profile {
   try {
     const value = JSON.parse(raw || "null");

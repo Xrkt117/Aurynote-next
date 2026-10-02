@@ -9,7 +9,7 @@ test("tour can be completed, replayed, and dismissed without changing practice d
     .getByLabel("Instrument key", { exact: true })
     .selectOption("tenor");
   const before = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("aurynote.studio.v1")!),
+    JSON.parse(localStorage.getItem("aurynote.next.v1")!),
   );
   await page.getByRole("button", { name: "Take a quick tour" }).click();
   const dialog = page.getByRole("dialog");
@@ -37,7 +37,7 @@ test("tour can be completed, replayed, and dismissed without changing practice d
   await dialog.getByRole("button", { name: "Done", exact: true }).click();
   await expect(dialog).toHaveCount(0);
   const after = await page.evaluate(() =>
-    JSON.parse(localStorage.getItem("aurynote.studio.v1")!),
+    JSON.parse(localStorage.getItem("aurynote.next.v1")!),
   );
   expect(after).toEqual({ ...before, tourSeen: true });
   await page.reload();

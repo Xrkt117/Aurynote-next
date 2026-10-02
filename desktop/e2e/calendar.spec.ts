@@ -9,7 +9,7 @@ test("calendar uses saved practice and supports keyboard and narrow layouts", as
       yesterday = new Date();
     yesterday.setDate(today.getDate() - 1);
     localStorage.setItem(
-      "aurynote.studio.v1",
+      "aurynote.next.v1",
       JSON.stringify({
         version: 2,
         attempts: [
