@@ -8,7 +8,7 @@ import { voice } from "./audio";
 import { Staff, Tag } from "./components";
 import { shuffledNotes } from "./practice";
 export default function StaffPractice() {
-  const { profile, setProfile, notify, settingsOpen } = useStudio();
+  const { profile, setProfile, notify, practicePaused } = useStudio();
   const [bass, setBass] = useState(false),
     [accidentals, setAccidentals] = useState(false),
     [typing, setTyping] = useState(false),
@@ -23,10 +23,10 @@ export default function StaffPractice() {
   const locked = useRef(false);
   useEffect(() => () => voice.stop(), []);
   useEffect(() => {
-    if (result === null || settingsOpen || paused) return;
+    if (result === null || practicePaused || paused) return;
     const timer = setTimeout(() => next(), result ? 850 : 3200);
     return () => clearTimeout(timer);
-  }, [result, settingsOpen, paused]);
+  }, [result, practicePaused, paused]);
   function next(newBass = bass, newAcc = accidentals) {
     voice.stop();
     const q = staffNote(
@@ -67,7 +67,7 @@ export default function StaffPractice() {
   }
   return (
     <div className="page">
-      {result === true && !settingsOpen && <CorrectPopup />}
+      {result === true && !practicePaused && <CorrectPopup />}
       <div className="page-heading">
         <div>
           <span className="eyebrow">Notation</span>
@@ -262,7 +262,7 @@ export default function StaffPractice() {
                 Your answer: {choice}.{" "}
                 {paused ? "Paused for review." : "Next note in 3.2 seconds."}
               </span>
-              {!paused && !settingsOpen && (
+              {!paused && !practicePaused && (
                 <i
                   className="countdown"
                   style={{ animationDuration: "3.2s" }}

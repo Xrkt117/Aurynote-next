@@ -10,7 +10,7 @@ import { voice } from "./audio";
 import { Piano, Wave, Tag } from "./components";
 type Phase = "learn" | "quiz" | "result" | "complete";
 export default function Ear() {
-  const { profile, setProfile, notify, go, settingsOpen } = useStudio();
+  const { profile, setProfile, notify, go, practicePaused } = useStudio();
   const [phase, setPhase] = useState<Phase>("learn"),
     [busy, setBusy] = useState(false),
     [soundLabel, setSoundLabel] = useState(""),
@@ -43,10 +43,10 @@ export default function Ear() {
     [],
   );
   useEffect(() => {
-    if (phase !== "result" || paused || busy || settingsOpen) return;
+    if (phase !== "result" || paused || busy || practicePaused) return;
     const timer = setTimeout(next, choice === target ? 850 : 3200);
     return () => clearTimeout(timer);
-  }, [phase, paused, busy, settingsOpen]);
+  }, [phase, paused, busy, practicePaused]);
   const label = (n: number) =>
     degree
       ? `${[0, 2, 4, 5, 7, 9, 11].indexOf(n) + 1}${n === 0 ? " · root" : ""}`
@@ -196,9 +196,9 @@ export default function Ear() {
               ? "Your custom-session results have been saved."
               : degree
                 ? "Your scale-degree session has been saved."
-              : profile.passedLessons.length === 5
-                ? "You have passed all five guided lessons."
-                : "Session saved. Aim for 80% to pass this guided lesson."}
+                : profile.passedLessons.length === 5
+                  ? "You have passed all five guided lessons."
+                  : "Session saved. Aim for 80% to pass this guided lesson."}
         </p>
         <div className="button-row">
           {!custom &&
@@ -223,7 +223,7 @@ export default function Ear() {
     );
   return (
     <div className="page lesson-page">
-      {phase === "result" && right && !settingsOpen && <CorrectPopup />}
+      {phase === "result" && right && !practicePaused && <CorrectPopup />}
       <div className="page-heading">
         <div>
           <span className="eyebrow">
@@ -460,15 +460,10 @@ export default function Ear() {
             }
           />
           {phase === "result" && !right && (
-            <div
-              className="feedback mistake"
-              role="status"
-            >
+            <div className="feedback mistake" role="status">
               <div>
                 <X size={19} />
-                <strong>
-                  Not quite · {label(target)}
-                </strong>
+                <strong>Not quite · {label(target)}</strong>
               </div>
               <span>
                 {paused

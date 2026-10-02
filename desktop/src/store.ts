@@ -25,6 +25,7 @@ export interface Profile {
   sessionLength: number;
   dailyGoal: number;
   passedLessons: number[];
+  tourSeen: boolean;
   song: SongChart;
 }
 export const fresh = (): Profile => ({
@@ -43,6 +44,7 @@ export const fresh = (): Profile => ({
   sessionLength: 10,
   dailyGoal: 10,
   passedLessons: [],
+  tourSeen: false,
   song: emptySong(),
 });
 const key = "aurynote.studio.v1";
@@ -56,6 +58,7 @@ export function decode(raw: string | null): Profile {
         : fallback;
     return {
       ...fresh(),
+      tourSeen: value.tourSeen === true,
       song: decodeSong(value.song),
       tuning:
         value.version === 1

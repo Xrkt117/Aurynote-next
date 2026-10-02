@@ -1,6 +1,6 @@
 # aurynote design document
 
-Living reference for the desktop app on `hackathon-overhaul`. Current design baseline: version 0.4.4. Last reviewed: September 30, 2026. The product name remains **aurynote**.
+Living reference for the desktop app on `hackathon-overhaul`. Current design baseline: version 0.4.5 with tutorial and song charts. Last reviewed: October 1, 2026. The product name remains **aurynote**.
 
 This document describes implemented behavior, its visual design, and where it is built. Update the relevant sections whenever a feature or interaction changes. Ideas are not implemented features until explicitly marked as shipped here.
 
@@ -28,11 +28,11 @@ The app runs locally in Electron with React and TypeScript. It works without an 
 
 Maintain the monochrome foundation. Green and rust communicate meaning; they are not general decoration. Do not rely on color alone. Reserve serif type and illustrative details for the studio hierarchy, keep practice-task controls direct, and avoid large rounded pills, excessive shadows, long paragraphs, and unrelated visual treatments for equivalent controls.
 
-Styles live in [style.css](../desktop/src/style.css). Shared primitives live in [components.tsx](../desktop/src/components.tsx): brand, tags, section titles, keyboard, waveform, staff, stepper, empty state, and playback button.
+Styles live in [style.css](../desktop/src/style.css). Shared primitives live in [components.tsx](../desktop/src/components.tsx): brand, tags, section titles, keyboard, waveform, staff and empty state.
 
 ## App structure and global controls
 
-[App.tsx](../desktop/src/App.tsx) owns navigation and the shared profile through [context.ts](../desktop/src/context.ts). The left sidebar contains six destinations, a restrained botanical quote card, and local-save status. The dark active destination has a light inset border so selection remains visible without relying on color alone. The top bar shows the current screen with Practice context, a clearly labeled Instrument key selector grouped by key with instrument examples, and a text-labeled Settings button. The studio uses musical staff lines, notation details, waveforms, and abstract botanical forms as quiet decoration. The practice screens retain their focused layouts without decorative tip cards. The help dialog, new-feature dot, sidebar progress summary, and footer slogans remain removed. Temporary notifications remain for errors and export status.
+[App.tsx](../desktop/src/App.tsx) owns navigation and the shared profile through [context.ts](../desktop/src/context.ts). The left sidebar contains six destinations, a restrained botanical quote card, and local-save status. The dark active destination has a light inset border so selection remains visible without relying on color alone. The top bar shows the current screen with Practice context, a clearly labeled Instrument key selector grouped by key with instrument examples, and a text-labeled Settings button. The studio uses musical staff lines, notation details, waveforms, and abstract botanical forms as quiet decoration. The practice screens retain their focused layouts without decorative tip cards. A persistent Quick tour button follows the navigation. The old help dialog, new-feature dot, sidebar progress summary, and footer slogans remain removed. Temporary notifications remain for errors and export status.
 
 | Destination | Purpose | Screen source |
 | --- | --- | --- |
@@ -43,9 +43,17 @@ Styles live in [style.css](../desktop/src/style.css). Shared primitives live in 
 | Play it back | Match a pitch on an instrument | [PlayRoom.tsx](../desktop/src/PlayRoom.tsx) |
 | Your progress | Review stored practice | [Progress.tsx](../desktop/src/Progress.tsx) |
 
-Navigation stops existing playback. Changing instrument key or notation remounts the practice screen so an old question does not continue under new settings. Changing playback sound preserves the screen. Escape closes Settings and stops sound; it is not a universal pause control outside Settings.
+Navigation stops existing playback. Changing instrument key or notation remounts ear, staff, and microphone practice so an old question does not continue under new settings. Scales & chords preserves its selected mode and chart while updating displayed notation. Changing playback sound preserves the screen. Escape closes Settings or the tour and stops sound; it is not a universal pause control outside Settings.
 
-The desktop window starts at 1320 by 900, with an 880 by 680 minimum. CSS adapts at 1500, 1150, 900, and 650 pixels. Smaller layouts reflow cards and controls; some supplementary tips are hidden. The narrower browser layouts are supported by CSS, but the packaged desktop window retains its minimum size.
+The desktop window starts at 1320 by 900, with an 880 by 680 minimum. CSS adapts at 1500, 1150, 900, and 650 pixels. Smaller layouts reflow cards and controls; some supplementary tips are hidden, but ear and staff practice settings remain reachable. The navigation scrolls horizontally on phones, with Quick tour always available beside the brand. The narrower browser layouts are supported by CSS, but the packaged desktop window retains its minimum size.
+
+## Click-through feature tour
+
+[QuickTour.tsx](../desktop/src/QuickTour.tsx) provides seven short steps: studio, instrument/sound settings, ear training, staff reading, scales/chords and chord changes, microphone matching, and progress. A native modal highlights the corresponding real navigation or global control and shows one explanation at a time. Next and Back change steps; Skip tour, Close, Escape, and the final Done exit. It does not navigate away from the current practice screen or create practice answers.
+
+A dismissible studio invitation appears until the tour is dismissed or completed. The `tourSeen` profile flag remembers that choice; Quick tour remains available for replay. Focus moves to each new step heading, Tab stays among the dialog buttons, and closing restores focus and page/navigation scroll. Small windows clamp the card inside the viewport; very short windows scroll within the card. There is no forced animation or automatic first-run modal.
+
+Opening the tour stops playback, pauses answer-review timers, and cancels active or pending microphone input through the shared `practicePaused` state. Closing resumes review timing but does not restart sound or microphone access. An interrupted mystery note can be replayed manually. The tour itself never requests microphone permission.
 
 ## Instrument keys and Settings
 
@@ -84,7 +92,7 @@ UI infrastructure now includes Tailwind v4 through the Vite plugin, TypeScript/V
 
 ## Your studio
 
-**Layout:** an editorial “Train your ear” heading with a quiet decorative staff, a large next-lesson card, a microphone practice card, one compact five-part statistics strip, and four equal practice-mode cards. The full-width workspace grows with the desktop window instead of remaining inside a fixed content cap. The next lesson is the primary action; the microphone card is a parallel secondary entry point. Ear training, staff reading, harmony, and pitch matching remain one click away below it. The year calendar and achievement cards live on Your Progress instead of lengthening the studio landing screen.
+**Layout:** an editorial “Train your ear” heading with a quiet decorative staff, an optional tour invitation, a large next-lesson card, a microphone practice card, one compact five-part statistics strip, and four equal practice-mode cards. The full-width workspace grows with the desktop window instead of remaining inside a fixed content cap. The next lesson is the primary action; the microphone card is a parallel secondary entry point. Ear training, staff reading, harmony, and pitch matching remain one click away below it. The year calendar and achievement cards live on Your Progress instead of lengthening the studio landing screen.
 
 **Behavior:** the lesson card reflects the saved level. Its preview renders the actual lesson note pool and labels pitches introduced in this lesson as New and pitches from the previous lesson as Review; these are curriculum labels, not claims about the user’s mastery. Each tile has a labeled sound control, and Preview the notes plays the full pool in order with the selected voice, tuning, notation, and volume. A note count and new-note count summarize the preview. Larger pools switch to a compact grid. Starting or opening lesson details enters ear training.
 
@@ -120,13 +128,13 @@ Statistics show today's attempts against the configurable daily goal, overall sa
 
 **Behavior:** choose treble or bass clef, natural notes or accidentals, and four choices or typed text. Each segmented control exposes its selected state and starts a fresh question when changed. The selected option is disabled so clicking it again does not skip a question. Typed answers accept ordinary `#` and `b` spellings and normalize them to musical accidentals. The expected spelling must match the written note; this is a notation exercise, not an enharmonic equivalence quiz. Octave numbers are not required.
 
-Answers lock after submission. A correct answer shows the same 850-millisecond “Correct!” popup as ear training, then advances. Wrong answers identify the selected answer and correct note with labels and different borders. The 3.2-second review has Pause / Resume and Next note controls; Hear note pauses a wrong-answer review for a closer listen. Settings pause advancement. Attempts are stored; the running score is local to this screen session.
+Answers lock after submission. A correct answer shows the same 850-millisecond “Correct!” popup as ear training, then advances. Wrong answers identify the selected answer and correct note with labels and different borders. The 3.2-second review has Pause / Resume and Next note controls; Hear note pauses a wrong-answer review for a closer listen. Settings and the tour pause advancement. Attempts are stored; the running score is local to this screen session.
 
 **Implementation:** [StaffPractice.tsx](../desktop/src/StaffPractice.tsx), the shared SVG `Staff` component, and `staffNote` in music.ts. Timers and sound are cleaned up when leaving. Answer options are sampled from a finite shuffled list, avoiding the former unbounded random-selection loop.
 
 ## Scales and chords
 
-**Layout:** a visible Scales / Chords / Chord changes switch; concert-key selector and pattern list on the left; three numbered sections on the right:
+**Layout:** a visible Scales / Chords / Chord changes switch; concert-key selector and pattern list on the left; three sections on the right:
 
 1. Identity: scale name or chord symbol, short explanation, and transposition summary.
 2. Notes to play: individual spelled note tiles with scale/chord degrees. The root has a distinct border and “Home note” label; sounding tiles show “Playing.”
@@ -148,12 +156,11 @@ The Chord changes tab inside Scales & chords opens [ChordProgression.tsx](../des
 
 [ProgressionChart.tsx](../desktop/src/ProgressionChart.tsx) renders one self-contained SVG: title, notation/instrument context, and four changes per row. Each change shows its written or concert symbol, concert chord, spelled chord tones, degrees, and note octaves. The shared `arrangement` function supplies the same spellings and pitches used by the harmony library, including extended chords and double accidentals. Instrument or notation changes update the chart without closing its tab. Small screens scroll inside the chart region without widening the page.
 
-Play changes auditions each chord together in sequence, with the current change highlighted. Each uses a 1.2-second sustain plus the selected voice’s release; this is a listening preview, not metronomic accompaniment. Stop, editing the sequence, opening Settings, changing instrument/notation, or leaving the screen cancels playback. No practice attempts or achievements are generated by composing or listening.
+Play changes auditions each chord together in sequence, with the current change highlighted. Each uses a 1.2-second sustain plus the selected voice’s release; this is a listening preview, not metronomic accompaniment. Stop, editing the sequence, opening Settings/the tour, changing instrument/notation, or leaving the screen cancels playback. No practice attempts or achievements are generated by composing or listening.
 
 Save chart as image exports the entire chart as a PNG at twice the SVG resolution, even when part of it is outside the visible viewport. The export removes transient playback highlighting and uses a sanitized title as the filename. Export success/failure is announced. User titles are rendered as text, never injected markup. The chart has a descriptive accessible name and a complete textual description; editing controls have position-specific names and boundary move buttons are disabled.
 
 Model and persistence validation live in [progression.ts](../desktop/src/progression.ts). Tests cover chord spelling/transposition, ordering, malformed saves, persistence, image dimensions, playback cancellation, and narrow layouts. This is a chord-tone reference: it does not include rhythm, inversions, staff notation, a song library, or imported song recognition. Dominant thirteenth uses the existing voicing without the eleventh.
-
 
 ## Play it back
 
@@ -171,13 +178,13 @@ Model and persistence validation live in [progression.ts](../desktop/src/progres
 
 **Behavior:** show real saved attempts, accuracy, note-level results, and lesson progress. Export downloads a JSON profile. Import, cloud sync, accounts, and cross-device sharing are not implemented. Charts reflect the retained history, not an unlimited lifetime record.
 
-**Implementation:** [store.ts](../desktop/src/store.ts) validates and persists the profile in localStorage under `aurynote.studio.v1`. The context profile setter writes each completed state transition synchronously before returning, so a fast reload or window close does not wait for a post-render effect. The profile is now version 2 and includes instrument-key preset (`tuning`), independent playback voice (`sound`), written/concert preference, volume, reference setting, lesson level, completed sessions, learned notes, error weights, and the latest 2,000 attempts. Version 1 piano preferences migrate to C/piano; tenor preferences migrate to B♭ tenor/sax. Existing attempts, lesson progress, and other preferences are retained. Version 2 now also stores customNotes, sessionLength, dailyGoal, passedLessons, and the working song chart with defaults for older saves. Older recommended levels imply earlier guided lessons were passed; the final lesson is not assumed passed. Custom note choices and session length persist; entering ear training defaults to the recommended guided lesson. The storage key stays unchanged so upgrades can find prior profiles. Invalid data falls back to safe defaults. Discovered pitches are deduplicated, and impossible calendar dates are excluded from saved attempts. Ear-training error weights change only for ear answers; staff and microphone practice still count toward activity without changing listening difficulty. Saving failures trigger a notification. Daily grouping uses local dates.
+**Implementation:** [store.ts](../desktop/src/store.ts) validates and persists the profile in localStorage under `aurynote.studio.v1`. The context profile setter writes each completed state transition synchronously before returning, so a fast reload or window close does not wait for a post-render effect. The profile is now version 2 and includes instrument-key preset (`tuning`), independent playback voice (`sound`), written/concert preference, volume, reference setting, lesson level, completed sessions, learned notes, error weights, and the latest 2,000 attempts. Version 1 piano preferences migrate to C/piano; tenor preferences migrate to B♭ tenor/sax. Existing attempts, lesson progress, and other preferences are retained. Version 2 now also stores customNotes, sessionLength, dailyGoal, passedLessons, tourSeen, and the working song chart with defaults for older saves. Older recommended levels imply earlier guided lessons were passed; the final lesson is not assumed passed. Custom note choices and session length persist; entering ear training defaults to the recommended guided lesson. The storage key stays unchanged so upgrades can find prior profiles. Invalid data falls back to safe defaults. Discovered pitches are deduplicated, and impossible calendar dates are excluded from saved attempts. Ear-training error weights change only for ear answers; staff and microphone practice still count toward activity without changing listening difficulty. Saving failures trigger a notification. Daily grouping uses local dates.
 
 ## Goals and accomplishments
 
-[Milestones.tsx](../desktop/src/Milestones.tsx) shares the goal and achievement presentation between studio and progress. [achievements.ts](../desktop/src/achievements.ts) derives five milestones from persistent counts: first completed session, five completed sessions, five pitches recognized correctly, all twelve pitches recognized correctly, and all five guided lessons passed at 80% or higher. Repeating a passed lesson adds a session but does not add another distinct lesson. A correctly recognized pitch is a discovery, not a claim of mastery.
+[Milestones.tsx](../desktop/src/Milestones.tsx) renders the goal and achievement presentation on Your Progress. [achievements.ts](../desktop/src/achievements.ts) derives five milestones from persistent counts: first completed session, five completed sessions, five pitches recognized correctly, all twelve pitches recognized correctly, and all five guided lessons passed at 80% or higher. Repeating a passed lesson adds a session but does not add another distinct lesson. A correctly recognized pitch is a discovery, not a claim of mastery.
 
-Each card shows the requirement, current/target counts, a progress bar, and Earned or In progress. Earned cards use a check and restrained green surface. The daily goal displays remaining answers or “Today’s goal reached.” The sidebar links its compact session/pitch summary to full progress. No decorative achievement cards appear inside a practice question.
+Each card shows the requirement, current/target counts, a progress bar, and Earned or In progress. Earned cards use a check and restrained green surface. The daily goal displays remaining answers or “Today’s goal reached.” The studio displays a compact daily-goal metric and links to full progress. No decorative achievement cards appear inside a practice question.
 
 ## Sound design
 
@@ -199,6 +206,7 @@ Existing support includes focus styles, status messages, labeled controls, SVG d
 | --- | --- |
 | Desktop window, navigation restrictions, microphone permissions | [electron/main.cjs](../desktop/electron/main.cjs) |
 | Screen navigation, global controls, profile context | App.tsx and context.ts |
+| Tour and chord chart | QuickTour.tsx, ChordProgression.tsx, ProgressionChart.tsx, progression.ts |
 | Settings dialog and shared success popup | [Settings.tsx](../desktop/src/Settings.tsx), [CorrectPopup.tsx](../desktop/src/CorrectPopup.tsx) |
 | Instrument-key families and octave offsets | [tuning.ts](../desktop/src/tuning.ts) |
 | Shared visual components and responsive styling | components.tsx and style.css |
@@ -245,8 +253,6 @@ Use short, plain messages such as `Improve sax sounds` or `Label playback steps`
 | 0.4.3 | Refined staff reading with labeled challenge controls, a dedicated notation sheet, and clearer answer hierarchy. |
 | 0.4.4 | Rebuilt the app shell and studio around an editorial lesson card, functional note previews, honest microphone illustration, five real-data metrics, and four responsive practice entries. |
 | 0.4.5 | Expanded Your studio to fill the available desktop workspace while preserving responsive practice layouts. |
-
 | Reliability cleanup | Validated saved pitch counts and dates, isolated ear difficulty from other modes, disabled unavailable harmony keys, and corrected scale-degree completion copy. |
-
-| Practice controls | Added paused staff review, finite answer generation, selected-control guards, inline microphone errors, and pending-request cancellation. |
-| Song charts | Added editable chord changes, instrument-aware note charts, sequential playback, local saving, and PNG export. |
+| Guided usability pass | Added a replayable click-through tour to the updated studio, reachable phone controls, paused staff review, microphone cancellation, and an isolated UI-test server. |
+| Song charts | Added ordered, editable chord changes with instrument-aware note charts, sequential playback, local persistence, and full PNG export. |

@@ -4,7 +4,8 @@ import type { Profile } from "./store";
 export type Page = "studio" | "ear" | "staff" | "explore" | "play" | "progress";
 export const StudioContext = createContext<{
   profile: Profile;
-  settingsOpen: boolean;
+  practicePaused: boolean;
+  startTour: () => void;
   setProfile: Dispatch<SetStateAction<Profile>>;
   go: (page: Page) => void;
   notify: (message: string) => void;

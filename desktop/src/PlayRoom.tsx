@@ -7,7 +7,7 @@ import { sounding, octaveName, noteName, frequency } from "./music";
 import { record } from "./store";
 import { Piano, Tag } from "./components";
 export default function PlayRoom() {
-  const { profile, setProfile, notify, settingsOpen } = useStudio();
+  const { profile, setProfile, notify, practicePaused } = useStudio();
   const [target, setTarget] = useState(60),
     [listening, setListening] = useState(false),
     [requesting, setRequesting] = useState(false),
@@ -48,8 +48,8 @@ export default function PlayRoom() {
     [],
   );
   useEffect(() => {
-    if (settingsOpen) stop();
-  }, [settingsOpen]);
+    if (practicePaused) stop();
+  }, [practicePaused]);
   async function start() {
     stop();
     voice.stop();

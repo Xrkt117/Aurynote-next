@@ -103,3 +103,38 @@ test("build, reorder, transpose, save, and export a chord chart", async ({
   ).toEqual([]);
 });
 
+test("chord playback stops for the tour and the chart scrolls within narrow screens", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  await page
+    .getByRole("button", { name: "Scales & chords", exact: true })
+    .click();
+  await page
+    .getByRole("button", { name: "Chord changes", exact: true })
+    .click();
+  await page.getByRole("button", { name: "Try C–Am–F–G", exact: true }).click();
+  await page.getByRole("button", { name: "Play changes", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "Stop changes", exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Quick tour", exact: true }).click();
+  await page.getByRole("button", { name: "Skip tour", exact: true }).click();
+  await expect(
+    page.getByRole("button", { name: "Play changes", exact: true }),
+  ).toBeVisible();
+  expect(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth <= innerWidth,
+    ),
+  ).toBe(true);
+  const chart = page.getByRole("region", { name: "Scrollable chord chart" });
+  expect(await chart.evaluate((el) => el.scrollWidth > el.clientWidth)).toBe(
+    true,
+  );
+  await page.screenshot({
+    path: "artifacts/chord-changes-mobile.png",
+    fullPage: true,
+  });
+});

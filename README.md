@@ -66,3 +66,5 @@ We learned music software requires extensive testing, ensuring that technical ac
 We plan to implement further testing, improving microphone detection as much as possible, with many various instruments. We also plan to expand the lessons, adding an increased progression track, and improved user feedback. Then, we will further tweak our UI, to ensure constant modernity. 
 
 After these various changes, we plan to expand our product, including upload to a public domain, advertising, promotion, review feedback, etc.
+
+Use **Quick tour** to explore the features. In **Scales & chords → Chord changes**, build a progression and save every chord’s notes together as one image.

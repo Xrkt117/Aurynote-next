@@ -14,7 +14,7 @@ import { voice } from "./audio";
 import { Piano, Tag } from "./components";
 import ChordProgression from "./ChordProgression";
 export default function Explore() {
-  const { profile, notify, settingsOpen } = useStudio();
+  const { profile, notify, practicePaused } = useStudio();
   const [kind, setKind] = useState<"scales" | "chords" | "song">("scales"),
     [root, setRoot] = useState(0),
     [index, setIndex] = useState(0),
@@ -43,8 +43,8 @@ export default function Explore() {
     stop();
   }, [kind, root, index, profile.tuning, profile.written]);
   useEffect(() => {
-    if (settingsOpen) stop();
-  }, [settingsOpen]);
+    if (practicePaused) stop();
+  }, [practicePaused]);
   async function play(together = false, one?: number) {
     stop();
     const epoch = token.current;

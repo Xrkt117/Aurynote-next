@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import { ArrowUpRight, Play } from "lucide-react";
-import { mod, noteName, staffNote } from "./music";
+import { ArrowUpRight } from "lucide-react";
+import { mod, noteName } from "./music";
 export function Brand({ small = false }: { small?: boolean }) {
   return (
     <div className={`brand ${small ? "small" : ""}`}>
@@ -192,22 +192,6 @@ export function Staff({
     </svg>
   );
 }
-export function Stepper({ stage }: { stage: number }) {
-  return (
-    <div className="stepper">
-      {["Listen & learn", "Recognize", "Reflect"].map((name, i) => (
-        <span
-          key={name}
-          className={stage === i ? "current" : stage > i ? "done" : ""}
-        >
-          <b>{String(i + 1).padStart(2, "0")}</b>
-          {name}
-          {i < 2 && <i />}
-        </span>
-      ))}
-    </div>
-  );
-}
 export function Empty({
   title,
   copy,
@@ -229,22 +213,3 @@ export function Empty({
     </div>
   );
 }
-export function PlayButton({
-  onClick,
-  disabled = false,
-  children = "Listen",
-}: {
-  onClick: () => void;
-  disabled?: boolean;
-  children?: ReactNode;
-}) {
-  return (
-    <button className="primary" onClick={onClick} disabled={disabled}>
-      <Play size={16} fill="currentColor" />
-      {children}
-    </button>
-  );
-}
-export const naturalSteps = Array.from({ length: 13 }, (_, i) =>
-  staffNote(28 + i),
-);

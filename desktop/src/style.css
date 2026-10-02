@@ -2880,8 +2880,18 @@ body {
   content: "";
   position: absolute;
   inset: 20px 0 0;
-  background: repeating-linear-gradient(to bottom, transparent 0 10px, #c5c9bc 11px 12px);
-  mask-image: linear-gradient(to right, transparent, #000 15%, #000 86%, transparent);
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 10px,
+    #c5c9bc 11px 12px
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 15%,
+    #000 86%,
+    transparent
+  );
   transform: skewY(-4deg);
 }
 .studio-score span {
@@ -2890,10 +2900,22 @@ body {
   font-family: var(--serif);
   font-size: 31px;
 }
-.studio-score span:nth-child(1) { left: 17%; top: 49px; }
-.studio-score span:nth-child(2) { left: 39%; top: 28px; }
-.studio-score span:nth-child(3) { left: 61%; top: 44px; }
-.studio-score span:nth-child(4) { left: 76%; top: 7px; }
+.studio-score span:nth-child(1) {
+  left: 17%;
+  top: 49px;
+}
+.studio-score span:nth-child(2) {
+  left: 39%;
+  top: 28px;
+}
+.studio-score span:nth-child(3) {
+  left: 61%;
+  top: 44px;
+}
+.studio-score span:nth-child(4) {
+  left: 76%;
+  top: 7px;
+}
 .studio-feature-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(350px, 1fr);
@@ -2924,7 +2946,11 @@ body {
   bottom: -78px;
   width: 310px;
   height: 220px;
-  background: repeating-linear-gradient(155deg, #edf0e9 0 1px, transparent 1px 13px);
+  background: repeating-linear-gradient(
+    155deg,
+    #edf0e9 0 1px,
+    transparent 1px 13px
+  );
   opacity: 0.65;
   transform: rotate(-4deg);
   pointer-events: none;
@@ -3190,7 +3216,13 @@ body {
   align-items: center;
   gap: 5px;
   overflow: hidden;
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 93%, transparent);
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 93%,
+    transparent
+  );
 }
 .studio-wave-bars i {
   width: 2px;
@@ -3447,7 +3479,11 @@ body {
   transform: rotate(-4deg);
 }
 .studio-card-art.staff {
-  background: repeating-linear-gradient(to bottom, #a5aa9f 0 1px, transparent 1px 8px);
+  background: repeating-linear-gradient(
+    to bottom,
+    #a5aa9f 0 1px,
+    transparent 1px 8px
+  );
   transform: rotate(-2deg);
 }
 .studio-card-art.harmony {
@@ -3462,7 +3498,11 @@ body {
 .studio-card-art.bars {
   bottom: 0;
   height: 58px;
-  background: repeating-linear-gradient(to right, #98a787 0 2px, transparent 2px 10px);
+  background: repeating-linear-gradient(
+    to right,
+    #98a787 0 2px,
+    transparent 2px 10px
+  );
   mask-image: linear-gradient(to top, #000, transparent);
 }
 
@@ -3657,6 +3697,17 @@ body {
   }
 }
 
+/* Shared controls stay readable and reachable at small window sizes. */
+.sidebar {
+  overflow-y: auto;
+}
+.tour-trigger {
+  margin-top: 16px;
+  justify-content: flex-start;
+  background: transparent;
+  color: var(--muted);
+  flex-shrink: 0;
+}
 .lesson-actions {
   flex-wrap: wrap;
 }
@@ -3686,6 +3737,211 @@ body {
   color: #813d28;
   background: #fbece7;
   text-align: left;
+}
+.tour-invite {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  margin-bottom: 24px;
+  background: #eff1e8;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.tour-invite > svg {
+  flex-shrink: 0;
+}
+.tour-invite > div {
+  flex: 1;
+}
+.tour-invite strong {
+  font-size: 14px;
+}
+.tour-invite p {
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 3px;
+}
+.tour-invite > button {
+  flex-shrink: 0;
+}
+.tour-dialog {
+  position: fixed;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  overflow: hidden;
+}
+.tour-dialog::backdrop {
+  background: #171b1875;
+}
+.tour-highlight {
+  position: fixed;
+  border: 2px solid white;
+  border-radius: 8px;
+  box-shadow: 0 0 0 2px #25262255;
+  pointer-events: none;
+}
+.tour-card {
+  position: absolute;
+  width: min(420px, calc(100% - 32px));
+  max-height: calc(100dvh - 32px);
+  overflow-y: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px;
+  background: var(--paper);
+  box-shadow: 0 12px 48px #171b1826;
+}
+.tour-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.tour-heading .eyebrow {
+  font-size: 10px;
+  color: var(--muted);
+}
+.tour-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  background: #eff1e8;
+  border-radius: 8px;
+  margin: 18px 0;
+}
+.tour-card h2 {
+  font-size: 25px;
+  line-height: 1.25;
+  margin-bottom: 14px;
+}
+.tour-card h2:focus {
+  outline: none;
+}
+.tour-card p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.tour-card .tour-hint {
+  font-size: 12px;
+  border-left: 2px solid #a5af96;
+  padding-left: 12px;
+  margin: 18px 0 22px;
+}
+.tour-card progress {
+  display: block;
+  width: 100%;
+  height: 4px;
+  accent-color: #596b46;
+}
+.tour-actions,
+.tour-actions > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.tour-actions {
+  margin-top: 22px;
+}
+.tour-actions .primary {
+  padding: 11px 16px;
+}
+@media (max-width: 900px) {
+  .current-page {
+    display: none;
+  }
+  .tone-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(82px, 1fr));
+    gap: 8px;
+  }
+}
+@media (max-width: 650px) {
+  .sidebar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 14px;
+  }
+  .sidebar nav {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
+    padding: 4px;
+  }
+  .sidebar nav button {
+    min-height: 42px;
+    font-size: 12px;
+  }
+  .tour-trigger {
+    grid-row: 1;
+    grid-column: 2;
+    margin: 0;
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+  .topbar {
+    height: auto;
+    min-height: 66px;
+  }
+  .global-controls .key-select {
+    min-width: 0;
+  }
+  .tour-invite {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tour-invite > div {
+    flex-basis: calc(100% - 44px);
+  }
+  .tour-invite > button:not(.icon-button) {
+    flex: 1;
+  }
+  .answer-grid.many {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .answer-grid.four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lesson-aside {
+    display: flex;
+  }
+  .lesson-aside .settings-card {
+    padding: 18px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: white;
+  }
+  .explore-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .harmony-content,
+  .pattern-list {
+    min-width: 0;
+  }
+  .settings-dialog {
+    padding: 20px;
+  }
+  .tour-card {
+    padding: 20px;
+  }
+  .tour-card h2 {
+    font-size: 23px;
+  }
+  .tour-icon {
+    margin: 12px 0;
+    height: 42px;
+    width: 42px;
+  }
 }
 
 .song-builder {

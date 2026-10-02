@@ -8,6 +8,7 @@ import {
   Mic,
   ChartNoAxesCombined,
   Settings2,
+  CircleHelp,
   X,
 } from "lucide-react";
 import { StudioContext, type Page } from "./context";
@@ -22,6 +23,7 @@ import StaffPractice from "./StaffPractice";
 import Explore from "./Explore";
 import PlayRoom from "./PlayRoom";
 import Progress from "./Progress";
+import QuickTour from "./QuickTour";
 const navigation = [
   { id: "studio", name: "Your studio", icon: LayoutGrid },
   { id: "ear", name: "Ear training", icon: Headphones },
@@ -34,7 +36,16 @@ export default function App() {
   const [profile, setProfileState] = useState(load),
     [page, setPage] = useState<Page>("studio"),
     [toast, setToast] = useState(""),
-    [settings, setSettings] = useState(false);
+    [settings, setSettings] = useState(false),
+    [tour, setTour] = useState(false);
+  const startTour = useCallback(() => {
+    voice.stop();
+    setTour(true);
+  }, []);
+  function closeTour() {
+    setTour(false);
+    setProfile((p) => ({ ...p, tourSeen: true }));
+  }
   const profileRef = useRef(profile);
   const notify = useCallback((message: string) => setToast(message), []);
   const setProfile = useCallback(
@@ -73,7 +84,14 @@ export default function App() {
   }, []);
   return (
     <StudioContext.Provider
-      value={{ profile, setProfile, go, notify, settingsOpen: settings }}
+      value={{
+        profile,
+        setProfile,
+        go,
+        notify,
+        practicePaused: settings || tour,
+        startTour,
+      }}
     >
       <div className="app-shell">
         <aside className="sidebar">
@@ -88,6 +106,7 @@ export default function App() {
             {navigation.map((item) => (
               <button
                 key={item.id}
+                data-tour={item.id}
                 aria-current={page === item.id ? "page" : undefined}
                 className={page === item.id ? "active" : ""}
                 onClick={() => go(item.id)}
@@ -97,6 +116,9 @@ export default function App() {
               </button>
             ))}
           </nav>
+          <button className="tour-trigger" onClick={startTour}>
+            <CircleHelp size={18} /> Quick tour
+          </button>
           <div className="sidebar-bottom">
             <div className="daily-note">
               <p>
@@ -104,7 +126,9 @@ export default function App() {
                 <br />
                 one day at a time.
               </p>
-              <span aria-hidden="true" className="daily-note-sprig">⌁</span>
+              <span aria-hidden="true" className="daily-note-sprig">
+                ⌁
+              </span>
             </div>
             <p className="micro muted">Practice saved on this device.</p>
           </div>
@@ -118,7 +142,7 @@ export default function App() {
               <i />
               <span>Practice</span>
             </div>
-            <div className="global-controls">
+            <div className="global-controls" data-tour="setup">
               <label className="key-select">
                 <span>Instrument</span>
                 <Music2 size={16} aria-hidden="true" />
@@ -175,7 +199,14 @@ export default function App() {
               </button>
             </div>
           </header>
-          <main key={page === "ear" || page === "staff" || page === "play" ? `${page}-${profile.tuning}-${profile.written}` : page}>
+          <main
+            id="main-content"
+            key={
+              page === "ear" || page === "staff" || page === "play"
+                ? `${page}-${profile.tuning}-${profile.written}`
+                : page
+            }
+          >
             {page === "studio" ? (
               <StudioDashboard />
             ) : page === "ear" ? (
@@ -204,6 +235,7 @@ export default function App() {
         </div>
       )}
       {settings && <Settings onClose={() => setSettings(false)} />}
+      {tour && <QuickTour onClose={closeTour} />}
     </StudioContext.Provider>
   );
 }

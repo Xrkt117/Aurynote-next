@@ -23,7 +23,7 @@ import {
 import ProgressionChart from "./ProgressionChart";
 
 export default function ChordProgression() {
-  const { profile, setProfile, notify, settingsOpen } = useStudio();
+  const { profile, setProfile, notify, practicePaused } = useStudio();
   const { song } = profile;
   const [root, setRoot] = useState(0);
   const [chord, setChord] = useState(chords[0].name);
@@ -47,8 +47,8 @@ export default function ChordProgression() {
     [],
   );
   useEffect(() => {
-    if (settingsOpen) stop();
-  }, [settingsOpen]);
+    if (practicePaused) stop();
+  }, [practicePaused]);
   useEffect(() => {
     stop();
   }, [profile.tuning, profile.written]);
