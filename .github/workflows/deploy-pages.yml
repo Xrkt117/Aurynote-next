@@ -2,28 +2,23 @@ name: Deploy web app to GitHub Pages
 
 on:
   push:
-    branches:
-      - hackathon-overhaul
+    branches: [main]
   workflow_dispatch:
 
 permissions:
-  actions: read
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
+    if: github.repository == 'Xrkt117/Aurynote-next' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-        with:
-          ref: hackathon-overhaul
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -56,32 +51,12 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Wait for branch Pages build
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const deadline = Date.now() + 180_000;
-            while (Date.now() < deadline) {
-              const { data } = await github.rest.actions.listWorkflowRunsForRepo({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                head_sha: context.sha,
-                per_page: 20,
-              });
-              const branchBuild = data.workflow_runs.find(
-                (run) => run.name === "pages build and deployment",
-              );
-              if (branchBuild?.status === "completed") {
-                core.info(`Branch Pages build finished with ${branchBuild.conclusion}.`);
-                return;
-              }
-              await new Promise((resolve) => setTimeout(resolve, 5_000));
-            }
-            core.warning("Branch Pages build was not found within three minutes; continuing.");
-
       - name: Deploy to Pages
         id: deployment
         uses: actions/deploy-pages@v4

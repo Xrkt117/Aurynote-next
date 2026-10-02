@@ -1,6 +1,6 @@
 # aurynote design document
 
-Living reference for the desktop app on `hackathon-overhaul`. Current design baseline: version 0.4.5 with tutorial and song charts. Last reviewed: October 1, 2026. The product name remains **aurynote**.
+Living reference for the app in `Xrkt117/Aurynote-next` on `main`. Current design baseline: version 0.4.5 with tutorial and song charts. Last reviewed: October 2, 2026. The product name remains **aurynote**.
 
 This document describes implemented behavior, its visual design, and where it is built. Update the relevant sections whenever a feature or interaction changes. Ideas are not implemented features until explicitly marked as shipped here.
 
@@ -8,7 +8,7 @@ This document describes implemented behavior, its visual design, and where it is
 
 Help musicians across instrument-key families connect hearing, notation, and playing. Beginners should always know what to do next, which note they are hearing, and whether an answer was correct. Teach relationships with a reference pitch and gradual practice; do not promise absolute pitch.
 
-The app runs locally in Electron with React and TypeScript. It works without an account or server. The Java prototype remains on `main`; this document covers the new desktop implementation.
+The app runs locally in Electron with React and TypeScript. It works without an account or server. The Java prototype is retained for reference; this document covers the continued React/Electron implementation.
 
 ## Visual language
 
@@ -234,7 +234,15 @@ Verify relevant behavior and inspect changed screens. Audio changes need pitch, 
 
 This is a development requirement, not an in-app feature. Make frequent, small commits as work progresses, with one meaningful change per commit. Separate independent UI, sound, behavior, test, and documentation changes when practical. Keep checkpoints coherent; avoid empty commits or arbitrary splits made only to inflate the count.
 
-Use short, plain messages such as `Improve sax sounds` or `Label playback steps`. Stage only task-related files, perform relevant checks, and push completed commits to the active task branch. Preserve the individual commits. Hackathon development stays on `hackathon-overhaul`; changing `main`, squashing, or force-pushing requires an explicit user request. The persistent instructions are in [AGENTS.md](../AGENTS.md).
+Use short, plain messages such as `Improve sax sounds` or `Label playback steps`. Stage only task-related files, perform relevant checks, and push completed commits to the active task branch. Preserve the individual commits. Continued development uses `main` or feature branches in `Xrkt117/Aurynote-next`. The original `Xrkt117/Aurynote` repository, its `hackathon-overhaul` branch, and its Pages deployment remain frozen. Never publish continued-development changes to that repository. Squashing or force-pushing requires an explicit user request. The persistent instructions are in [AGENTS.md](../AGENTS.md).
+
+## Hosting and submission separation
+
+The continued app is published at https://xrkt117.github.io/Aurynote-next/ from this repository’s `main` branch. The original submission lives at https://xrkt117.github.io/Aurynote/ and is not updated by this project.
+
+[deploy-pages.yml](../.github/workflows/deploy-pages.yml) runs tests and a production build, uploads `desktop/dist`, and deploys with GitHub Pages Actions. A repository-and-branch guard permits deployment only from `Xrkt117/Aurynote-next` on `main`. Relative Vite asset paths support the repository subdirectory. Pages must be configured with GitHub Actions as the source. The previous wait for a separate branch-based deployment is removed because this site has only the Actions source.
+
+In the working checkout, `origin` points to Aurynote-next and is the default push destination. The `submission` remote is available for reads, with a disabled push URL. This is local configuration; newly cloned copies of Aurynote-next use their own origin normally. Separate localStorage keys prevent practice data from crossing between these two sites even though GitHub Pages hosts them on the same origin.
 
 ## Design history
 
@@ -257,3 +265,4 @@ Use short, plain messages such as `Improve sax sounds` or `Label playback steps`
 | Guided usability pass | Added a replayable click-through tour to the updated studio, reachable phone controls, paused staff review, microphone cancellation, and an isolated UI-test server. |
 | Song charts | Added ordered, editable chord changes with instrument-aware note charts, sequential playback, local persistence, and full PNG export. |
 | Separate practice data | Isolated continued-development progress from the submitted site, including when both share a GitHub Pages origin. |
+| Continued development | Created an independent repository and Pages site on main, preserving the submitted repository, deployment, and local practice data. |

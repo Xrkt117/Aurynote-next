@@ -14,6 +14,6 @@ Make frequent, small, meaningful commits as work progresses. Split independent c
 
 Use short, plain commit messages, such as `Improve sax sounds`, `Clarify answer feedback`, or `Update design notes`. Avoid long descriptions and generated attribution trailers.
 
-Stage only files belonging to the current change. Run relevant checks before publishing and push completed commits to the active task branch on GitHub. Keep hackathon work on `hackathon-overhaul`; do not push it to `main`, squash the micro-commit history, or force-push unless the user explicitly requests that.
+Stage only files belonging to the current change. Run relevant checks before publishing and push completed commits to the active task branch on GitHub. Continued development belongs in `Xrkt117/Aurynote-next` on `main` or feature branches. The original `Xrkt117/Aurynote` repository, its `hackathon-overhaul` branch, and its Pages site are frozen hackathon submission artifacts: do not push, change settings, or trigger deployments there. Check the push destination before publishing. Preserve micro-commit history; do not squash or force-push unless explicitly requested.
 
 Preserve commit signing when it is configured. Do not disable signing to bypass a key or passphrase error; resolve the signing issue before committing.

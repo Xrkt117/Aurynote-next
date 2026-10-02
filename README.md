@@ -1,39 +1,33 @@
-# Aurynote
+# Aurynote Next
 
 A modern, minimalist online desktop practice studio for musicians learning to hear notes, read music, and improvise.
 
 Guided and custom ear lessons, staff reading, scales and chord symbols, microphone pitch matching, and saved progress. Choose your notes and session length, track daily goals and achievements, and listen with six synthesized instrument voices. Choose an instrument and key with written or concert notes. Settings separates playback sound and volume from your instrument key. Audio and progress stay on your device.
 
-This branch is the Electron, React, and TypeScript overhaul. The original Java app is on `main`; its source is retained here for reference.
+This repository continues development after the hackathon. The [submitted repository](https://github.com/Xrkt117/Aurynote/tree/hackathon-overhaul) and [submitted website](https://xrkt117.github.io/Aurynote/) are separate and remain frozen. Development and deployment here use `main`. The Java prototype is retained for reference.
+
+This site saves progress separately from the submission. It starts with a fresh profile and does not overwrite the original site’s settings or practice history.
 
 ## Run
-https://xrkt117.github.io/Aurynote/       
-      
-Install and Run Aurynote
 
-1. Install the required tools  
-- Git
-- Node.js 22.12 or newer
-npm is included with Node.js, so it does not need to be installed separately.
-2. Download and start Aurynote       
-Open a terminal and run:    
-git clone --branch hackathon-overhaul https://github.com/Xrkt117/Aurynote.git      
-cd Aurynote/desktop     
-npm install     
-npm start     
-The initial setup requires an internet connection because npm must download the project dependencies.     
-3. Run Aurynote offline    
-After the initial npm install has completed, Aurynote can be launched without an internet connection:    
-cd Aurynote/desktop   
-npm start   
-Audio generation, microphone analysis, settings, and saved progress remain on your device.    
-4. Create a portable Windows application   
-To create a version that runs without Git, Node.js, npm, or Java, use:   
-npm run package   
-The portable .exe will be created in:   
-desktop/release   
-Copy that .exe to another Windows computer and open it directly. No installation or internet connection is required.
+[Open Aurynote Next](https://xrkt117.github.io/Aurynote-next/)
 
+Install Git and Node.js 22.12 or newer, then run:
+
+```sh
+git clone https://github.com/Xrkt117/Aurynote-next.git
+cd Aurynote-next/desktop
+npm ci
+npm start
+```
+
+Setup requires internet access. After dependencies are installed, `npm start` runs the desktop app offline. Audio generation, microphone analysis, and progress stay on your device.
+
+For browser development, use `npm run dev`. To build a portable Windows application, run `npm run package`; the executable is written to `desktop/release`.
+
+## Publishing
+
+Push focused commits to `main` in **Xrkt117/Aurynote-next**. GitHub Actions tests, builds, and deploys this repository’s Pages site. Pages uses **GitHub Actions** as its source. Do not push continued-development changes to the submitted repository or run its deployment workflow.
 
 ## Check
 
@@ -51,7 +45,7 @@ As veteran wind instrument performers, both with experience in classical band, o
 Aurynote is an web application practice studio for beginner musicians. It combines guided ear training, music-reading exercises, scales and chords, microphone pitch matching, and saved progression. Aurynote is a complete product, showcasing all features within one platform. The product features several different tabs to organize the various modes, through a minimalist interface designed for user friendliness. Upon entering the website, you will interact with the main interface, before locating to the sidebar for said various modes, including note reading, pitch detection, and more.
 
 ## How we built it
-As seen in the hackathon-overhaul branch, we rebuilt the original Java Swing application using Electron, React, TypeScript, and Vite. Web Audio handles synthesized notes for displayed pitches, as well as device microphone pitch analysis. Vitest is used for the project's music theory, pitch detection, audio synthesis, and saved progression. Playwright tests practice flows, or automated running tests, as well as microphone activation and Electron web technology. Next, we decided to convert the software into a website using github pages, and consistently worked on its functionality as a web page.
+For the original hackathon, we rebuilt the original Java Swing application using Electron, React, TypeScript, and Vite. Web Audio handles synthesized notes for displayed pitches, as well as device microphone pitch analysis. Vitest is used for the project's music theory, pitch detection, audio synthesis, and saved progression. Playwright tests practice flows, or automated running tests, as well as microphone activation and Electron web technology. Next, we decided to convert the software into a website using github pages, and consistently worked on its functionality as a web page.
 
 ## Challenges we ran into
 Key challenges included microphone detection, in terms of consistent translation into proper pitching, our design of feedback based on each mode or lesson, and microphone testing, based on quality, clarity, distance, and precision of the microphone. We overcame these issues through repeated testing, changing variable values and recording results of microphone detection, as well as consistent collaboration and communication regarding feedback and programming structure.
