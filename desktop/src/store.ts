@@ -2,6 +2,7 @@ import { sounds } from "./sounds";
 import { tunings, type Tuning } from "./tuning";
 import type { Instrument } from "./music";
 import { isValid, parseISO } from "date-fns";
+import { decodeSong, emptySong, type SongChart } from "./progression";
 export interface Attempt {
   day: string;
   target: number;
@@ -24,6 +25,7 @@ export interface Profile {
   sessionLength: number;
   dailyGoal: number;
   passedLessons: number[];
+  song: SongChart;
 }
 export const fresh = (): Profile => ({
   version: 2,
@@ -41,6 +43,7 @@ export const fresh = (): Profile => ({
   sessionLength: 10,
   dailyGoal: 10,
   passedLessons: [],
+  song: emptySong(),
 });
 const key = "aurynote.studio.v1";
 export function decode(raw: string | null): Profile {
@@ -53,6 +56,7 @@ export function decode(raw: string | null): Profile {
         : fallback;
     return {
       ...fresh(),
+      song: decodeSong(value.song),
       tuning:
         value.version === 1
           ? value.instrument === "tenor"
@@ -106,10 +110,14 @@ export function decode(raw: string | null): Profile {
         finite(value.errors?.[i], 0, 20, 0),
       ),
       learned: Array.isArray(value.learned)
-        ? [...new Set<number>(value.learned.filter(
-            (n: unknown) =>
-              Number.isInteger(n) && Number(n) >= 0 && Number(n) < 12,
-          ))]
+        ? [
+            ...new Set<number>(
+              value.learned.filter(
+                (n: unknown) =>
+                  Number.isInteger(n) && Number(n) >= 0 && Number(n) < 12,
+              ),
+            ),
+          ]
         : [],
       attempts: Array.isArray(value.attempts)
         ? value.attempts
@@ -153,7 +161,10 @@ export function record(
 ): Profile {
   const errors = [...profile.errors];
   if (mode === "ear")
-    errors[target] = Math.max(0, Math.min(20, errors[target] + (right ? -1 : 2)));
+    errors[target] = Math.max(
+      0,
+      Math.min(20, errors[target] + (right ? -1 : 2)),
+    );
   return {
     ...profile,
     errors,

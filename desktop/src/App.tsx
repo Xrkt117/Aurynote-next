@@ -175,7 +175,7 @@ export default function App() {
               </button>
             </div>
           </header>
-          <main key={`${page}-${profile.tuning}-${profile.written}`}>
+          <main key={page === "ear" || page === "staff" || page === "play" ? `${page}-${profile.tuning}-${profile.written}` : page}>
             {page === "studio" ? (
               <StudioDashboard />
             ) : page === "ear" ? (

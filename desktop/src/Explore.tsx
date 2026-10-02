@@ -12,9 +12,10 @@ import {
 } from "./music";
 import { voice } from "./audio";
 import { Piano, Tag } from "./components";
+import ChordProgression from "./ChordProgression";
 export default function Explore() {
-  const { profile, notify } = useStudio();
-  const [kind, setKind] = useState<"scales" | "chords">("scales"),
+  const { profile, notify, settingsOpen } = useStudio();
+  const [kind, setKind] = useState<"scales" | "chords" | "song">("scales"),
     [root, setRoot] = useState(0),
     [index, setIndex] = useState(0),
     [active, setActive] = useState<number[]>([]),
@@ -40,7 +41,10 @@ export default function Explore() {
   );
   useEffect(() => {
     stop();
-  }, [kind, root, index]);
+  }, [kind, root, index, profile.tuning, profile.written]);
+  useEffect(() => {
+    if (settingsOpen) stop();
+  }, [settingsOpen]);
   async function play(together = false, one?: number) {
     stop();
     const epoch = token.current;
@@ -77,7 +81,10 @@ export default function Explore() {
         <div>
           <span className="eyebrow">Reference</span>
           <h1>Scales and chords</h1>
-          <p>Review note spellings, hear each pattern, and find it on a keyboard.</p>
+          <p>
+            Explore note spellings, hear patterns, or build a song’s chord
+            changes.
+          </p>
         </div>
         <div className="segmented large">
           <button
@@ -100,157 +107,170 @@ export default function Explore() {
           >
             Chords
           </button>
-        </div>
-      </div>
-      <div className="explore-layout">
-        <aside className="pattern-list">
-          <label className="eyebrow" htmlFor="concert-key">
-            Concert key
-          </label>
-          <select
-            id="concert-key"
-            value={root}
-            onChange={(e) => setRoot(Number(e.target.value))}
+          <button
+            aria-pressed={kind === "song"}
+            className={kind === "song" ? "selected" : ""}
+            onClick={() => setKind("song")}
           >
-            {notes.map((n, i) => (
-              <option value={i} key={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-          <span className="eyebrow list-label">
-            {kind === "scales" ? "Scale" : "Chord"}
-          </span>
-          {collection.map((p, i) => (
-            <button
-              key={p.name}
-              aria-pressed={i === index}
-              className={i === index ? "selected" : ""}
-              onClick={() => setIndex(i)}
-            >
-              <span>{p.name}</span>
-              {kind === "chords" ? (
-                <b>{p.symbol || "maj"}</b>
-              ) : (
-                <ArrowRight size={14} />
-              )}
-            </button>
-          ))}
-        </aside>
-        <div className="harmony-content">
-          <section className="panel harmony-identity">
-            <div className="panel-top">
-              <span className="eyebrow">
-                {kind === "scales" ? "Scale" : "Chord"}
-              </span>
-              <Tag>{tones.length} tones</Tag>
-            </div>
-            <div className="harmony-title">
-              <h2>
-                {noteName(displayRoot)}
-                {kind === "chords" ? (
-                  <span>{pattern.symbol}</span>
-                ) : (
-                  <span> {pattern.name.toLowerCase()}</span>
-                )}
-              </h2>
-              <p>{pattern.description}</p>
-            </div>
-            <div className="transposition">
-              <span>
-                {writtenOffset(profile.tuning, profile.written) !== 0
-                  ? `${tuningInfo(profile.tuning).key} instrument · Written notes`
-                  : "Concert notes"}
-              </span>
-              <strong>
-                {noteName(displayRoot)}{" "}
-                {kind === "scales" ? pattern.name.toLowerCase() : pattern.name}
-              </strong>
-              <ArrowRight size={17} />
-              <span>sounds in</span>
-              <strong>{noteName(root)}</strong>
-              <small>Start on {octaveName(tones[0].midi)}</small>
-            </div>
-          </section>
-          <section className="panel tone-panel">
-            <div className="panel-top">
-              <span className="eyebrow">Notes</span>
-              <span className="micro muted">Tap a note to hear it</span>
-            </div>
-            <div className="tone-grid">
-              {tones.map((tone, i) => (
-                <button
-                  key={i}
-                  onClick={() => void play(false, i)}
-                  className={`${active.includes(tone.midi) ? "active" : ""} ${i === 0 ? "root-tone" : ""}`}
-                >
-                  <small>
-                    {tone.degree === "1" ? "Root" : `Degree ${tone.degree}`}
-                  </small>
-                  <strong>{tone.name}</strong>
-                  <span>
-                    {active.includes(tone.midi)
-                      ? "♪ Playing"
-                      : i === 0
-                        ? "Home note"
-                        : `Step ${tone.degree}`}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </section>
-          <section className="panel keyboard-panel">
-            <div className="panel-top">
-              <span className="eyebrow">Keyboard</span>
-              <span className="micro muted">Root marked 1 · one octave</span>
-            </div>
-            <Piano
-              onlyPool
-              active={active}
-              pool={tones.map((n) => n.midi)}
-              root={displayRoot}
-              onPlay={(n) => {
-                const i = tones.findIndex((t) => t.midi % 12 === n);
-                if (i >= 0) void play(false, i);
-              }}
-            />
-            <div className="playback-bar">
-              <button
-                className="primary"
-                onClick={() => (busy ? stop() : void play(false))}
-              >
-                {busy ? (
-                  <Square size={15} />
-                ) : (
-                  <Play size={15} fill="currentColor" />
-                )}
-                {busy ? "Stop" : "Play the pattern"}
-              </button>
-              {kind === "chords" && (
-                <button onClick={() => void play(true)}>Hear together</button>
-              )}
-              <label className="tempo">
-                Tempo{" "}
-                <input
-                  aria-label="Playback tempo"
-                  type="range"
-                  min="50"
-                  max="160"
-                  value={bpm}
-                  onChange={(e) => setBpm(Number(e.target.value))}
-                />
-                <span>{bpm} BPM</span>
-              </label>
-            </div>
-          </section>
-          <p className="micro muted harmony-note">
-            <Info size={14} />
-            {
-              "The instrument key controls notation. Playback sound is chosen separately in Settings."
-            }
-          </p>
+            Chord changes
+          </button>
         </div>
       </div>
+      {kind === "song" ? (
+        <ChordProgression />
+      ) : (
+        <div className="explore-layout">
+          <aside className="pattern-list">
+            <label className="eyebrow" htmlFor="concert-key">
+              Concert key
+            </label>
+            <select
+              id="concert-key"
+              value={root}
+              onChange={(e) => setRoot(Number(e.target.value))}
+            >
+              {notes.map((n, i) => (
+                <option value={i} key={n}>
+                  {n}
+                </option>
+              ))}
+            </select>
+            <span className="eyebrow list-label">
+              {kind === "scales" ? "Scale" : "Chord"}
+            </span>
+            {collection.map((p, i) => (
+              <button
+                key={p.name}
+                aria-pressed={i === index}
+                className={i === index ? "selected" : ""}
+                onClick={() => setIndex(i)}
+              >
+                <span>{p.name}</span>
+                {kind === "chords" ? (
+                  <b>{p.symbol || "maj"}</b>
+                ) : (
+                  <ArrowRight size={14} />
+                )}
+              </button>
+            ))}
+          </aside>
+          <div className="harmony-content">
+            <section className="panel harmony-identity">
+              <div className="panel-top">
+                <span className="eyebrow">
+                  {kind === "scales" ? "Scale" : "Chord"}
+                </span>
+                <Tag>{tones.length} tones</Tag>
+              </div>
+              <div className="harmony-title">
+                <h2>
+                  {noteName(displayRoot)}
+                  {kind === "chords" ? (
+                    <span>{pattern.symbol}</span>
+                  ) : (
+                    <span> {pattern.name.toLowerCase()}</span>
+                  )}
+                </h2>
+                <p>{pattern.description}</p>
+              </div>
+              <div className="transposition">
+                <span>
+                  {writtenOffset(profile.tuning, profile.written) !== 0
+                    ? `${tuningInfo(profile.tuning).key} instrument · Written notes`
+                    : "Concert notes"}
+                </span>
+                <strong>
+                  {noteName(displayRoot)}{" "}
+                  {kind === "scales"
+                    ? pattern.name.toLowerCase()
+                    : pattern.name}
+                </strong>
+                <ArrowRight size={17} />
+                <span>sounds in</span>
+                <strong>{noteName(root)}</strong>
+                <small>Start on {octaveName(tones[0].midi)}</small>
+              </div>
+            </section>
+            <section className="panel tone-panel">
+              <div className="panel-top">
+                <span className="eyebrow">Notes</span>
+                <span className="micro muted">Tap a note to hear it</span>
+              </div>
+              <div className="tone-grid">
+                {tones.map((tone, i) => (
+                  <button
+                    key={i}
+                    onClick={() => void play(false, i)}
+                    className={`${active.includes(tone.midi) ? "active" : ""} ${i === 0 ? "root-tone" : ""}`}
+                  >
+                    <small>
+                      {tone.degree === "1" ? "Root" : `Degree ${tone.degree}`}
+                    </small>
+                    <strong>{tone.name}</strong>
+                    <span>
+                      {active.includes(tone.midi)
+                        ? "♪ Playing"
+                        : i === 0
+                          ? "Home note"
+                          : `Step ${tone.degree}`}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </section>
+            <section className="panel keyboard-panel">
+              <div className="panel-top">
+                <span className="eyebrow">Keyboard</span>
+                <span className="micro muted">Root marked 1 · one octave</span>
+              </div>
+              <Piano
+                onlyPool
+                active={active}
+                pool={tones.map((n) => n.midi)}
+                root={displayRoot}
+                onPlay={(n) => {
+                  const i = tones.findIndex((t) => t.midi % 12 === n);
+                  if (i >= 0) void play(false, i);
+                }}
+              />
+              <div className="playback-bar">
+                <button
+                  className="primary"
+                  onClick={() => (busy ? stop() : void play(false))}
+                >
+                  {busy ? (
+                    <Square size={15} />
+                  ) : (
+                    <Play size={15} fill="currentColor" />
+                  )}
+                  {busy ? "Stop" : "Play the pattern"}
+                </button>
+                {kind === "chords" && (
+                  <button onClick={() => void play(true)}>Hear together</button>
+                )}
+                <label className="tempo">
+                  Tempo{" "}
+                  <input
+                    aria-label="Playback tempo"
+                    type="range"
+                    min="50"
+                    max="160"
+                    value={bpm}
+                    onChange={(e) => setBpm(Number(e.target.value))}
+                  />
+                  <span>{bpm} BPM</span>
+                </label>
+              </div>
+            </section>
+            <p className="micro muted harmony-note">
+              <Info size={14} />
+              {
+                "The instrument key controls notation. Playback sound is chosen separately in Settings."
+              }
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
