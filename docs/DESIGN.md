@@ -118,11 +118,11 @@ Statistics show today's attempts against the configurable daily goal, overall sa
 
 **Layout:** a single full-width exercise card contains a compact question toolbar, three labeled segmented controls for clef, note set, and answer method, a framed notation sheet, and a separated answer area. The prompt and listening action sit directly above the response controls. The current question and session score remain visible without competing with the staff. On narrow layouts, toolbar controls wrap and answer choices move to two columns. The former detached settings column and decorative clef-landmark card are removed.
 
-**Behavior:** choose treble or bass clef, natural notes or accidentals, and four choices or typed text. Each segmented control exposes its selected state and starts a fresh question when changed. Typed answers accept ordinary `#` and `b` spellings and normalize them to musical accidentals. The expected spelling must match the written note; this is a notation exercise, not an enharmonic equivalence quiz. Octave numbers are not required.
+**Behavior:** choose treble or bass clef, natural notes or accidentals, and four choices or typed text. Each segmented control exposes its selected state and starts a fresh question when changed. The selected option is disabled so clicking it again does not skip a question. Typed answers accept ordinary `#` and `b` spellings and normalize them to musical accidentals. The expected spelling must match the written note; this is a notation exercise, not an enharmonic equivalence quiz. Octave numbers are not required.
 
-Answers lock after submission. A correct answer shows the same 850-millisecond “Correct!” popup as ear training, then advances. Wrong multiple-choice answers identify both the selected answer and correct note, retain inline feedback, and advance after 3.2 seconds. Settings pauses advancement. A listening action sits beside the answer controls and connects the displayed note to the selected instrument sound. Attempts are stored; the visible running score is local to this screen session.
+Answers lock after submission. A correct answer shows the same 850-millisecond “Correct!” popup as ear training, then advances. Wrong answers identify the selected answer and correct note with labels and different borders. The 3.2-second review has Pause / Resume and Next note controls; Hear note pauses a wrong-answer review for a closer listen. Settings pause advancement. Attempts are stored; the running score is local to this screen session.
 
-**Implementation:** [StaffPractice.tsx](../desktop/src/StaffPractice.tsx), the shared SVG `Staff` component, and `staffNote` in music.ts. Timers and sound are cleaned up when leaving.
+**Implementation:** [StaffPractice.tsx](../desktop/src/StaffPractice.tsx), the shared SVG `Staff` component, and `staffNote` in music.ts. Timers and sound are cleaned up when leaving. Answer options are sampled from a finite shuffled list, avoiding the former unbounded random-selection loop.
 
 ## Scales and chords
 
@@ -146,7 +146,7 @@ Answers lock after submission. A correct answer shows the same 850-millisecond �
 
 **Layout:** a twelve-note target selector and random-target action sit above the target note, reference playback, microphone action, live detected pitch/tuning feedback, and success state. Input status and a compact local-audio privacy panel stay visible near the microphone controls. The former motivational instruction card is removed.
 
-**Flow:** choose any pitch class from C4 through B4 or request a different random target, hear it, enable the microphone, and play a single steady note. Changing the target stops playback and microphone capture and clears stale feedback. Permission is requested only after user action. Denial or a missing device produces an understandable message. Stopping, succeeding, or leaving closes microphone tracks and the audio context.
+**Flow:** choose any pitch class from C4 through B4 or request a different random target, hear it, enable the microphone, and play a single steady note. Changing the target stops playback and microphone capture and clears stale feedback. Permission is requested only after user action. Denial or a missing device produces a persistent inline error beside the controls. A pending request can be canceled; late-arriving unused streams are closed. Stopping clears stale detected-pitch feedback. Stopping, succeeding, or leaving closes microphone tracks and the audio context.
 
 **Matching rule:** the detected MIDI note must equal the sounding target and remain within 35 cents for over 650 milliseconds. The target respects the selected instrument and notation. Matching is single-note pitch detection, not chord recognition or instrument identification.
 
@@ -234,3 +234,5 @@ Use short, plain messages such as `Improve sax sounds` or `Label playback steps`
 | 0.4.5 | Expanded Your studio to fill the available desktop workspace while preserving responsive practice layouts. |
 
 | Reliability cleanup | Validated saved pitch counts and dates, isolated ear difficulty from other modes, disabled unavailable harmony keys, and corrected scale-degree completion copy. |
+
+| Practice controls | Added paused staff review, finite answer generation, selected-control guards, inline microphone errors, and pending-request cancellation. |

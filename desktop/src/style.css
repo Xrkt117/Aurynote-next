@@ -3656,3 +3656,34 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+.lesson-actions {
+  flex-wrap: wrap;
+}
+.listen-area p,
+.toggle-row {
+  font-size: 13px;
+}
+.note-choice {
+  padding: 10px 6px;
+}
+.note-choice small {
+  color: var(--muted);
+  height: auto;
+}
+.segmented button.selected:disabled {
+  opacity: 1;
+}
+.tone-grid small {
+  font-size: 10px;
+  letter-spacing: 0;
+}
+.input-error {
+  margin-top: 18px;
+  border-left: 3px solid var(--mistake);
+  border-radius: 4px;
+  padding: 14px 16px;
+  color: #813d28;
+  background: #fbece7;
+  text-align: left;
+}

@@ -1,11 +1,12 @@
 import CorrectPopup from "./CorrectPopup";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Check, Volume2 } from "lucide-react";
+import { ArrowRight, Pause, Play, Volume2 } from "lucide-react";
 import { useStudio } from "./context";
 import { staffNote, sounding } from "./music";
 import { record } from "./store";
 import { voice } from "./audio";
 import { Staff, Tag } from "./components";
+import { shuffledNotes } from "./practice";
 export default function StaffPractice() {
   const { profile, setProfile, notify, settingsOpen } = useStudio();
   const [bass, setBass] = useState(false),
@@ -16,15 +17,16 @@ export default function StaffPractice() {
     [question, setQuestion] = useState(() => staffNote(30)),
     [options, setOptions] = useState(["E", "C", "G", "B"]),
     [result, setResult] = useState<boolean | null>(null),
+    [paused, setPaused] = useState(false),
     [round, setRound] = useState(1),
     [score, setScore] = useState({ correct: 0, total: 0 });
   const locked = useRef(false);
   useEffect(() => () => voice.stop(), []);
   useEffect(() => {
-    if (result === null || settingsOpen) return;
+    if (result === null || settingsOpen || paused) return;
     const timer = setTimeout(() => next(), result ? 850 : 3200);
     return () => clearTimeout(timer);
-  }, [result, settingsOpen]);
+  }, [result, settingsOpen, paused]);
   function next(newBass = bass, newAcc = accidentals) {
     voice.stop();
     const q = staffNote(
@@ -32,14 +34,16 @@ export default function StaffPractice() {
       newAcc ? Math.floor(Math.random() * 3) - 1 : 0,
     );
     setQuestion(q);
-    const names = new Set([q.name]);
-    while (names.size < 4)
-      names.add(
-        staffNote(28 + Math.floor(Math.random() * 7), q.accidental).name,
-      );
-    setOptions([...names].sort(() => Math.random() - 0.5));
+    const alternatives = Array.from(
+      { length: 7 },
+      (_, i) => staffNote(28 + i, q.accidental).name,
+    ).filter((name) => name !== q.name);
+    setOptions(
+      shuffledNotes([q.name, ...shuffledNotes(alternatives).slice(0, 3)]),
+    );
     setText("");
     setChoice(null);
+    setPaused(false);
     setResult(null);
     setRound((n) => n + 1);
     locked.current = false;
@@ -87,6 +91,7 @@ export default function StaffPractice() {
               <span>Clef</span>
               <div className="segmented" role="group" aria-label="Clef">
                 <button
+                  disabled={!bass}
                   aria-pressed={!bass}
                   className={!bass ? "selected" : ""}
                   onClick={() => {
@@ -97,6 +102,7 @@ export default function StaffPractice() {
                   Treble
                 </button>
                 <button
+                  disabled={bass}
                   aria-pressed={bass}
                   className={bass ? "selected" : ""}
                   onClick={() => {
@@ -112,6 +118,7 @@ export default function StaffPractice() {
               <span>Notes</span>
               <div className="segmented" role="group" aria-label="Notes">
                 <button
+                  disabled={!accidentals}
                   aria-pressed={!accidentals}
                   className={!accidentals ? "selected" : ""}
                   onClick={() => {
@@ -122,6 +129,7 @@ export default function StaffPractice() {
                   Natural
                 </button>
                 <button
+                  disabled={accidentals}
                   aria-pressed={accidentals}
                   className={accidentals ? "selected" : ""}
                   onClick={() => {
@@ -137,6 +145,7 @@ export default function StaffPractice() {
               <span>Answer</span>
               <div className="segmented" role="group" aria-label="Answer input">
                 <button
+                  disabled={!typing}
                   aria-pressed={!typing}
                   className={!typing ? "selected" : ""}
                   onClick={() => {
@@ -147,6 +156,7 @@ export default function StaffPractice() {
                   Choices
                 </button>
                 <button
+                  disabled={typing}
                   aria-pressed={typing}
                   className={typing ? "selected" : ""}
                   onClick={() => {
@@ -163,7 +173,9 @@ export default function StaffPractice() {
         <div className="staff-stage">
           <div className="staff-stage-meta" aria-hidden="true">
             <span>{bass ? "Bass clef" : "Treble clef"}</span>
-            <span>{accidentals ? "Accidentals included" : "Natural notes"}</span>
+            <span>
+              {accidentals ? "Accidentals included" : "Natural notes"}
+            </span>
           </div>
           <div
             className="staff-sheet"
@@ -185,7 +197,8 @@ export default function StaffPractice() {
             </div>
             <button
               className="staff-listen"
-              onClick={() =>
+              onClick={() => {
+                if (result === false) setPaused(true);
                 void voice
                   .play(
                     [sounding(question.midi, profile.tuning, profile.written)],
@@ -193,8 +206,8 @@ export default function StaffPractice() {
                   )
                   .catch(() =>
                     notify("Audio unavailable. Check your output device."),
-                  )
-              }
+                  );
+              }}
             >
               <Volume2 size={16} />
               Hear note
@@ -232,8 +245,12 @@ export default function StaffPractice() {
                   onClick={() => answer(n)}
                 >
                   <span>{n}</span>
-                  {result === false && n === choice && <small>Your answer</small>}
-                  {result !== null && n === question.name && <small>Correct note</small>}
+                  {result === false && n === choice && (
+                    <small>Your answer</small>
+                  )}
+                  {result !== null && n === question.name && (
+                    <small>Correct note</small>
+                  )}
                 </button>
               ))}
             </div>
@@ -241,13 +258,28 @@ export default function StaffPractice() {
           {result === false && (
             <div className="feedback mistake" role="status">
               <strong>Answer: {question.name}</strong>
-              <span>Next note in 3.2 seconds</span>
-              <i className="countdown" style={{ animationDuration: "3.2s" }} />
+              <span>
+                Your answer: {choice}.{" "}
+                {paused ? "Paused for review." : "Next note in 3.2 seconds."}
+              </span>
+              {!paused && !settingsOpen && (
+                <i
+                  className="countdown"
+                  style={{ animationDuration: "3.2s" }}
+                />
+              )}
             </div>
           )}
           <div className="staff-footer-actions">
+            {result === false && (
+              <button onClick={() => setPaused((p) => !p)}>
+                {paused ? <Play size={16} /> : <Pause size={16} />}
+                {paused ? "Resume" : "Pause"}
+              </button>
+            )}
             <button className="text-button" onClick={() => next()}>
-              Skip note <ArrowRight size={16} />
+              {result === null ? "Skip note" : "Next note"}{" "}
+              <ArrowRight size={16} />
             </button>
           </div>
         </div>

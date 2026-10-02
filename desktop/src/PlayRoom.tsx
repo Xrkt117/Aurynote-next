@@ -1,12 +1,6 @@
 import { writtenOffset } from "./tuning";
 import { useEffect, useRef, useState } from "react";
-import {
-  Mic,
-  MicOff,
-  Volume2,
-  Check,
-  ShieldCheck,
-} from "lucide-react";
+import { Mic, MicOff, Volume2, Check, ShieldCheck } from "lucide-react";
 import { useStudio } from "./context";
 import { detectPitch, voice } from "./audio";
 import { sounding, octaveName, noteName, frequency } from "./music";
@@ -19,6 +13,7 @@ export default function PlayRoom() {
     [requesting, setRequesting] = useState(false),
     [heard, setHeard] = useState<ReturnType<typeof detectPitch>>(null),
     [matched, setMatched] = useState(false),
+    [inputError, setInputError] = useState(""),
     [busy, setBusy] = useState(false);
   const stream = useRef<MediaStream | null>(null),
     context = useRef<AudioContext | null>(null),
@@ -26,7 +21,10 @@ export default function PlayRoom() {
     generation = useRef(0),
     hold = useRef(0);
   const sound = sounding(target, profile.tuning, profile.written);
-  const targetNotes = Array.from({ length: 12 }, (_, pitchClass) => 60 + pitchClass);
+  const targetNotes = Array.from(
+    { length: 12 },
+    (_, pitchClass) => 60 + pitchClass,
+  );
   function stop() {
     generation.current++;
     cancelAnimationFrame(raf.current);
@@ -37,6 +35,7 @@ export default function PlayRoom() {
     hold.current = 0;
     setListening(false);
     setRequesting(false);
+    setHeard(null);
   }
   useEffect(
     () => () => {
@@ -56,6 +55,7 @@ export default function PlayRoom() {
     voice.stop();
     setMatched(false);
     setHeard(null);
+    setInputError("");
     setRequesting(true);
     const token = generation.current;
     try {
@@ -107,7 +107,7 @@ export default function PlayRoom() {
     } catch (error) {
       if (token !== generation.current) return;
       stop();
-      notify(
+      setInputError(
         error instanceof DOMException && error.name === "NotAllowedError"
           ? "Microphone access was declined. Allow it in your device settings, then try again."
           : "No microphone could be opened. Connect an input device and try again.",
@@ -130,6 +130,7 @@ export default function PlayRoom() {
     voice.stop();
     setMatched(false);
     setHeard(null);
+    setInputError("");
     setTarget(next);
   }
   function randomTarget() {
@@ -190,26 +191,28 @@ export default function PlayRoom() {
             · {frequency(sound).toFixed(1)} Hz
           </p>
           <div className="button-row">
-            <button
-              onClick={() => void reference()}
-              disabled={busy || requesting}
-            >
+            <button onClick={() => void reference()} disabled={busy}>
               <Volume2 size={16} />
               Hear target
             </button>
             <button
               className="primary"
-              disabled={busy || requesting}
-              onClick={() => (listening ? stop() : void start())}
+              disabled={busy}
+              onClick={() => (listening || requesting ? stop() : void start())}
             >
               {listening ? <MicOff size={16} /> : <Mic size={16} />}{" "}
               {listening
                 ? "Stop listening"
                 : requesting
-                  ? "Opening microphone…"
+                  ? "Cancel microphone request"
                   : "Start microphone"}
             </button>
           </div>
+          {inputError && (
+            <p className="input-error" role="alert">
+              {inputError}
+            </p>
+          )}
           <div
             className={`pitch-feedback ${matched ? "matched" : ""}`}
             role="status"

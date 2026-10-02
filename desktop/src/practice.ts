@@ -1,6 +1,6 @@
 import { lessons } from "./music";
 import type { Profile } from "./store";
-export function shuffledNotes(notes: number[], random = Math.random) {
+export function shuffledNotes<T>(notes: T[], random = Math.random) {
   const result = [...notes];
   for (let i = result.length - 1; i > 0; i--) {
     const j = Math.floor(random() * (i + 1));
