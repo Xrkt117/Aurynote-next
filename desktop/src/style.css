@@ -2751,25 +2751,6 @@ body {
     linear-gradient(145deg, #f6f5f0, #fff 68%);
   box-shadow: 0 8px 30px #30382a0a;
 }
-.daily-note::before,
-.daily-note::after {
-  content: "";
-  position: absolute;
-  right: 24px;
-  top: 17px;
-  width: 1px;
-  height: 72px;
-  background: #8b9679;
-  transform: rotate(21deg);
-  transform-origin: bottom;
-  opacity: 0.75;
-}
-.daily-note::after {
-  right: 40px;
-  top: 25px;
-  height: 50px;
-  transform: rotate(-18deg);
-}
 .daily-note p {
   position: relative;
   z-index: 1;
