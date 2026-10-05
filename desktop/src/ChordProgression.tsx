@@ -131,8 +131,11 @@ export default function ChordProgression() {
   }
 
   return (
-    <div className="song-builder">
-      <section className="panel song-setup" aria-label="Build chord changes">
+    <div className="song-builder panel">
+      <section
+        className="practice-config song-setup"
+        aria-label="Build chord changes"
+      >
         <div className="song-intro">
           <div>
             <h2>Build your song’s chord changes</h2>
@@ -140,21 +143,84 @@ export default function ChordProgression() {
           </div>
           <span className="micro muted">Chart saved on this device</span>
         </div>
-        <label className="song-title-field">
-          Song or chart title
-          <input
-            maxLength={60}
-            value={song.title}
-            onChange={(e) =>
-              setProfile((p) => ({
-                ...p,
-                song: { ...p.song, title: e.target.value },
-              }))
-            }
-          />
-        </label>
+        <div className="song-fields">
+          <label className="song-title-field">
+            Song or chart title
+            <input
+              maxLength={60}
+              value={song.title}
+              onChange={(e) =>
+                setProfile((p) => ({
+                  ...p,
+                  song: { ...p.song, title: e.target.value },
+                }))
+              }
+            />
+          </label>
+          <form
+            ref={composer}
+            className="chord-composer"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (editing !== null)
+                update(
+                  song.changes.map((change, i) =>
+                    i === editing ? { root, chord } : change,
+                  ),
+                  `Updated change ${editing + 1}.`,
+                );
+              else if (song.changes.length < maxChanges)
+                update(
+                  [...song.changes, { root, chord }],
+                  `Added ${noteName(root)} ${chord.toLowerCase()} as change ${song.changes.length + 1}.`,
+                );
+            }}
+          >
+            <label>
+              Concert root
+              <select
+                aria-label="Concert root"
+                value={root}
+                onChange={(e) => setRoot(Number(e.target.value))}
+              >
+                {notes.map((note, i) => (
+                  <option key={note} value={i}>
+                    {note}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Chord type
+              <select
+                aria-label="Chord type"
+                value={chord}
+                onChange={(e) => setChord(e.target.value)}
+              >
+                {chords.map((pattern) => (
+                  <option key={pattern.name} value={pattern.name}>
+                    {pattern.name}
+                    {pattern.symbol ? ` (${pattern.symbol})` : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="submit"
+              className="primary"
+              disabled={editing === null && song.changes.length >= maxChanges}
+            >
+              {editing === null ? <Plus size={17} /> : <Check size={17} />}
+              {editing === null ? "Add chord" : "Save chord"}
+            </button>
+          </form>
+        </div>
+        <p className="micro muted">
+          Choose roots in concert pitch. The chart follows your instrument and
+          notation settings. Up to {maxChanges} changes.
+        </p>
         {editing !== null && (
-          <p className="micro">
+          <p className="micro song-editing">
             Editing change {editing + 1}. Save your changes or{" "}
             <button className="text-button" onClick={() => setEditing(null)}>
               Cancel edit
@@ -162,67 +228,6 @@ export default function ChordProgression() {
             .
           </p>
         )}
-        <form
-          ref={composer}
-          className="chord-composer"
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (editing !== null)
-              update(
-                song.changes.map((change, i) =>
-                  i === editing ? { root, chord } : change,
-                ),
-                `Updated change ${editing + 1}.`,
-              );
-            else if (song.changes.length < maxChanges)
-              update(
-                [...song.changes, { root, chord }],
-                `Added ${noteName(root)} ${chord.toLowerCase()} as change ${song.changes.length + 1}.`,
-              );
-          }}
-        >
-          <label>
-            Concert root
-            <select
-              aria-label="Concert root"
-              value={root}
-              onChange={(e) => setRoot(Number(e.target.value))}
-            >
-              {notes.map((note, i) => (
-                <option key={note} value={i}>
-                  {note}
-                </option>
-              ))}
-            </select>
-          </label>
-          <label>
-            Chord type
-            <select
-              aria-label="Chord type"
-              value={chord}
-              onChange={(e) => setChord(e.target.value)}
-            >
-              {chords.map((pattern) => (
-                <option key={pattern.name} value={pattern.name}>
-                  {pattern.name}
-                  {pattern.symbol ? ` (${pattern.symbol})` : ""}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button
-            type="submit"
-            className="primary"
-            disabled={editing === null && song.changes.length >= maxChanges}
-          >
-            {editing === null ? <Plus size={17} /> : <Check size={17} />}
-            {editing === null ? "Add chord" : "Save chord"}
-          </button>
-        </form>
-        <p className="micro muted">
-          Choose roots in concert pitch. The chart follows your instrument and
-          notation settings. Up to {maxChanges} changes.
-        </p>
         <p className="song-status" role="status">
           {active >= 0
             ? `Playing change ${active + 1}: ${arrangeChange(song.changes[active], profile.tuning, profile.written).symbol}`
@@ -230,7 +235,7 @@ export default function ChordProgression() {
         </p>
       </section>
       {!song.changes.length ? (
-        <section className="panel song-empty">
+        <section className="song-empty">
           <Music2 size={30} aria-hidden="true" />
           <h3>Your first chord goes here</h3>
           <p>
@@ -255,7 +260,7 @@ export default function ChordProgression() {
         </section>
       ) : (
         <>
-          <section className="panel song-order" aria-label="Chord order">
+          <section className="song-order" aria-label="Chord order">
             <div className="song-toolbar">
               <h3>
                 {song.changes.length} chord{" "}
@@ -346,10 +351,7 @@ export default function ChordProgression() {
               })}
             </ol>
           </section>
-          <section
-            className="panel song-chart-panel"
-            aria-label="Full chord chart"
-          >
+          <section className="song-chart-panel" aria-label="Full chord chart">
             <div className="song-toolbar">
               <div>
                 <h2>All your chords, all their notes</h2>

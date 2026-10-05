@@ -3387,14 +3387,39 @@ body {
 }
 
 .song-builder {
+  --pad: 24px;
   display: grid;
   gap: 22px;
+  min-width: 0;
 }
-.song-setup,
+.song-setup {
+  margin-bottom: 0;
+  padding-inline: var(--pad);
+}
+.song-setup p {
+  margin-top: 8px;
+}
 .song-order,
 .song-chart-panel {
-  padding: 24px;
   min-width: 0;
+}
+.song-chart-panel {
+  border-top: 1px solid var(--line);
+  padding-top: 22px;
+}
+.song-fields {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px 18px;
+  margin: 16px 0 12px;
+}
+.song-fields .chord-composer {
+  flex: 2 1 440px;
+  margin-bottom: 0;
+}
+.chord-composer .primary {
+  min-width: 140px;
 }
 .song-intro,
 .song-toolbar {
@@ -3416,8 +3441,8 @@ body {
   font-weight: 600;
 }
 .song-title-field {
-  margin: 24px 0 18px;
-  max-width: 540px;
+  flex: 1 1 220px;
+  min-width: 0;
 }
 .song-title-field input {
   width: 100%;
@@ -3435,7 +3460,7 @@ body {
 }
 .song-status {
   min-height: 20px;
-  margin-top: 10px;
+  margin-top: 8px;
   font-size: 12px;
   color: #35462a;
 }
@@ -3444,7 +3469,7 @@ body {
   justify-items: center;
   gap: 16px;
   text-align: center;
-  padding: 44px 24px;
+  padding: 32px 24px;
 }
 .song-empty p {
   max-width: 420px;
@@ -3523,10 +3548,11 @@ body {
   }
 }
 @media (max-width: 650px) {
-  .song-setup,
-  .song-order,
-  .song-chart-panel {
-    padding: 18px;
+  .song-builder {
+    --pad: 18px;
+  }
+  .practice-config.song-setup {
+    padding-block: 14px;
   }
   .chord-composer {
     grid-template-columns: minmax(70px, 1fr) minmax(0, 2fr);
