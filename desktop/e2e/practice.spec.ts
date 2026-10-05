@@ -8,7 +8,10 @@ test("finishing a guided session offers and opens the next note pool", async ({
   await page.goto("/");
   await page.getByRole("button", { name: "Start first lesson" }).click();
   await page.getByLabel("Session length", { exact: true }).selectOption("5");
-  await page.getByLabel("Reference C", { exact: true }).uncheck();
+  await page
+    .getByRole("group", { name: "Reference C", exact: true })
+    .getByRole("button", { name: "Off", exact: true })
+    .click();
   await page.getByRole("button", { name: "Start session" }).click();
   for (let i = 0; i < 5; i++) {
     await expect(
@@ -43,8 +46,9 @@ test("custom notes, session settings, and new sounds persist", async ({
   await page.goto("/");
   await page.getByRole("button", { name: "Start first lesson" }).click();
   await page
-    .getByLabel("Practice mode", { exact: true })
-    .selectOption("custom");
+    .getByRole("group", { name: "Practice mode", exact: true })
+    .getByRole("button", { name: "Choose my own notes" })
+    .click();
   await page.getByLabel("Number of notes", { exact: true }).selectOption("4");
   await expect(page.locator(".answer-grid .note-choice")).toHaveCount(4);
   await page.getByLabel("Session length", { exact: true }).selectOption("15");
@@ -72,8 +76,9 @@ test("custom notes, session settings, and new sounds persist", async ({
   );
   await page.getByRole("button", { name: "Ear training", exact: true }).click();
   await page
-    .getByLabel("Practice mode", { exact: true })
-    .selectOption("custom");
+    .getByRole("group", { name: "Practice mode", exact: true })
+    .getByRole("button", { name: "Choose my own notes" })
+    .click();
   await expect(page.getByLabel("Number of notes", { exact: true })).toHaveValue(
     "4",
   );
