@@ -1937,9 +1937,14 @@ select {
   white-space: nowrap;
 }
 .practice-config .config-fields {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  align-items: start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  column-gap: 24px;
+  row-gap: 16px;
+}
+.practice-config .config-fields > .ear-seg {
+  flex: 0 1 auto;
 }
 .practice-config .config-fields label {
   min-width: 0;
