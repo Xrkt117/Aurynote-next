@@ -1916,18 +1916,40 @@ select {
   width: 100%;
 }
 .ear-seg {
-  flex: 1;
-  min-width: 150px;
+  min-width: 0;
+  gap: 8px;
 }
 .ear-seg > span {
   font-size: 12px;
   font-weight: 650;
   color: inherit;
   line-height: 1.2;
+  white-space: nowrap;
 }
 .ear-seg .segmented {
   align-self: start;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+}
+.ear-seg .segmented button {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-inline: 12px;
+  white-space: nowrap;
+}
+.practice-config .config-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  align-items: start;
+}
+.practice-config .config-fields label {
+  min-width: 0;
+}
+.practice-config .config-fields select {
+  min-width: 0;
+  text-overflow: ellipsis;
+}
+.settings-card {
+  container-type: inline-size;
 }
 .ear-seg-row {
   display: flex;
@@ -1935,12 +1957,22 @@ select {
   justify-content: space-between;
   gap: 10px;
   margin: 14px 0;
-  flex: none;
+  min-height: 44px;
 }
 .ear-seg-row > span {
   font-size: 13px;
   font-weight: 400;
   color: var(--muted);
+}
+.ear-seg-row .segmented {
+  flex: none;
+}
+@container (max-width: 250px) {
+  .ear-seg-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
 }
 .note-picker {
   display: flex;
