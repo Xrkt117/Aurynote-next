@@ -265,21 +265,45 @@ export default function Ear() {
               }}
             />
             {!custom && (
-              <label>
-                Lesson
-                <select
+              <div className="staff-control-group ear-seg">
+                <span>Lesson</span>
+                <div
+                  className="lesson-list"
+                  role="radiogroup"
                   aria-label="Lesson"
-                  value={level}
-                  disabled={degree}
-                  onChange={(e) => configure(Number(e.target.value))}
+                  onKeyDown={(e) => {
+                    const d =
+                      e.key === "ArrowDown" || e.key === "ArrowRight"
+                        ? 1
+                        : e.key === "ArrowUp" || e.key === "ArrowLeft"
+                          ? -1
+                          : 0;
+                    if (!d || degree) return;
+                    e.preventDefault();
+                    const to = (level + d + lessons.length) % lessons.length;
+                    configure(to);
+                    (e.currentTarget.children[to] as HTMLElement).focus();
+                  }}
                 >
                   {lessons.map((lesson, i) => (
-                    <option key={i} value={i}>
-                      {i + 1}. {lesson.name} · {lesson.notes.length} notes
-                    </option>
+                    <button
+                      key={i}
+                      role="radio"
+                      aria-checked={i === level}
+                      tabIndex={i === level ? 0 : -1}
+                      disabled={degree}
+                      className={i === level ? "selected" : ""}
+                      onClick={() => configure(i)}
+                    >
+                      <span>
+                        {i + 1}. {lesson.name}
+                      </span>
+                      <small>{lesson.notes.length} notes</small>
+                      <Check size={14} aria-hidden="true" />
+                    </button>
                   ))}
-                </select>
-              </label>
+                </div>
+              </div>
             )}
             {custom && (
               <label>

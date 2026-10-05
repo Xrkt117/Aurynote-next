@@ -29,7 +29,9 @@ test("finishing a guided session offers and opens the next note pool", async ({
     page.getByRole("heading", { name: "Hear the major third", exact: true }),
   ).toBeVisible();
   await expect(page.locator(".answer-grid .note-choice")).toHaveCount(3);
-  await expect(page.getByLabel("Lesson", { exact: true })).toHaveValue("1");
+  await expect(
+    page.getByRole("radio", { name: /^2\. / }),
+  ).toHaveAttribute("aria-checked", "true");
   await page
     .getByRole("navigation", { name: "Main navigation" })
     .getByRole("button", { name: "Your progress", exact: true })
@@ -38,7 +40,9 @@ test("finishing a guided session offers and opens the next note pool", async ({
     page.locator(".achievement.earned").filter({ hasText: "First session" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Ear training", exact: true }).click();
-  await expect(page.getByLabel("Lesson", { exact: true })).toHaveValue("1");
+  await expect(
+    page.getByRole("radio", { name: /^2\. / }),
+  ).toHaveAttribute("aria-checked", "true");
 });
 test("custom notes, session settings, and new sounds persist", async ({
   page,

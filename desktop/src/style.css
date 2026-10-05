@@ -3620,3 +3620,45 @@ body {
     font-size: 11px;
   }
 }
+
+.lesson-list {
+  display: grid;
+  gap: 3px;
+}
+.lesson-list button {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 14px;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 12px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  font-style: normal;
+}
+.lesson-list button span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.lesson-list button small {
+  font-size: 11px;
+  white-space: nowrap;
+  color: inherit;
+  opacity: 0.8;
+}
+.lesson-list button svg {
+  visibility: hidden;
+}
+.lesson-list button.selected {
+  background: #252622;
+  border-color: #252622;
+  color: white;
+}
+.lesson-list button.selected svg {
+  visibility: visible;
+}
+.lesson-list button.selected:disabled {
+  opacity: 1;
+}
