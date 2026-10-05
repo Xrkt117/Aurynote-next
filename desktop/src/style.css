@@ -3672,3 +3672,21 @@ body {
   color: var(--muted);
   white-space: nowrap;
 }
+.ear-stepper {
+  align-self: start;
+  align-items: center;
+}
+.ear-stepper span {
+  min-width: 76px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: #353e2b;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.ear-stepper button {
+  padding: 7px 12px;
+  display: grid;
+  place-items: center;
+}

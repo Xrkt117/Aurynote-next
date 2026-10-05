@@ -58,7 +58,12 @@ test("custom notes, session settings, and new sounds persist", async ({
     .getByRole("group", { name: "Practice mode", exact: true })
     .getByRole("button", { name: "Choose my own notes" })
     .click();
-  await page.getByLabel("Number of notes", { exact: true }).selectOption("4");
+  const notes = page.getByRole("group", {
+    name: "Number of notes",
+    exact: true,
+  });
+  await notes.getByRole("button", { name: "More notes" }).click();
+  await notes.getByRole("button", { name: "More notes" }).click();
   await expect(page.locator(".answer-grid .note-choice")).toHaveCount(4);
   await page.evaluate(() => {
     const k = "aurynote.next.v1";
@@ -104,9 +109,11 @@ test("custom notes, session settings, and new sounds persist", async ({
     .getByRole("group", { name: "Practice mode", exact: true })
     .getByRole("button", { name: "Choose my own notes" })
     .click();
-  await expect(page.getByLabel("Number of notes", { exact: true })).toHaveValue(
-    "4",
-  );
+  await expect(
+    page
+      .getByRole("group", { name: "Number of notes", exact: true })
+      .getByText("4 notes"),
+  ).toBeVisible();
   await expect(
     page
       .getByRole("group", { name: "Session length", exact: true })

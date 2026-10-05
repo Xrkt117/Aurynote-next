@@ -2,7 +2,16 @@ import { shuffledNotes, resizePool, finishSession } from "./practice";
 import CorrectPopup from "./CorrectPopup";
 import { writtenOffset } from "./tuning";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, RotateCcw, Check, X, Volume2, Pause } from "lucide-react";
+import {
+  ArrowRight,
+  RotateCcw,
+  Check,
+  Minus,
+  Plus,
+  X,
+  Volume2,
+  Pause,
+} from "lucide-react";
 import { useStudio } from "./context";
 import { lessons, noteName, sounding, weightedNote } from "./music";
 import { record } from "./store";
@@ -167,6 +176,17 @@ export default function Ear() {
       `Correct note · ${noteName(target)}`,
     ]);
   }
+  function resize(n: number) {
+    configure();
+    setProfile((p) => ({
+      ...p,
+      customNotes: resizePool(
+        pool,
+        Math.min(degree ? 7 : 12, Math.max(2, n)),
+        degree ? natural : undefined,
+      ),
+    }));
+  }
   const right = choice === target;
   if (phase === "complete")
     return (
@@ -306,30 +326,30 @@ export default function Ear() {
               </div>
             )}
             {custom && (
-              <label>
-                Number of notes
-                <select
+              <div className="staff-control-group ear-seg">
+                <span>Number of notes</span>
+                <div
+                  className="segmented ear-stepper"
+                  role="group"
                   aria-label="Number of notes"
-                  value={pool.length}
-                  onChange={(e) => {
-                    configure();
-                    setProfile((p) => ({
-                      ...p,
-                      customNotes: resizePool(
-                        pool,
-                        Number(e.target.value),
-                        degree ? natural : undefined,
-                      ),
-                    }));
-                  }}
                 >
-                  {Array.from({ length: (degree ? 7 : 12) - 1 }, (_, i) => (
-                    <option key={i} value={i + 2}>
-                      {i + 2} notes
-                    </option>
-                  ))}
-                </select>
-              </label>
+                  <button
+                    aria-label="Fewer notes"
+                    disabled={pool.length <= 2}
+                    onClick={() => resize(pool.length - 1)}
+                  >
+                    <Minus size={14} />
+                  </button>
+                  <span>{pool.length} notes</span>
+                  <button
+                    aria-label="More notes"
+                    disabled={pool.length >= (degree ? 7 : 12)}
+                    onClick={() => resize(pool.length + 1)}
+                  >
+                    <Plus size={14} />
+                  </button>
+                </div>
+              </div>
             )}
             <Seg
               label="Session length"
