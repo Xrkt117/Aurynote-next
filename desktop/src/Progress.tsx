@@ -42,15 +42,16 @@ export default function Progress() {
           Export progress
         </button>
       </div>
-      <PracticeActivity/>
-      <Milestones />
-      {!attempts.length ? (
+      {!attempts.length && (
         <Empty
           title="No practice recorded"
           copy="Complete a question to add data to this page."
           action={() => go("ear")}
         />
-      ) : (
+      )}
+      <PracticeActivity/>
+      <Milestones />
+      {attempts.length > 0 && (
         <>
           <div className="stats-row">
             <div>

@@ -83,3 +83,14 @@ test("custom notes, session settings, and new sounds persist", async ({
   await page.getByRole("button", { name: "Settings", exact: true }).click();
   await expect(page.getByLabel("Playback sound")).toHaveValue("clarinet");
 });
+
+test("empty progress page shows its message above the calendar", async ({ page }) => {
+  await page.goto("/");
+  await page
+    .getByRole("navigation", { name: "Main navigation" })
+    .getByRole("button", { name: "Your progress", exact: true })
+    .click();
+  const empty = await page.locator(".empty").boundingBox();
+  const calendar = await page.locator(".practice-activity").boundingBox();
+  expect(empty!.y).toBeLessThan(calendar!.y);
+});
