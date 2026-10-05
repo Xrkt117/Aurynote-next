@@ -285,71 +285,30 @@ export default function Ear() {
               }}
             />
             {!custom && (
-              <div className="staff-control-group ear-seg">
-                <span>Lesson</span>
-                <div
-                  className="lesson-list"
-                  role="radiogroup"
-                  aria-label="Lesson"
-                  onKeyDown={(e) => {
-                    const d =
-                      e.key === "ArrowDown" || e.key === "ArrowRight"
-                        ? 1
-                        : e.key === "ArrowUp" || e.key === "ArrowLeft"
-                          ? -1
-                          : 0;
-                    if (!d || degree) return;
-                    e.preventDefault();
-                    const to = (level + d + lessons.length) % lessons.length;
-                    configure(to);
-                    (e.currentTarget.children[to] as HTMLElement).focus();
-                  }}
-                >
-                  {lessons.map((lesson, i) => (
-                    <button
-                      key={i}
-                      role="radio"
-                      aria-checked={i === level}
-                      tabIndex={i === level ? 0 : -1}
-                      disabled={degree}
-                      className={i === level ? "selected" : ""}
-                      onClick={() => configure(i)}
-                    >
-                      <span>
-                        {i + 1}. {lesson.name}
-                      </span>
-                      <small>{lesson.notes.length} notes</small>
-                      <Check size={14} aria-hidden="true" />
-                    </button>
-                  ))}
-                </div>
-              </div>
+              <Stepper
+                label="Lesson"
+                prev="Previous lesson"
+                next="Next lesson"
+                text={`Lesson ${level + 1} of ${lessons.length}`}
+                note={`${lessons[level].name} · ${lessons[level].notes.length} notes`}
+                wide
+                minusOff={degree || level <= 0}
+                plusOff={degree || level >= lessons.length - 1}
+                onMinus={() => configure(level - 1)}
+                onPlus={() => configure(level + 1)}
+              />
             )}
             {custom && (
-              <div className="staff-control-group ear-seg">
-                <span>Number of notes</span>
-                <div
-                  className="segmented ear-stepper"
-                  role="group"
-                  aria-label="Number of notes"
-                >
-                  <button
-                    aria-label="Fewer notes"
-                    disabled={pool.length <= 2}
-                    onClick={() => resize(pool.length - 1)}
-                  >
-                    <Minus size={14} />
-                  </button>
-                  <span>{pool.length} notes</span>
-                  <button
-                    aria-label="More notes"
-                    disabled={pool.length >= (degree ? 7 : 12)}
-                    onClick={() => resize(pool.length + 1)}
-                  >
-                    <Plus size={14} />
-                  </button>
-                </div>
-              </div>
+              <Stepper
+                label="Number of notes"
+                prev="Fewer notes"
+                next="More notes"
+                text={`${pool.length} notes`}
+                minusOff={pool.length <= 2}
+                plusOff={pool.length >= (degree ? 7 : 12)}
+                onMinus={() => resize(pool.length - 1)}
+                onPlus={() => resize(pool.length + 1)}
+              />
             )}
             <Seg
               label="Session length"
@@ -579,6 +538,50 @@ export default function Ear() {
           </div>
         </aside>
       </div>
+    </div>
+  );
+}
+
+function Stepper({
+  label,
+  prev,
+  next,
+  text,
+  note,
+  wide,
+  minusOff,
+  plusOff,
+  onMinus,
+  onPlus,
+}: {
+  label: string;
+  prev: string;
+  next: string;
+  text: string;
+  note?: string;
+  wide?: boolean;
+  minusOff: boolean;
+  plusOff: boolean;
+  onMinus: () => void;
+  onPlus: () => void;
+}) {
+  return (
+    <div className="staff-control-group ear-seg">
+      <span>{label}</span>
+      <div
+        className={`segmented ear-stepper${wide ? " wide" : ""}`}
+        role="group"
+        aria-label={label}
+      >
+        <button aria-label={prev} disabled={minusOff} onClick={onMinus}>
+          <Minus size={14} />
+        </button>
+        <span>{text}</span>
+        <button aria-label={next} disabled={plusOff} onClick={onPlus}>
+          <Plus size={14} />
+        </button>
+      </div>
+      {note && <small className="ear-stepper-note">{note}</small>}
     </div>
   );
 }

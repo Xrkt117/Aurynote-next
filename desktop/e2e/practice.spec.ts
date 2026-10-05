@@ -32,10 +32,9 @@ test("finishing a guided session offers and opens the next note pool", async ({
     page.getByRole("heading", { name: "Hear the major third", exact: true }),
   ).toBeVisible();
   await expect(page.locator(".answer-grid .note-choice")).toHaveCount(3);
-  await expect(page.getByRole("radio", { name: /^2\. / })).toHaveAttribute(
-    "aria-checked",
-    "true",
-  );
+  await expect(
+    page.getByRole("group", { name: "Lesson", exact: true }),
+  ).toContainText("Lesson 2 of 5");
   await page
     .getByRole("navigation", { name: "Main navigation" })
     .getByRole("button", { name: "Your progress", exact: true })
@@ -44,10 +43,9 @@ test("finishing a guided session offers and opens the next note pool", async ({
     page.locator(".achievement.earned").filter({ hasText: "First session" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Ear training", exact: true }).click();
-  await expect(page.getByRole("radio", { name: /^2\. / })).toHaveAttribute(
-    "aria-checked",
-    "true",
-  );
+  await expect(
+    page.getByRole("group", { name: "Lesson", exact: true }),
+  ).toContainText("Lesson 2 of 5");
 });
 test("custom notes, session settings, and new sounds persist", async ({
   page,
@@ -134,4 +132,25 @@ test("empty progress page shows its message above the calendar", async ({
   const empty = await page.locator(".empty").boundingBox();
   const calendar = await page.locator(".practice-activity").boundingBox();
   expect(empty!.y).toBeLessThan(calendar!.y);
+});
+
+test("lesson stepper moves through the guided lessons", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Start first lesson" }).click();
+  const stepper = page.getByRole("group", { name: "Lesson", exact: true });
+  const prev = stepper.getByRole("button", { name: "Previous lesson" });
+  const next = stepper.getByRole("button", { name: "Next lesson" });
+  const heading = page.getByRole("heading", { level: 1 });
+  await expect(stepper).toContainText("Lesson 1 of 5");
+  await expect(prev).toBeDisabled();
+  const first = await heading.textContent();
+  await next.click();
+  await next.click();
+  await expect(stepper).toContainText("Lesson 3 of 5");
+  await expect(heading).not.toHaveText(first ?? "");
+  for (let i = 0; i < 2; i++) await next.click();
+  await expect(stepper).toContainText("Lesson 5 of 5");
+  await expect(next).toBeDisabled();
+  await prev.click();
+  await expect(stepper).toContainText("Lesson 4 of 5");
 });
