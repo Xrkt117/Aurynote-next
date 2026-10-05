@@ -2266,13 +2266,11 @@ body {
 .daily-note {
   position: relative;
   margin: 0 0 12px;
-  padding: 22px 18px 18px;
+  padding: 18px;
   overflow: hidden;
   border: 0;
   border-radius: 18px;
-  background:
-    radial-gradient(circle at 80% 18%, #dfe4d7 0 18px, transparent 19px),
-    linear-gradient(145deg, #f6f5f0, #fff 68%);
+  background: linear-gradient(145deg, #f6f5f0, #fff 68%);
   box-shadow: 0 8px 30px #30382a0a;
 }
 .daily-note p {
@@ -2280,18 +2278,10 @@ body {
   text-wrap: balance;
   z-index: 1;
   margin: 0;
-  padding-right: 26px;
   color: #565a50;
   font-size: 15px;
   font-style: normal;
   line-height: 1.38;
-}
-.daily-note-sprig {
-  display: block;
-  margin-top: 10px;
-  color: #9da391 !important;
-  font-size: 25px !important;
-  line-height: 1;
 }
 .sidebar-bottom > .micro {
   margin: 0 4px;
@@ -2454,22 +2444,6 @@ body {
   gap: 16px;
   overflow: hidden;
   padding: 24px 28px;
-}
-.studio-lesson-card::after {
-  content: "";
-  position: absolute;
-  right: -60px;
-  bottom: -78px;
-  width: 310px;
-  height: 220px;
-  background: repeating-linear-gradient(
-    155deg,
-    #edf0e9 0 1px,
-    transparent 1px 13px
-  );
-  opacity: 0.65;
-  transform: rotate(-4deg);
-  pointer-events: none;
 }
 .studio-card-heading {
   position: relative;
@@ -2666,20 +2640,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   padding: 24px 28px;
-  background:
-    radial-gradient(circle at 90% 8%, #f7f5ed 0 70px, transparent 71px),
-    linear-gradient(135deg, #f7f8f1, #f1f4e9);
-}
-.studio-mic-card::after {
-  content: "";
-  position: absolute;
-  right: -34px;
-  bottom: -55px;
-  width: 190px;
-  height: 190px;
-  border-radius: 50%;
-  background: #dce2d2;
-  opacity: 0.38;
+  background: linear-gradient(135deg, #f7f8f1, #f1f4e9);
 }
 .studio-mic-heading {
   display: flex;
@@ -2933,9 +2894,8 @@ body {
 .studio-exercise-card {
   position: relative;
   display: block;
-  min-height: 172px;
   overflow: hidden;
-  padding: 20px 24px;
+  padding: 20px 24px 24px;
   border-radius: 8px;
   text-align: left;
 }
@@ -2976,48 +2936,6 @@ body {
   font-size: 12px;
   font-weight: 400;
   line-height: 1.45;
-}
-.studio-card-art {
-  position: absolute;
-  right: -4px;
-  bottom: -38px;
-  width: 55%;
-  height: 65px;
-  opacity: 0.48;
-}
-.studio-card-art.waves {
-  border-top: 7px double #8c9979;
-  border-radius: 50%;
-  transform: rotate(-4deg);
-}
-.studio-card-art.staff {
-  bottom: 0;
-  height: 36px;
-  background: repeating-linear-gradient(
-    to bottom,
-    #a5aa9f 0 1px,
-    transparent 1px 8px
-  );
-  transform: rotate(-2deg);
-}
-.studio-card-art.harmony {
-  right: 3px;
-  bottom: -62px;
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  background: #aab49b;
-  box-shadow: -42px 15px 0 #d0d5c7;
-}
-.studio-card-art.bars {
-  bottom: 0;
-  height: 36px;
-  background: repeating-linear-gradient(
-    to right,
-    #98a787 0 2px,
-    transparent 2px 10px
-  );
-  mask-image: linear-gradient(to top, #000, transparent);
 }
 
 @media (max-width: 1350px) {

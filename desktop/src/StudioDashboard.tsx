@@ -147,35 +147,30 @@ export default function StudioDashboard() {
     title: string;
     copy: string;
     page: Page;
-    art: string;
   }> = [
     {
       icon: Headphones,
       title: "Ear training",
       copy: "Identify notes by sound and build recognition with confidence.",
       page: "ear",
-      art: "waves",
     },
     {
       icon: ScanLine,
       title: "Staff reading",
       copy: "Identify written notes and connect what you see with what you hear.",
       page: "staff",
-      art: "staff",
     },
     {
       icon: Music2,
       title: "Scales & chords",
       copy: "Explore scales, hear chords, and build a song’s chord-change chart.",
       page: "explore",
-      art: "harmony",
     },
     {
       icon: BarChart3,
       title: "Play it back",
       copy: "Match a pitch on your instrument using the microphone.",
       page: "play",
-      art: "bars",
     },
   ];
 
@@ -427,10 +422,6 @@ export default function StudioDashboard() {
               </span>
               <strong>{exercise.title}</strong>
               <span>{exercise.copy}</span>
-              <i
-                className={`studio-card-art ${exercise.art}`}
-                aria-hidden="true"
-              />
             </button>
           ))}
         </div>

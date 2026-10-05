@@ -124,9 +124,6 @@ export default function App() {
               <p>
                 A more musical you, one day at a time.
               </p>
-              <span aria-hidden="true" className="daily-note-sprig">
-                ⌁
-              </span>
             </div>
             <p className="micro muted">Practice saved on this device.</p>
           </div>
