@@ -17,7 +17,7 @@ The app runs locally in Electron with React and TypeScript. It works without an 
 | Surface | Quiet off-white canvas with white practice panels | Canvas `#f8f8f5`, white panels |
 | Text | Dark primary text, readable muted supporting text | Ink `#252622`, muted `#60645d` |
 | Boundaries | Thin, visible borders; restrained corners | Border token `#d1d4ca`; common button radius 6px |
-| Typography | Sans-serif controls with selective editorial emphasis | Inter if available, Segoe UI/Arial fallback; Georgia/Times for the studio heading and card titles; musical notation uses symbol glyphs where required |
+| Typography | Sans-serif controls with selective editorial emphasis | Inter if available, Segoe UI/Arial fallback, for headings and controls alike (no serif face is defined); musical notation uses symbol glyphs where required |
 | Primary action | Filled dark button with a clear verb | Start, Next, playback and completion actions |
 | Selection | Make the chosen mode visibly different | Dark selected navigation and segmented controls; selected pattern has a left border |
 | Success | Green plus words and a check symbol | Brief “Correct!” popup with a check; solid green answer border |
@@ -26,7 +26,7 @@ The app runs locally in Electron with React and TypeScript. It works without an 
 | Decoration | Sparse musical and botanical details | Playback waves, staff notation, keyboard markers, abstract leaves, quiet layered fills, and Lucide icons |
 | Motion | Short transitions that explain state changes | Subtle button transitions, playback wave, question entry, review countdown |
 
-Maintain the monochrome foundation. Green and rust communicate meaning; they are not general decoration. Do not rely on color alone. Reserve serif type and illustrative details for the studio hierarchy, keep practice-task controls direct, and avoid large rounded pills, excessive shadows, long paragraphs, and unrelated visual treatments for equivalent controls.
+Maintain the monochrome foundation. Green and rust communicate meaning; they are not general decoration. Do not rely on color alone. Keep practice-task controls direct, and avoid large rounded pills, excessive shadows, long paragraphs, and unrelated visual treatments for equivalent controls.
 
 Styles live in [style.css](../desktop/src/style.css). Shared primitives live in [components.tsx](../desktop/src/components.tsx): brand, tags, section titles, keyboard, waveform, staff and empty state.
 

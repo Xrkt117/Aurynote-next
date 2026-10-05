@@ -2299,7 +2299,6 @@ body {
   color: #5d6458;
 }
 .studio-intro h1 {
-  font-family: var(--serif);
   font-size: clamp(43px, 4vw, 58px);
   font-weight: 400;
   letter-spacing: -2.7px;
@@ -2339,7 +2338,6 @@ body {
 .studio-score span {
   position: absolute;
   z-index: 1;
-  font-family: var(--serif);
   font-size: 31px;
 }
 .studio-score span:nth-child(1) {
@@ -2432,7 +2430,6 @@ body {
 }
 .studio-lesson-number {
   color: #3d4737;
-  font-family: var(--serif);
   font-size: 57px;
   letter-spacing: -2px;
   line-height: 1;
@@ -2445,7 +2442,6 @@ body {
   letter-spacing: 0;
 }
 .studio-lesson-title h2 {
-  font-family: var(--serif);
   font-size: 25px;
   font-weight: 400;
   letter-spacing: -0.5px;
@@ -2484,7 +2480,6 @@ body {
 }
 .studio-note strong {
   display: block;
-  font-family: var(--serif);
   font-size: 34px;
   font-weight: 400;
   line-height: 1;
@@ -2625,7 +2620,6 @@ body {
 }
 .studio-mic-card h2 {
   margin-top: 9px;
-  font-family: var(--serif);
   font-size: 24px;
   font-weight: 400;
 }
@@ -2693,7 +2687,6 @@ body {
   box-shadow: 0 5px 15px #2830200c;
 }
 .studio-pitch-preview strong {
-  font-family: var(--serif);
   font-size: 24px;
   font-weight: 400;
 }
@@ -2850,7 +2843,6 @@ body {
   margin-bottom: 4px;
 }
 .studio-section-heading h2 {
-  font-family: var(--serif);
   font-size: 25px;
   font-weight: 400;
 }
@@ -2892,7 +2884,6 @@ body {
   position: relative;
   z-index: 1;
   display: block;
-  font-family: var(--serif);
   font-size: 18px;
   font-weight: 400;
 }
