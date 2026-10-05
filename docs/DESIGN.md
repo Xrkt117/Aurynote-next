@@ -19,7 +19,7 @@ The app runs locally in Electron with React and TypeScript. It works without an 
 | Boundaries | Thin, visible borders; restrained corners | Border token `#d1d4ca`; common button radius 6px |
 | Typography | Sans-serif controls with selective editorial emphasis | Inter if available, Segoe UI/Arial fallback, for headings and controls alike (no serif face is defined); musical notation uses symbol glyphs where required |
 | Primary action | Filled dark button with a clear verb | Start, Next, playback and completion actions |
-| Selection | Make the chosen mode visibly different | Dark selected navigation and segmented controls; selected pattern has a left border |
+| Selection | Make the chosen mode visibly different | Dark selected navigation and segmented controls; selected pattern has a left border. Enabled but unselected options (segmented chips, toggle labels, small captions) use the muted `#60645d`, at least 4.5:1 on their panels; faded styling is reserved for `:disabled` controls |
 | Success | Green plus words and a check symbol | Brief “Correct!” popup with a check; solid green answer border |
 | Mistake | Warm rust plus words and a different border | Dashed answer border; “Your answer”; rust feedback panel |
 | Music identity | Show root, degree, note and symbol separately | Root tile, degree labels, chord symbol, keyboard markers |
@@ -269,3 +269,4 @@ In the working checkout, `origin` points to Aurynote-next and is the default pus
 | Separate practice data | Isolated continued-development progress from the submitted site, including when both share a GitHub Pages origin. |
 | Continued development | Created an independent repository and Pages site on main, preserving the submitted repository, deployment, and local practice data. |
 | Target-relative tuning | Pitch-matching meter, readout, and hint now measure distance from the target note; silence hides the needle. |
+| Readable controls | Enabled unselected chips and small captions now meet 4.5:1 contrast; only disabled controls are faded. |

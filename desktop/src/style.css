@@ -140,7 +140,7 @@ h3 {
 p {
   font-size: 13px;
   line-height: 1.8;
-  color: #797c71;
+  color: var(--muted);
 }
 strong {
   font-weight: 600;
@@ -156,7 +156,7 @@ strong {
   font-size: 11px;
   letter-spacing: 0;
   font-weight: 600;
-  color: #828678;
+  color: var(--muted);
   display: block !important;
   line-height: 1.5;
 }
@@ -238,7 +238,7 @@ strong {
   border: 0;
   border-radius: 5px;
   background: transparent;
-  color: #818578;
+  color: var(--muted);
   font-size: 12px;
   font-weight: 400;
   padding: 12px;
@@ -299,7 +299,7 @@ strong {
 }
 .global-controls label > span {
   font-size: 9px;
-  color: #94998b;
+  color: var(--muted);
 }
 .global-controls select {
   font-size: 11px;
@@ -363,7 +363,7 @@ strong {
   font-size: 9px;
   font-weight: 400;
   letter-spacing: 0;
-  color: #9b9f91;
+  color: var(--muted);
   margin-left: 5px;
 }
 .section-heading {
@@ -382,7 +382,7 @@ strong {
 }
 .section-heading .text-button {
   font-size: 10px;
-  color: #858b7a;
+  color: var(--muted);
 }
 .brand.small {
   font-size: 14px;
@@ -455,7 +455,7 @@ strong {
   align-items: center;
   justify-content: space-between;
   font-size: 11px;
-  color: #757c68;
+  color: var(--muted);
   margin: 14px 0;
 }
 .listen-area {
@@ -512,7 +512,7 @@ strong {
 }
 .note-choice > small {
   font-size: 8px;
-  color: #a3aa96;
+  color: var(--muted);
   height: 14px;
 }
 .note-choice:disabled {
@@ -753,7 +753,7 @@ strong {
   gap: 5px;
 }
 .staff-control-group > span {
-  color: #858a7d;
+  color: var(--muted);
   font-size: 9px;
   font-weight: 600;
   line-height: 1;
@@ -771,7 +771,7 @@ strong {
   margin: 0 auto 10px;
   display: flex;
   justify-content: space-between;
-  color: #7f8576;
+  color: var(--muted);
   font-size: 9px;
   font-weight: 600;
 }
@@ -840,7 +840,7 @@ strong {
   background: transparent;
   font-size: 10px;
   padding: 7px 15px;
-  color: #939a86;
+  color: var(--muted);
 }
 .segmented .selected {
   background: #fff;
@@ -887,7 +887,7 @@ strong {
   padding: 12px 10px;
   border-color: transparent;
   background: transparent;
-  color: #808776;
+  color: var(--muted);
   border-radius: 4px;
 }
 .pattern-list > button.selected {
@@ -899,7 +899,7 @@ strong {
   font-family: inherit;
   font-weight: 400;
   font-size: 15px;
-  color: #707e5a;
+  color: var(--muted);
 }
 .harmony-content {
   display: flex;
@@ -940,13 +940,13 @@ strong {
   flex-wrap: wrap;
   gap: 9px;
   font-size: 11px;
-  color: #79856a;
+  color: var(--muted);
 }
 .transposition > span:first-child {
   width: 100%;
   font-size: 7px;
   letter-spacing: 1.3px;
-  color: #97a189;
+  color: var(--muted);
 }
 .transposition > small {
   margin-left: auto;
@@ -975,7 +975,7 @@ strong {
 .tone-grid small {
   font-size: 6px;
   letter-spacing: 0.6px;
-  color: #99a287;
+  color: var(--muted);
 }
 .tone-grid strong {
   font-size: 23px;
@@ -984,7 +984,7 @@ strong {
 }
 .tone-grid span {
   font-size: 9px;
-  color: #89967a;
+  color: var(--muted);
 }
 .tone-grid > button.active {
   background: #dfe9cd;
@@ -1010,7 +1010,7 @@ strong {
   gap: 7px;
   margin-left: auto;
   font-size: 8px;
-  color: #8b957c;
+  color: var(--muted);
 }
 .tempo input {
   width: 60px;
@@ -1037,7 +1037,7 @@ strong {
 }
 .live-status {
   font-size: 9px;
-  color: #929b85;
+  color: var(--muted);
   display: flex;
   align-items: center;
   gap: 5px;
@@ -1072,7 +1072,7 @@ strong {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  color: #6f7569;
+  color: var(--muted);
   font-size: 10px;
 }
 .target-picker select {
@@ -1083,7 +1083,7 @@ strong {
 }
 .target-note small {
   font-size: 33px;
-  color: #abb59d;
+  color: var(--muted);
   margin-left: 5px;
 }
 .pitch-panel > .centered {
@@ -1107,7 +1107,7 @@ strong {
 }
 .pitch-feedback > span {
   font-size: 10px;
-  color: #919d80;
+  color: var(--muted);
 }
 .pitch-feedback.matched {
   color: #39704f;
@@ -1124,7 +1124,7 @@ strong {
   align-items: center;
   margin: 24px 15px;
   font-size: 7px;
-  color: #959d8a;
+  color: var(--muted);
   letter-spacing: 1px;
 }
 .tuning-meter > div {
@@ -1206,7 +1206,7 @@ strong {
   align-items: center;
   gap: 9px;
   font-size: 10px;
-  color: #8b967e;
+  color: var(--muted);
 }
 .week-chart > div > div {
   height: 100px;
@@ -1247,15 +1247,15 @@ strong {
 }
 .pitch-map span {
   font-size: 10px;
-  color: #879779;
+  color: var(--muted);
 }
 .pitch-map small {
   font-size: 8px;
-  color: #a6af9b;
+  color: var(--muted);
 }
 .pitch-map .unheard {
   background: #f2f4ed;
-  color: #a6ac9c;
+  color: var(--muted);
 }
 .pitch-map .familiar {
   border-color: #c6d6b6;
@@ -1281,7 +1281,7 @@ strong {
 .journey-number {
   font-family: inherit;
   font-size: 24px;
-  color: #7d8f64;
+  color: var(--muted);
 }
 .journey-list h3 {
   font-size: 13px;
@@ -1292,7 +1292,7 @@ strong {
 }
 .journey-list > div > .micro {
   margin-left: auto;
-  color: #8e9b7b;
+  color: var(--muted);
   font-size: 9px;
 }
 .toast {
@@ -2250,7 +2250,7 @@ body {
   background: var(--line);
 }
 .topbar-context > span {
-  color: #8a8e86;
+  color: var(--muted);
 }
 .current-page {
   font-size: 12px;
@@ -2306,7 +2306,7 @@ body {
 }
 .studio-intro p {
   margin-top: 9px;
-  color: #73766f;
+  color: var(--muted);
   font-size: 14px;
 }
 .studio-score {
@@ -2402,7 +2402,7 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 15px;
-  color: #777b72;
+  color: var(--muted);
   font-size: 11px;
 }
 .studio-card-heading > div {
@@ -2436,7 +2436,7 @@ body {
 }
 .studio-lesson-number small {
   margin-left: 10px;
-  color: #9a9e93;
+  color: var(--muted);
   font-family: Inter, "Segoe UI", sans-serif;
   font-size: 12px;
   letter-spacing: 0;
@@ -2448,7 +2448,7 @@ body {
 }
 .studio-lesson-title p {
   margin-top: 5px;
-  color: #757970;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.5;
 }
@@ -2487,7 +2487,7 @@ body {
 .studio-note > div > span {
   display: block;
   margin-top: 7px;
-  color: #65804d;
+  color: var(--muted);
   font-size: 10px;
 }
 .studio-note-staff {
@@ -2572,7 +2572,7 @@ body {
 .studio-preview-button small {
   max-width: 175px;
   overflow: hidden;
-  color: #8a8d85;
+  color: var(--muted);
   font-size: 10px;
   font-weight: 400;
   text-overflow: ellipsis;
@@ -2626,7 +2626,7 @@ body {
 .studio-mic-card > p {
   max-width: 370px;
   margin: 3px 0 9px;
-  color: #70756a;
+  color: var(--muted);
   font-size: 12px;
   line-height: 1.45;
 }
@@ -2691,7 +2691,7 @@ body {
   font-weight: 400;
 }
 .studio-pitch-preview > span {
-  color: #75806b;
+  color: var(--muted);
   font-size: 7px;
   white-space: nowrap;
 }
@@ -2717,7 +2717,7 @@ body {
   justify-content: space-between;
   gap: 14px;
   margin-top: auto;
-  color: #81877c;
+  color: var(--muted);
   font-size: 9px;
 }
 .studio-mic-footer > span {
@@ -2782,21 +2782,21 @@ body {
   white-space: nowrap;
 }
 .studio-metric strong small {
-  color: #777c72;
+  color: var(--muted);
   font-size: 11px;
   font-weight: 400;
 }
 .studio-metric > div > span:not(.studio-progress):not(.studio-note-progress) {
   display: block;
   margin-top: 6px;
-  color: #696e66;
+  color: var(--muted);
   font-size: 10px;
 }
 .studio-metric > div > small {
   display: block;
   margin-top: 4px;
   overflow: hidden;
-  color: #9a9d96;
+  color: var(--muted);
   font-size: 9px;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2893,7 +2893,7 @@ body {
   display: block;
   max-width: 235px;
   margin-top: 4px;
-  color: #777b73;
+  color: var(--muted);
   font-size: 10px;
   font-weight: 400;
   line-height: 1.45;
