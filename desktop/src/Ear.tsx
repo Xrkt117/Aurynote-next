@@ -270,96 +270,99 @@ export default function Ear() {
         </Tag>
       </div>
 
-      {phase === "learn" && (
-        <section className="practice-config panel" aria-label="Practice setup">
-          <div className="config-fields">
-            <Seg
-              label="Practice mode"
-              options={[
-                ["Guided lessons", !custom],
-                ["Choose my own notes", custom],
-              ]}
-              onPick={(i) => {
-                configure();
-                setCustom(i === 1);
-              }}
-            />
-            {!custom && (
-              <Stepper
-                label="Lesson"
-                prev="Previous lesson"
-                next="Next lesson"
-                text={`Lesson ${level + 1} of ${lessons.length}`}
-                note={`${lessons[level].name} · ${lessons[level].notes.length} notes`}
-                wide
-                minusOff={degree || level <= 0}
-                plusOff={degree || level >= lessons.length - 1}
-                onMinus={() => configure(level - 1)}
-                onPlus={() => configure(level + 1)}
-              />
-            )}
-            {custom && (
-              <Stepper
-                label="Number of notes"
-                prev="Fewer notes"
-                next="More notes"
-                text={`${pool.length} notes`}
-                minusOff={pool.length <= 2}
-                plusOff={pool.length >= (degree ? 7 : 12)}
-                onMinus={() => resize(pool.length - 1)}
-                onPlus={() => resize(pool.length + 1)}
-              />
-            )}
-            <Seg
-              label="Session length"
-              unit="questions"
-              options={[...new Set([5, 10, 20, 40, profile.sessionLength])]
-                .sort((a, b) => a - b)
-                .map((n): [string, boolean] => [
-                  String(n),
-                  n === profile.sessionLength,
-                ])}
-              onPick={(i, text) =>
-                setProfile((p) => ({ ...p, sessionLength: Number(text) }))
-              }
-            />
-          </div>
-          {custom && (
-            <div className="note-picker" aria-label="Choose practice notes">
-              {Array.from({ length: 12 }, (_, n) => (
-                <button
-                  key={n}
-                  aria-pressed={pool.includes(n)}
-                  disabled={
-                    (degree && !natural.includes(n)) ||
-                    (pool.length === 2 && pool.includes(n))
-                  }
-                  onClick={() => {
-                    configure();
-                    setProfile((p) => ({
-                      ...p,
-                      customNotes: pool.includes(n)
-                        ? pool.filter((v) => v !== n)
-                        : [...pool, n].sort((a, b) => a - b),
-                    }));
-                  }}
-                >
-                  {noteName(n)}
-                </button>
-              ))}
-            </div>
-          )}
-          <p className="micro muted">
-            {pool.length} notes: {pool.map(noteName).join(" · ")}. {goal}{" "}
-            questions.
-            {goal > profile.sessionLength
-              ? " The session includes every selected note at least once."
-              : ""}
-          </p>
-        </section>
-      )}
       <div className="lesson-layout">
         <section className="lesson-main panel">
+          {phase === "learn" && (
+            <section
+              className="practice-config ear-toolbar"
+              aria-label="Practice setup"
+            >
+              <div className="config-fields">
+                <Seg
+                  label="Practice mode"
+                  options={[
+                    ["Guided lessons", !custom],
+                    ["Choose my own notes", custom],
+                  ]}
+                  onPick={(i) => {
+                    configure();
+                    setCustom(i === 1);
+                  }}
+                />
+                {!custom && (
+                  <Stepper
+                    label="Lesson"
+                    prev="Previous lesson"
+                    next="Next lesson"
+                    text={`Lesson ${level + 1} of ${lessons.length}`}
+                    note={`${lessons[level].name} · ${lessons[level].notes.length} notes`}
+                    wide
+                    minusOff={degree || level <= 0}
+                    plusOff={degree || level >= lessons.length - 1}
+                    onMinus={() => configure(level - 1)}
+                    onPlus={() => configure(level + 1)}
+                  />
+                )}
+                {custom && (
+                  <Stepper
+                    label="Number of notes"
+                    prev="Fewer notes"
+                    next="More notes"
+                    text={`${pool.length} notes`}
+                    minusOff={pool.length <= 2}
+                    plusOff={pool.length >= (degree ? 7 : 12)}
+                    onMinus={() => resize(pool.length - 1)}
+                    onPlus={() => resize(pool.length + 1)}
+                  />
+                )}
+                <Seg
+                  label="Session length"
+                  unit="questions"
+                  options={[...new Set([5, 10, 20, 40, profile.sessionLength])]
+                    .sort((a, b) => a - b)
+                    .map((n): [string, boolean] => [
+                      String(n),
+                      n === profile.sessionLength,
+                    ])}
+                  onPick={(i, text) =>
+                    setProfile((p) => ({ ...p, sessionLength: Number(text) }))
+                  }
+                />
+              </div>
+              {custom && (
+                <div className="note-picker" aria-label="Choose practice notes">
+                  {Array.from({ length: 12 }, (_, n) => (
+                    <button
+                      key={n}
+                      aria-pressed={pool.includes(n)}
+                      disabled={
+                        (degree && !natural.includes(n)) ||
+                        (pool.length === 2 && pool.includes(n))
+                      }
+                      onClick={() => {
+                        configure();
+                        setProfile((p) => ({
+                          ...p,
+                          customNotes: pool.includes(n)
+                            ? pool.filter((v) => v !== n)
+                            : [...pool, n].sort((a, b) => a - b),
+                        }));
+                      }}
+                    >
+                      {noteName(n)}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <p className="micro muted">
+                {pool.length} notes: {pool.map(noteName).join(" · ")}. {goal}{" "}
+                questions.
+                {goal > profile.sessionLength
+                  ? " The session includes every selected note at least once."
+                  : ""}
+              </p>
+            </section>
+          )}
           <div className="panel-top">
             <span className="eyebrow">
               {phase === "learn"

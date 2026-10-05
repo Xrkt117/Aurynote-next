@@ -435,7 +435,8 @@ strong {
   gap: 22px;
 }
 .lesson-main {
-  padding: 23px;
+  --pad: 23px;
+  padding: var(--pad);
 }
 .lesson-aside {
   display: flex;
@@ -1379,6 +1380,9 @@ strong {
     grid-template-columns: minmax(0, 1fr) 190px;
     gap: 16px;
   }
+  .lesson-main {
+    --pad: 19px;
+  }
   .lesson-main,
   .pitch-panel {
     padding: 19px;
@@ -1896,8 +1900,11 @@ select {
 }
 
 .practice-config {
-  padding: 20px 24px;
-  margin-bottom: 22px;
+  margin: calc(var(--pad) * -1) calc(var(--pad) * -1) 22px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--line);
+  border-radius: 8px 8px 0 0;
+  background: #fcfcf9;
 }
 .config-fields {
   display: flex;
