@@ -158,7 +158,7 @@ export default function StudioDashboard() {
     },
     {
       icon: ScanLine,
-      title: "Read the staff",
+      title: "Staff reading",
       copy: "Identify written notes and connect what you see with what you hear.",
       page: "staff",
       art: "staff",
