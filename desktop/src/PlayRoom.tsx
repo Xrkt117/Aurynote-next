@@ -160,7 +160,10 @@ export default function PlayRoom() {
         <div>
           <span className="eyebrow">Microphone practice</span>
           <h1>Pitch matching</h1>
-          <p>Listen to the target, then play or sing one steady note.</p>
+          <p>
+            Microphone pitch matching: listen to the target, then play or sing
+            one steady note.
+          </p>
         </div>
         <Tag>Live pitch feedback</Tag>
       </div>

@@ -165,7 +165,7 @@ export default function StudioDashboard() {
     },
     {
       icon: Music2,
-      title: "Explore harmony",
+      title: "Scales & chords",
       copy: "Explore scales, hear chords, and build a song’s chord-change chart.",
       page: "explore",
       art: "harmony",
@@ -173,7 +173,7 @@ export default function StudioDashboard() {
     {
       icon: BarChart3,
       title: "Play it back",
-      copy: "Match a pitch on your instrument with private, live feedback.",
+      copy: "Match a pitch on your instrument using the microphone.",
       page: "play",
       art: "bars",
     },

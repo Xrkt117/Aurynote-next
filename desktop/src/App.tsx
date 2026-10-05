@@ -139,12 +139,10 @@ export default function App() {
               <strong className="current-page">
                 {navigation.find((n) => n.id === page)?.name}
               </strong>
-              <i />
-              <span>Practice</span>
             </div>
             <div className="global-controls" data-tour="setup">
               <label className="key-select">
-                <span>Instrument</span>
+                <span>Instrument key</span>
                 <Music2 size={16} aria-hidden="true" />
                 <select
                   aria-label="Instrument key"
