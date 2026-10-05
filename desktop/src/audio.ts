@@ -119,3 +119,11 @@ export function detectPitch(
   }
   return null;
 }
+
+// Cents between a detected pitch and the sounding target MIDI note.
+export function centsFromTarget(
+  pitch: { midi: number; cents: number },
+  target: number,
+) {
+  return (pitch.midi - target) * 100 + pitch.cents;
+}

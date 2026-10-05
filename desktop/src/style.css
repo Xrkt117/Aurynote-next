@@ -1409,6 +1409,10 @@ strong {
   background: #eef7ef;
   border-color: #cfe2d2;
 }
+.tuning-hint {
+  font-size: 12px;
+  color: #596d45;
+}
 .tuning-meter {
   display: flex;
   gap: 12px;

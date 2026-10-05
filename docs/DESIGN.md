@@ -170,6 +170,8 @@ Model and persistence validation live in [progression.ts](../desktop/src/progres
 
 **Matching rule:** the detected MIDI note must equal the sounding target and remain within 35 cents for over 650 milliseconds. The target respects the selected instrument and notation. Matching is single-note pitch detection, not chord recognition or instrument identification.
 
+**Tuning feedback:** the readout, meter, and hint all measure the detected pitch against the sounding target, not against the nearest note. Within a semitone the readout shows the signed cents from the target (for example “Hearing B3 · -60 cents from C4”) and the needle moves across a ±48-cent scale (clamped). The hint says Right on inside the same 35-cent window the matching rule uses, Too low or Too high up to a semitone away, and only Higher or Lower beyond that, so a wrong but in-tune note is never shown as centered. With no detected input the needle is hidden and no hint appears. The meter is decorative for assistive technology; the readout and hint carry the same information as text in the status region.
+
 **Implementation:** PlayRoom.tsx uses `getUserMedia`, an analyser with 4096-sample frames, and `detectPitch` in audio.ts. The detector rejects quiet/ambiguous frames and searches approximately 65–1400 Hz. Electron's permission handler allows microphone requests only from the app. Audio is not recorded or uploaded.
 
 ## Your progress and storage
@@ -266,3 +268,4 @@ In the working checkout, `origin` points to Aurynote-next and is the default pus
 | Song charts | Added ordered, editable chord changes with instrument-aware note charts, sequential playback, local persistence, and full PNG export. |
 | Separate practice data | Isolated continued-development progress from the submitted site, including when both share a GitHub Pages origin. |
 | Continued development | Created an independent repository and Pages site on main, preserving the submitted repository, deployment, and local practice data. |
+| Target-relative tuning | Pitch-matching meter, readout, and hint now measure distance from the target note; silence hides the needle. |

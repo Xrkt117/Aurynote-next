@@ -2,7 +2,7 @@ import { writtenOffset } from "./tuning";
 import { useEffect, useRef, useState } from "react";
 import { Mic, MicOff, Volume2, Check, ShieldCheck } from "lucide-react";
 import { useStudio } from "./context";
-import { detectPitch, voice } from "./audio";
+import { centsFromTarget, detectPitch, voice } from "./audio";
 import { sounding, octaveName, noteName, frequency } from "./music";
 import { record } from "./store";
 import { Piano, Tag } from "./components";
@@ -140,6 +140,20 @@ export default function PlayRoom() {
   const displayHeard = heard
     ? heard.midi + writtenOffset(profile.tuning, profile.written)
     : null;
+  // Same 35-cent window as the match rule; beyond a semitone, only give direction.
+  const offset = heard ? Math.round(centsFromTarget(heard, sound)) : null;
+  const hint =
+    offset === null
+      ? ""
+      : Math.abs(offset) < 35
+        ? "Right on"
+        : offset < -100
+          ? "Higher"
+          : offset > 100
+            ? "Lower"
+            : offset < 0
+              ? "Too low"
+              : "Too high";
   return (
     <div className="page">
       <div className="page-heading">
@@ -225,10 +239,11 @@ export default function PlayRoom() {
             ) : (
               <>
                 <strong>
-                  {heard
-                    ? `Hearing ${octaveName(displayHeard!)} · ${heard.cents > 0 ? "+" : ""}${heard.cents.toFixed(0)} cents`
-                    : "Your sound will appear here"}
+                  {offset === null
+                    ? "Your sound will appear here"
+                    : `Hearing ${octaveName(displayHeard!)}${Math.abs(offset) <= 100 ? ` · ${offset > 0 ? "+" : ""}${offset} cents from ${octaveName(target)}` : ""}`}
                 </strong>
+                {hint && <b className="tuning-hint">{hint}</b>}
                 <span>
                   {listening
                     ? "Play one note and hold it gently."
@@ -237,14 +252,16 @@ export default function PlayRoom() {
               </>
             )}
           </div>
-          <div className="tuning-meter">
+          <div className="tuning-meter" aria-hidden="true">
             <span>FLAT</span>
             <div>
-              <i
-                style={{
-                  left: `${50 + Math.max(-48, Math.min(48, heard?.cents || 0))}%`,
-                }}
-              />
+              {offset !== null && (
+                <i
+                  style={{
+                    left: `${50 + Math.max(-48, Math.min(48, offset))}%`,
+                  }}
+                />
+              )}
               <b />
             </div>
             <span>SHARP</span>
