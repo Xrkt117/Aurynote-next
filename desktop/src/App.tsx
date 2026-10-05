@@ -122,9 +122,7 @@ export default function App() {
           <div className="sidebar-bottom">
             <div className="daily-note">
               <p>
-                A more musical you,
-                <br />
-                one day at a time.
+                A more musical you, one day at a time.
               </p>
               <span aria-hidden="true" className="daily-note-sprig">
                 ⌁

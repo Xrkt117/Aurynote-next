@@ -2201,9 +2201,9 @@ body {
 }
 .daily-note {
   position: relative;
-  min-height: 176px;
+  min-height: 150px;
   margin: 0 10px 14px;
-  padding: 54px 12px 18px;
+  padding: 44px 14px 16px;
   overflow: hidden;
   border: 0;
   border-radius: 18px;
@@ -2214,10 +2214,11 @@ body {
 }
 .daily-note p {
   position: relative;
+  text-wrap: balance;
   z-index: 1;
   margin: 0;
   color: #565a50;
-  font-size: 17px;
+  font-size: 15px;
   font-style: normal;
   line-height: 1.38;
 }
@@ -2854,7 +2855,7 @@ body {
 .studio-exercise-card {
   position: relative;
   display: block;
-  min-height: 151px;
+  min-height: 172px;
   overflow: hidden;
   padding: 17px 24px;
   border-radius: 8px;
@@ -2901,7 +2902,7 @@ body {
 .studio-card-art {
   position: absolute;
   right: -4px;
-  bottom: -18px;
+  bottom: -38px;
   width: 55%;
   height: 65px;
   opacity: 0.48;
@@ -2912,6 +2913,8 @@ body {
   transform: rotate(-4deg);
 }
 .studio-card-art.staff {
+  bottom: 0;
+  height: 36px;
   background: repeating-linear-gradient(
     to bottom,
     #a5aa9f 0 1px,
@@ -2921,16 +2924,16 @@ body {
 }
 .studio-card-art.harmony {
   right: 3px;
-  bottom: -25px;
-  width: 120px;
-  height: 120px;
+  bottom: -62px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: #aab49b;
   box-shadow: -42px 15px 0 #d0d5c7;
 }
 .studio-card-art.bars {
   bottom: 0;
-  height: 58px;
+  height: 36px;
   background: repeating-linear-gradient(
     to right,
     #98a787 0 2px,
