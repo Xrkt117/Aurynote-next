@@ -3630,17 +3630,16 @@ body {
   grid-template-columns: minmax(0, 1fr) auto 14px;
   align-items: center;
   gap: 10px;
-  height: 40px;
-  padding: 0 12px;
+  min-height: 40px;
+  padding: 3px 12px;
   text-align: left;
   font-size: 12px;
   font-weight: 600;
   font-style: normal;
 }
 .lesson-list button span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 .lesson-list button small {
   font-size: 11px;
@@ -3674,6 +3673,7 @@ body {
 }
 .ear-stepper {
   align-self: start;
+  width: fit-content;
   align-items: center;
 }
 .ear-stepper span {
