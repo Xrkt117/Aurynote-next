@@ -331,27 +331,19 @@ export default function Ear() {
                 </select>
               </label>
             )}
-            <label>
-              Session length
-              <select
-                aria-label="Session length"
-                value={profile.sessionLength}
-                onChange={(e) =>
-                  setProfile((p) => ({
-                    ...p,
-                    sessionLength: Number(e.target.value),
-                  }))
-                }
-              >
-                {[...new Set([5, 10, 15, 20, 30, 40, profile.sessionLength])]
-                  .sort((a, b) => a - b)
-                  .map((n) => (
-                    <option key={n} value={n}>
-                      {n} questions
-                    </option>
-                  ))}
-              </select>
-            </label>
+            <Seg
+              label="Session length"
+              unit="questions"
+              options={[...new Set([5, 10, 20, 40, profile.sessionLength])]
+                .sort((a, b) => a - b)
+                .map((n): [string, boolean] => [
+                  String(n),
+                  n === profile.sessionLength,
+                ])}
+              onPick={(i, text) =>
+                setProfile((p) => ({ ...p, sessionLength: Number(text) }))
+              }
+            />
           </div>
           {custom && (
             <div className="note-picker" aria-label="Choose practice notes">
@@ -544,9 +536,7 @@ export default function Ear() {
                 ["On", profile.reference],
                 ["Off", !profile.reference],
               ]}
-              onPick={(i) =>
-                setProfile((p) => ({ ...p, reference: i === 0 }))
-              }
+              onPick={(i) => setProfile((p) => ({ ...p, reference: i === 0 }))}
             />
             <Seg
               label="Scale-degree mode"
@@ -579,28 +569,33 @@ function Seg({
   onPick,
   row,
   disabled,
+  unit,
 }: {
   label: string;
   options: [string, boolean][];
-  onPick: (i: number) => void;
+  onPick: (i: number, text: string) => void;
+  unit?: string;
   row?: boolean;
   disabled?: boolean;
 }) {
   return (
     <div className={`staff-control-group ear-seg${row ? " ear-seg-row" : ""}`}>
       <span>{label}</span>
-      <div className="segmented" role="group" aria-label={label}>
-        {options.map(([text, on], i) => (
-          <button
-            key={text}
-            aria-pressed={on}
-            disabled={disabled}
-            className={on ? "selected" : ""}
-            onClick={() => onPick(i)}
-          >
-            {text}
-          </button>
-        ))}
+      <div className="ear-seg-line">
+        <div className="segmented" role="group" aria-label={label}>
+          {options.map(([text, on], i) => (
+            <button
+              key={text}
+              aria-pressed={on}
+              disabled={disabled}
+              className={on ? "selected" : ""}
+              onClick={() => onPick(i, text)}
+            >
+              {text}
+            </button>
+          ))}
+        </div>
+        {unit && <small>{unit}</small>}
       </div>
     </div>
   );

@@ -7,7 +7,10 @@ test("finishing a guided session offers and opens the next note pool", async ({
   });
   await page.goto("/");
   await page.getByRole("button", { name: "Start first lesson" }).click();
-  await page.getByLabel("Session length", { exact: true }).selectOption("5");
+  await page
+    .getByRole("group", { name: "Session length", exact: true })
+    .getByRole("button", { name: "5", exact: true })
+    .click();
   await page
     .getByRole("group", { name: "Reference C", exact: true })
     .getByRole("button", { name: "Off", exact: true })
@@ -29,9 +32,10 @@ test("finishing a guided session offers and opens the next note pool", async ({
     page.getByRole("heading", { name: "Hear the major third", exact: true }),
   ).toBeVisible();
   await expect(page.locator(".answer-grid .note-choice")).toHaveCount(3);
-  await expect(
-    page.getByRole("radio", { name: /^2\. / }),
-  ).toHaveAttribute("aria-checked", "true");
+  await expect(page.getByRole("radio", { name: /^2\. / })).toHaveAttribute(
+    "aria-checked",
+    "true",
+  );
   await page
     .getByRole("navigation", { name: "Main navigation" })
     .getByRole("button", { name: "Your progress", exact: true })
@@ -40,9 +44,10 @@ test("finishing a guided session offers and opens the next note pool", async ({
     page.locator(".achievement.earned").filter({ hasText: "First session" }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Ear training", exact: true }).click();
-  await expect(
-    page.getByRole("radio", { name: /^2\. / }),
-  ).toHaveAttribute("aria-checked", "true");
+  await expect(page.getByRole("radio", { name: /^2\. / })).toHaveAttribute(
+    "aria-checked",
+    "true",
+  );
 });
 test("custom notes, session settings, and new sounds persist", async ({
   page,
@@ -55,7 +60,23 @@ test("custom notes, session settings, and new sounds persist", async ({
     .click();
   await page.getByLabel("Number of notes", { exact: true }).selectOption("4");
   await expect(page.locator(".answer-grid .note-choice")).toHaveCount(4);
-  await page.getByLabel("Session length", { exact: true }).selectOption("15");
+  await page.evaluate(() => {
+    const k = "aurynote.next.v1";
+    const p = JSON.parse(localStorage.getItem(k)!);
+    p.sessionLength = 15;
+    localStorage.setItem(k, JSON.stringify(p));
+  });
+  await page.reload();
+  await page.getByRole("button", { name: "Ear training", exact: true }).click();
+  await page
+    .getByRole("group", { name: "Practice mode", exact: true })
+    .getByRole("button", { name: "Choose my own notes" })
+    .click();
+  await expect(
+    page
+      .getByRole("group", { name: "Session length", exact: true })
+      .getByRole("button", { name: "15", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
   await page.screenshot({
     path: "artifacts/custom-practice.png",
     fullPage: true,
@@ -86,14 +107,18 @@ test("custom notes, session settings, and new sounds persist", async ({
   await expect(page.getByLabel("Number of notes", { exact: true })).toHaveValue(
     "4",
   );
-  await expect(page.getByLabel("Session length", { exact: true })).toHaveValue(
-    "15",
-  );
+  await expect(
+    page
+      .getByRole("group", { name: "Session length", exact: true })
+      .getByRole("button", { name: "15", exact: true }),
+  ).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("button", { name: "Settings", exact: true }).click();
   await expect(page.getByLabel("Playback sound")).toHaveValue("clarinet");
 });
 
-test("empty progress page shows its message above the calendar", async ({ page }) => {
+test("empty progress page shows its message above the calendar", async ({
+  page,
+}) => {
   await page.goto("/");
   await page
     .getByRole("navigation", { name: "Main navigation" })

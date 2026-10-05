@@ -3662,3 +3662,13 @@ body {
 .lesson-list button.selected:disabled {
   opacity: 1;
 }
+.ear-seg-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ear-seg-line small {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+}
