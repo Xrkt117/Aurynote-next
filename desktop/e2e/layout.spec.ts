@@ -28,3 +28,16 @@ for (const width of [320, 880, 1320]) {
     expect(errors).toEqual([]);
   });
 }
+
+test("top bar stays at the top while the page scrolls", async ({ page }) => {
+  await page.setViewportSize({ width: 1320, height: 500 });
+  await page.goto("/");
+  await page
+    .getByRole("navigation", { name: "Main navigation" })
+    .getByRole("button", { name: "Your progress", exact: true })
+    .click();
+  await page.evaluate(() => window.scrollTo(0, 600));
+  expect(await page.evaluate(() => scrollY)).toBeGreaterThan(0);
+  const box = await page.locator(".topbar").boundingBox();
+  expect(box?.y).toBe(0);
+});
