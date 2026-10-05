@@ -280,3 +280,4 @@ In the working checkout, `origin` points to Aurynote-next and is the default pus
 | Ear setup toggles | Ear training practice mode, Reference C and Scale-degree mode use the same pill toggles as Staff reading instead of a dropdown and checkboxes; lesson, note count and session length stay selects. |
 | Ear setup controls | Ear training Lesson became a radio list, Session length a pill toggle (older saved values such as 15 stay as an extra segment), and Number of notes a −/+ stepper; the three setup dropdowns are gone. |
 | Ear lesson stepper | The Ear training Lesson radio list became a Previous / Next stepper like Number of notes, with the lesson name and note count as text under it, so the setup card is compact again (three columns on wide screens). |
+| Ear setup row | The Ear training setup controls sit left to right at their natural width and wrap only when the card is too narrow, instead of stretching into equal columns with empty space. |
