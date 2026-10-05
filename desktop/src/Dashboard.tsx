@@ -54,7 +54,7 @@ export default function Dashboard() {
           <div className="hero-bottom">
             <button className="primary" onClick={() => go("ear")}>
               {profile.attempts.length
-                ? "Continue lesson"
+                ? "Start next lesson"
                 : "Start first lesson"}{" "}
               <ArrowRight size={17} />
             </button>

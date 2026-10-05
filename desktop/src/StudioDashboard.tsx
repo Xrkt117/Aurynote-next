@@ -267,13 +267,13 @@ export default function StudioDashboard() {
               className="primary"
               aria-label={
                 profile.attempts.length
-                  ? "Continue lesson"
+                  ? "Start next lesson"
                   : "Start first lesson"
               }
               onClick={() => go("ear")}
             >
               {profile.attempts.length
-                ? "Continue lesson"
+                ? "Start next lesson"
                 : "Start first lesson"}
               <ArrowRight size={17} />
             </button>
