@@ -3599,3 +3599,23 @@ body {
   display: grid;
   place-items: center;
 }
+
+/* The top bar stays pinned while the window scrolls; below the toast and dialogs. */
+html {
+  scroll-padding-top: 64px;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--canvas);
+  backdrop-filter: none;
+}
+@media (max-width: 650px) {
+  html {
+    scroll-padding-top: 0;
+  }
+  .topbar {
+    position: static;
+  }
+}
