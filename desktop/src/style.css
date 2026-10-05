@@ -2265,9 +2265,8 @@ body {
 }
 .daily-note {
   position: relative;
-  min-height: 150px;
-  margin: 0 10px 14px;
-  padding: 44px 14px 16px;
+  margin: 0 0 12px;
+  padding: 22px 18px 18px;
   overflow: hidden;
   border: 0;
   border-radius: 18px;
@@ -2281,6 +2280,7 @@ body {
   text-wrap: balance;
   z-index: 1;
   margin: 0;
+  padding-right: 26px;
   color: #565a50;
   font-size: 15px;
   font-style: normal;
@@ -2288,14 +2288,15 @@ body {
 }
 .daily-note-sprig {
   display: block;
-  margin-top: 14px;
+  margin-top: 10px;
   color: #9da391 !important;
   font-size: 25px !important;
   line-height: 1;
 }
 .sidebar-bottom > .micro {
-  margin: 0 12px;
-  font-size: 9px;
+  margin: 0 4px;
+  font-size: 12px;
+  line-height: 1.4;
 }
 .topbar {
   height: 64px;
@@ -2349,12 +2350,18 @@ body {
   width: 100%;
   max-width: none;
   min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   padding: clamp(35px, 3vw, 52px) clamp(36px, 4vw, 72px) 44px;
+}
+.page.dashboard > .tour-invite {
+  margin: 0;
 }
 .studio-intro {
   position: relative;
   display: flex;
-  min-height: 125px;
+  min-height: 112px;
   align-items: flex-start;
   justify-content: space-between;
   overflow: hidden;
@@ -2441,8 +2448,12 @@ body {
 }
 .studio-lesson-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
   overflow: hidden;
-  padding: 22px 26px 20px;
+  padding: 24px 28px;
 }
 .studio-lesson-card::after {
   content: "";
@@ -2468,7 +2479,7 @@ body {
   justify-content: space-between;
   gap: 15px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 .studio-card-heading > div {
   display: flex;
@@ -2481,7 +2492,7 @@ body {
   border-radius: 20px;
   background: #edf0e6;
   color: #283022;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 700;
 }
 .studio-lesson-title {
@@ -2491,19 +2502,21 @@ body {
   grid-template-columns: 126px 1fr;
   align-items: center;
   gap: 16px;
-  margin: 15px 0 16px;
+  margin: 0;
 }
 .studio-lesson-number {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
   color: #3d4737;
   font-size: 57px;
   letter-spacing: -2px;
   line-height: 1;
 }
 .studio-lesson-number small {
-  margin-left: 10px;
   color: var(--muted);
   font-family: Inter, "Segoe UI", sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0;
 }
 .studio-lesson-title h2 {
@@ -2514,7 +2527,7 @@ body {
 .studio-lesson-title p {
   margin-top: 5px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.5;
 }
 .studio-lesson-notes {
@@ -2553,7 +2566,7 @@ body {
   display: block;
   margin-top: 7px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .studio-note-staff {
   width: 100%;
@@ -2606,7 +2619,6 @@ body {
   display: flex;
   align-items: center;
   gap: 24px;
-  margin-top: 17px;
 }
 .studio-lesson-actions .primary {
   min-width: 180px;
@@ -2638,7 +2650,7 @@ body {
   max-width: 175px;
   overflow: hidden;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -2653,7 +2665,7 @@ body {
   overflow: hidden;
   flex-direction: column;
   align-items: flex-start;
-  padding: 22px 28px 18px;
+  padding: 24px 28px;
   background:
     radial-gradient(circle at 90% 8%, #f7f5ed 0 70px, transparent 71px),
     linear-gradient(135deg, #f7f8f1, #f1f4e9);
@@ -2690,9 +2702,9 @@ body {
 }
 .studio-mic-card > p {
   max-width: 370px;
-  margin: 3px 0 9px;
+  margin: 3px 0 12px;
   color: var(--muted);
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.45;
 }
 .studio-mic-card > button {
@@ -2707,8 +2719,8 @@ body {
   width: 100%;
   min-height: 91px;
   align-items: center;
-  margin-top: 7px;
-  padding-right: 89px;
+  margin-top: 12px;
+  padding-right: 136px;
 }
 .studio-wave-bars {
   display: flex;
@@ -2742,7 +2754,7 @@ body {
   position: absolute;
   right: 0;
   display: grid;
-  width: 77px;
+  width: 112px;
   min-height: 83px;
   place-items: center;
   padding: 9px;
@@ -2757,7 +2769,7 @@ body {
 }
 .studio-pitch-preview > span {
   color: var(--muted);
-  font-size: 7px;
+  font-size: 10px;
   white-space: nowrap;
 }
 .studio-pitch-preview > i {
@@ -2782,8 +2794,9 @@ body {
   justify-content: space-between;
   gap: 14px;
   margin-top: auto;
+  padding-top: 12px;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 12px;
 }
 .studio-mic-footer > span {
   display: flex;
@@ -2797,19 +2810,18 @@ body {
   background: #789b5b;
 }
 .studio-mic-footer .text-button {
-  font-size: 10px;
+  font-size: 12px;
 }
 .studio-stats {
   position: relative;
-  margin-top: 16px;
-  padding: 36px 20px 18px;
+  padding: 40px 20px 20px;
   border-radius: 9px;
 }
 .studio-stats-label {
   position: absolute;
   left: 20px;
-  top: 14px;
-  font-size: 10px;
+  top: 16px;
+  font-size: 12px;
   font-weight: 600;
 }
 .studio-metrics {
@@ -2820,7 +2832,7 @@ body {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr);
   gap: 11px;
-  min-height: 66px;
+  min-height: 78px;
   align-items: start;
   padding: 0 18px;
   border-right: 1px solid #e1e2dc;
@@ -2855,16 +2867,15 @@ body {
   display: block;
   margin-top: 6px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 .studio-metric > div > small {
   display: block;
   margin-top: 4px;
   overflow: hidden;
   color: var(--muted);
-  font-size: 9px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 12px;
+  line-height: 1.3;
 }
 .studio-progress {
   display: block;
@@ -2895,14 +2906,17 @@ body {
   background: #82996b;
 }
 .studio-exercises {
-  margin-top: 18px;
+  margin: 0;
 }
 .studio-section-heading {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: 20px;
-  margin-bottom: 9px;
+  margin-bottom: 12px;
+}
+.page.dashboard .eyebrow {
+  font-size: 12px;
 }
 .studio-section-heading .eyebrow {
   margin-bottom: 4px;
@@ -2921,7 +2935,7 @@ body {
   display: block;
   min-height: 172px;
   overflow: hidden;
-  padding: 17px 24px;
+  padding: 20px 24px;
   border-radius: 8px;
   text-align: left;
 }
@@ -2959,7 +2973,7 @@ body {
   max-width: 235px;
   margin-top: 4px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 1.45;
 }
@@ -3165,10 +3179,13 @@ body {
     width: 100%;
   }
   .studio-wave-preview {
-    padding-right: 75px;
+    padding-right: 112px;
   }
   .studio-pitch-preview {
-    width: 69px;
+    width: 98px;
+  }
+  .studio-pitch-preview > span {
+    font-size: 9px;
   }
   .studio-mic-footer > span {
     max-width: 150px;
