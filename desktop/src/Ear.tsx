@@ -253,20 +253,17 @@ export default function Ear() {
       {phase === "learn" && (
         <section className="practice-config panel" aria-label="Practice setup">
           <div className="config-fields">
-            <label>
-              Practice mode
-              <select
-                aria-label="Practice mode"
-                value={custom ? "custom" : "guided"}
-                onChange={(e) => {
-                  configure();
-                  setCustom(e.target.value === "custom");
-                }}
-              >
-                <option value="guided">Guided lessons</option>
-                <option value="custom">Choose my own notes</option>
-              </select>
-            </label>
+            <Seg
+              label="Practice mode"
+              options={[
+                ["Guided lessons", !custom],
+                ["Choose my own notes", custom],
+              ]}
+              onPick={(i) => {
+                configure();
+                setCustom(i === 1);
+              }}
+            />
             {!custom && (
               <label>
                 Lesson
@@ -515,36 +512,71 @@ export default function Ear() {
         <aside className="lesson-aside">
           <div className="settings-card">
             <span className="eyebrow">Options</span>
-            <label className="toggle-row">
-              Reference C
-              <input
-                type="checkbox"
-                checked={profile.reference}
-                disabled={phase !== "learn" || degree}
-                onChange={(e) =>
-                  setProfile((p) => ({ ...p, reference: e.target.checked }))
-                }
-              />
-            </label>
-            <label className="toggle-row">
-              Scale-degree mode
-              <input
-                type="checkbox"
-                checked={degree}
-                disabled={phase !== "learn"}
-                onChange={(e) => {
-                  configure();
-                  setDegree(e.target.checked);
-                  setActive([]);
-                }}
-              />
-            </label>
+            <Seg
+              label="Reference C"
+              row
+              disabled={phase !== "learn" || degree}
+              options={[
+                ["On", profile.reference],
+                ["Off", !profile.reference],
+              ]}
+              onPick={(i) =>
+                setProfile((p) => ({ ...p, reference: i === 0 }))
+              }
+            />
+            <Seg
+              label="Scale-degree mode"
+              row
+              disabled={phase !== "learn"}
+              options={[
+                ["On", degree],
+                ["Off", !degree],
+              ]}
+              onPick={(i) => {
+                configure();
+                setDegree(i === 0);
+                setActive([]);
+              }}
+            />
             <p className="micro muted">
               Choose your instrument key above. Sound and notation are in
               Settings.
             </p>
           </div>
         </aside>
+      </div>
+    </div>
+  );
+}
+
+function Seg({
+  label,
+  options,
+  onPick,
+  row,
+  disabled,
+}: {
+  label: string;
+  options: [string, boolean][];
+  onPick: (i: number) => void;
+  row?: boolean;
+  disabled?: boolean;
+}) {
+  return (
+    <div className={`staff-control-group ear-seg${row ? " ear-seg-row" : ""}`}>
+      <span>{label}</span>
+      <div className="segmented" role="group" aria-label={label}>
+        {options.map(([text, on], i) => (
+          <button
+            key={text}
+            aria-pressed={on}
+            disabled={disabled}
+            className={on ? "selected" : ""}
+            onClick={() => onPick(i)}
+          >
+            {text}
+          </button>
+        ))}
       </div>
     </div>
   );

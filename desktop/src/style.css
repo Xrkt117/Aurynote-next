@@ -1915,6 +1915,33 @@ select {
 .config-fields select {
   width: 100%;
 }
+.ear-seg {
+  flex: 1;
+  min-width: 150px;
+}
+.ear-seg > span {
+  font-size: 12px;
+  font-weight: 650;
+  color: inherit;
+  line-height: 1.2;
+}
+.ear-seg .segmented {
+  align-self: start;
+  flex-wrap: wrap;
+}
+.ear-seg-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 14px 0;
+  flex: none;
+}
+.ear-seg-row > span {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+}
 .note-picker {
   display: flex;
   flex-wrap: wrap;
