@@ -39,20 +39,20 @@ export default function ProgressionChart({
           })
           .join(". ")}
       </desc>
-      <rect width="1000" height={height} fill="#f8f8f5" />
-      <text x="32" y="42" fill="#60645d" fontSize="12" letterSpacing="2">
+      <rect width="1000" height={height} fill="#0b0c0e" />
+      <text x="32" y="42" fill="#b4b9c0" fontSize="12" letterSpacing="2">
         AURYNOTE / CHORD CHANGES
       </text>
       <text
         x="32"
         y="80"
-        fill="#252622"
+        fill="#e8e9eb"
         fontSize={Math.min(28, 920 / (title.length * 0.96))}
         fontWeight="600"
       >
         {title}
       </text>
-      <text x="32" y="108" fill="#60645d" fontSize="14">
+      <text x="32" y="108" fill="#b4b9c0" fontSize="14">
         {written
           ? `Written notes · ${tuningInfo(tuning).examples}`
           : "Concert notes"}{" "}
@@ -74,39 +74,39 @@ export default function ProgressionChart({
               width="222"
               height="270"
               rx="6"
-              fill={active === i ? "#eaf0e0" : "#fff"}
-              stroke={active === i ? "#596b46" : "#d1d4ca"}
+              fill={active === i ? "#2a2412" : "#121316"}
+              stroke={active === i ? "#ffc857" : "#2a2d33"}
             />
-            <text x="18" y="27" fill="#60645d" fontSize="12">
+            <text x="18" y="27" fill="#b4b9c0" fontSize="12">
               CHANGE {String(i + 1).padStart(2, "0")}
             </text>
-            <text x="18" y="66" fill="#252622" fontSize="32" fontWeight="600">
+            <text x="18" y="66" fill="#e8e9eb" fontSize="32" fontWeight="600">
               {symbol}
             </text>
-            <text x="18" y="91" fill="#60645d" fontSize="12">
+            <text x="18" y="91" fill="#b4b9c0" fontSize="12">
               Concert {noteName(change.root)}
               {pattern.symbol}
             </text>
-            <line x1="18" x2="204" y1="108" y2="108" stroke="#d1d4ca" />
+            <line x1="18" x2="204" y1="108" y2="108" stroke="#2a2d33" />
             {tones.map((tone, j) => (
               <g key={j}>
                 <text
                   x="18"
                   y={134 + j * 23}
-                  fill="#252622"
+                  fill="#e8e9eb"
                   fontSize="19"
                   fontWeight={j === 0 ? "600" : "400"}
                 >
                   {tone.name}
                 </text>
-                <text x="90" y={134 + j * 23} fill="#60645d" fontSize="12">
+                <text x="90" y={134 + j * 23} fill="#b4b9c0" fontSize="12">
                   {tone.degree === "1" ? "Root" : `Degree ${tone.degree}`}
                 </text>
                 <text
                   x="204"
                   y={134 + j * 23}
                   textAnchor="end"
-                  fill="#60645d"
+                  fill="#b4b9c0"
                   fontSize="12"
                 >
                   {Math.floor(tone.midi / 12) - 1}
@@ -116,7 +116,7 @@ export default function ProgressionChart({
           </g>
         );
       })}
-      <text x="32" y={height - 13} fill="#60645d" fontSize="12">
+      <text x="32" y={height - 13} fill="#b4b9c0" fontSize="12">
         Read left to right. Right-hand numbers show note octaves. Each change
         uses a root-position voicing.
       </text>

@@ -92,8 +92,8 @@ export default function ChordProgression() {
     try {
       const svg = chart.current.cloneNode(true) as SVGSVGElement;
       svg.querySelectorAll("[data-chart-cell]").forEach((cell) => {
-        cell.setAttribute("fill", "#fff");
-        cell.setAttribute("stroke", "#d1d4ca");
+        cell.setAttribute("fill", "#121316");
+        cell.setAttribute("stroke", "#2a2d33");
       });
       const image = new Image();
       image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(svg))}`;
