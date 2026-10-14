@@ -349,19 +349,19 @@ strong {
 .round-icon {
   width: 43px;
   height: 43px;
-  background: #e4e8d9;
-  border: 1px solid #dbe1ce;
+  background: var(--panel-2);
+  border: 1px solid var(--rule);
   border-radius: 50%;
   display: grid;
   place-items: center;
-  color: #65754d;
+  color: var(--accent);
   margin-bottom: 20px;
 }
 .stats-row {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   border: 1px solid var(--line);
-  background: #fbfcf8;
+  background: var(--bg);
   border-radius: 7px;
   margin: 23px 0 32px;
   padding: 20px 0;
@@ -443,7 +443,7 @@ strong {
   margin-top: 8px;
 }
 .panel {
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 24px;
@@ -505,12 +505,12 @@ strong {
 }
 .wave i {
   width: 2px;
-  background: #cbd1bf;
+  background: #2a2d33;
   border-radius: 2px;
   transition: background 0.3s;
 }
 .wave.playing i {
-  background: #768c55;
+  background: var(--accent);
   animation: wave 0.65s ease-in-out infinite alternate;
 }
 .answer-grid {
@@ -529,7 +529,7 @@ strong {
   flex-direction: column;
   height: 82px;
   gap: 8px;
-  background: #fbfcf8;
+  background: var(--bg);
 }
 .note-choice > span {
   font-size: 28px;
@@ -543,18 +543,18 @@ strong {
 }
 .note-choice:disabled {
   opacity: 1;
-  color: #a8ac9e;
-  background: #fcfcfa;
+  color: #e8e9eb;
+  background: var(--bg);
 }
 .note-choice.correct-choice {
-  color: #2f7350;
-  border-color: #92b9a0;
-  background: #eef7ef;
+  color: #5fbf8a;
+  border-color: #5fbf8a;
+  background: rgba(95,191,138,.12);
 }
 .note-choice.wrong-choice {
-  color: #a3573f;
-  border-color: #d9b8ac;
-  background: #fbf3ed;
+  color: #e08a6c;
+  border-color: #e08a6c;
+  background: rgba(224,138,108,.12);
 }
 .piano {
   position: relative;
