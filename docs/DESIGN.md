@@ -21,10 +21,10 @@ The app runs locally in Electron with React and TypeScript. It works without an 
 | Primary action | Filled amber button with a clear verb | Amber `#ffc857` with dark ink; Start, Next, playback and completion actions |
 | Selection | Make the chosen mode visibly different | Amber selection: the active destination has an amber left bar, and segmented controls use an amber tint; selected pattern has a left border. Enabled but unselected options (segmented chips, toggle labels, small captions) use the muted `#b4b9c0`, at least 4.5:1 on their panels; faded styling is reserved for `:disabled` controls |
 | Success | Green plus words and a check symbol | Brief “Correct!” popup with a check; solid green answer border |
-| Mistake | Warm rust plus words and a different border | Dashed answer border; “Your answer”; rust feedback panel; same popup as success in rust with an X and “Incorrect” |
+| Mistake | Warm rust plus words and a different border | Dashed answer border; “Your answer”; same popup as success in rust with an X and “Incorrect” |
 | Music identity | Show root, degree, note and symbol separately | Root tile, degree labels, chord symbol, keyboard markers |
 | Decoration | None that carries no information | Only elements that show something: the hero staff strip, playback and microphone waveforms, staff notation, keyboard markers, and Lucide icons. No circles, blobs, arcs, bars, hatch lines, glows or sprigs |
-| Motion | Short transitions that explain state changes | Staggered screen entry, nav indicator grow-in, card hover lift, dialog panel-in and sheet-in, progress fill, button transitions, playback wave, question entry, review countdown, answer pop and shake, popup icon draw-in, piano key press, note drop-in, list and grid stagger, tab panel crossfade, hover polish, and a subtle infinite drift on the decorative hero notes (the only looping motion). A global reduced-motion rule disables animation and transitions |
+| Motion | Short transitions that explain state changes | Staggered screen entry, nav indicator grow-in, card hover lift, dialog panel-in and sheet-in, progress fill, button transitions, playback wave, question entry, answer pop and shake, popup icon draw-in, piano key press, note drop-in, list and grid stagger, tab panel crossfade, hover polish, and a subtle infinite drift on the decorative hero notes (the only looping motion). A global reduced-motion rule disables animation and transitions |
 
 Keep the dark flat foundation, with amber reserved for primary actions and selection. Green `#5fbf8a` and rust `#e08a6c` still communicate meaning, always with text or symbols; they are not general decoration. Do not rely on color alone. Keep practice-task controls direct, and avoid large rounded pills, excessive shadows, long paragraphs, and unrelated visual treatments for equivalent controls.
 
@@ -53,7 +53,7 @@ The desktop window starts at 1320 by 900, with an 880 by 680 minimum. CSS adapts
 
 A dismissible studio invitation appears until the tour is dismissed or completed. The `tourSeen` profile flag remembers that choice; Quick tour remains available for replay. Focus moves to each new step heading, Tab stays among the dialog buttons, and closing restores focus and page/navigation scroll. Small windows clamp the card inside the viewport; very short windows scroll within the card. There is no forced animation or automatic first-run modal.
 
-Opening the tour stops playback, pauses answer-review timers, and cancels active or pending microphone input through the shared `practicePaused` state. Closing resumes review timing but does not restart sound or microphone access. An interrupted mystery note can be replayed manually. The tour itself never requests microphone permission.
+Opening the tour stops playback, pauses auto-advance timers, and cancels active or pending microphone input through the shared `practicePaused` state. Closing resumes auto-advance but does not restart sound or microphone access. An interrupted mystery note can be replayed manually. The tour itself never requests microphone permission.
 
 ## Instrument keys and Settings
 
@@ -78,7 +78,7 @@ Settings is a compact native modal dialog with two labeled sections. Playback co
 
 Opening Settings stops current playback, pauses question advancement, and stops microphone input. Closing it restores keyboard focus to the invoking button. Escape, Close, Done, or a backdrop click dismiss the dialog; native modal behavior keeps Tab focus inside. Microphone input requires a new Start action afterward. Key or notation changes begin a fresh practice screen while preserving recorded progress.
 
-The shared result popup is centered near the top of the viewport. A correct answer shows it in green with a check and “Correct!”; a wrong answer shows the identical popup in rust with an X and “Incorrect”, alongside the review panel. It does not take focus or capture clicks. A short entry/exit animation lasts 850 milliseconds; reduced-motion mode displays it without animation. Its status role announces the result. Ear training and staff reading share it; microphone matching retains its steady-match state and manual next-note control.
+The shared result popup is centered near the top of the viewport. A correct answer shows it in green with a check and “Correct!”; a wrong answer shows the identical popup in rust with an X and “Incorrect” with a visually hidden line naming the right note. It does not take focus or capture clicks. A short entry/exit animation lasts 850 milliseconds; reduced-motion mode displays it without animation. Its status role announces the result. Ear training and staff reading share it; microphone matching retains its steady-match state and manual next-note control.
 
 ## Practice activity calendar
 
@@ -114,13 +114,13 @@ Statistics show today's attempts against the configurable daily goal, overall sa
 
 1. Learn: configure the pool and session length, then tap notes before beginning. Reference C and scale-degree mode are configurable here. Only selected keyboard pitches can play. Playback labels name the learning note; cancellation clears its highlight.
 2. Quiz: hear a mystery note, optionally preceded by C. Scale-degree mode plays a C-major reference pattern first. Answers stay disabled during playback; Replay repeats the question.
-3. Review: lock the answer, record the attempt, mark the correct tile, and identify a wrong selection separately. Incorrect answers automatically play the chosen pitch followed by the correct pitch.
-4. Advance: show a non-interactive “Correct!” popup for 850 milliseconds and move straight to the next question. There is no correct-answer review panel or Pause/Next row. Incorrect answers retain 3.2 seconds of review after comparison audio finishes, with Pause, Compare again, and Next. Compare again pauses automatic advancement. Opening Settings pauses advancement until it closes.
+3. Review: lock the answer, record the attempt, mark the correct tile, and identify a wrong selection separately.
+4. Advance: show a non-interactive “Correct!” popup for 850 milliseconds and move straight to the next question. Incorrect answers work the same way: the rust popup for 850 milliseconds, then the next question, with no review panel or extra buttons. Opening Settings pauses advancement until it closes.
 5. Complete: show percentage, correct-answer count, distinct pool size, and pass/next-step information. A passed guided session offers “Next lesson” with the new note count; selecting it updates the local lesson immediately. “Choose notes / practice again” returns to setup; the studio also starts at the saved recommendation. Completion is counted once even if a timer and navigation action overlap. “Change practice” cancels the current question and returns to setup; previously recorded answers remain saved, but an unfinished session does not count as completed.
 
 **Playback clarity:** live labels distinguish “Reference · C,” the home-key pattern, “Mystery note · your turn,” “Your answer,” and “Correct note.” The mystery label never reveals the answer. A short question-entry motion and updated question number mark transitions. The decorative wave indicates playback, not a measured audio waveform.
 
-**Implementation:** the screen owns its phase, live lesson selection, queue, selected answer, pause state, and timers. The former mount-time lesson reference was removed because it kept replaying the old pool after progression. [practice.ts](../desktop/src/practice.ts) handles pool resizing, shuffling, and completion updates. Generation tokens prevent stale playback callbacks after navigation. Lesson definitions and weighted selection live in [music.ts](../desktop/src/music.ts).
+**Implementation:** the screen owns its phase, live lesson selection, queue, selected answer, and timers. The former mount-time lesson reference was removed because it kept replaying the old pool after progression. [practice.ts](../desktop/src/practice.ts) handles pool resizing, shuffling, and completion updates. Generation tokens prevent stale playback callbacks after navigation. Lesson definitions and weighted selection live in [music.ts](../desktop/src/music.ts).
 
 ## Staff reading
 
@@ -128,7 +128,7 @@ Statistics show today's attempts against the configurable daily goal, overall sa
 
 **Behavior:** choose treble or bass clef, natural notes or accidentals, and four choices or typed text. Each segmented control exposes its selected state and starts a fresh question when changed. The selected option is disabled so clicking it again does not skip a question. Typed answers accept ordinary `#` and `b` spellings and normalize them to musical accidentals. The expected spelling must match the written note; this is a notation exercise, not an enharmonic equivalence quiz. Octave numbers are not required.
 
-Answers lock after submission. A correct answer shows the same 850-millisecond “Correct!” popup as ear training, then advances. Wrong answers identify the selected answer and correct note with labels and different borders. The 3.2-second review has Pause / Resume and Next note controls; Hear note pauses a wrong-answer review for a closer listen. Settings and the tour pause advancement. Attempts are stored; the running score is local to this screen session.
+Answers lock after submission. A correct answer shows the same 850-millisecond “Correct!” popup as ear training, then advances. Wrong answers identify the selected answer and correct note with labels and different borders. Wrong answers show the rust popup and advance after the same 850 milliseconds; Next note skips the wait. Settings and the tour pause advancement. Attempts are stored; the running score is local to this screen session.
 
 **Implementation:** [StaffPractice.tsx](../desktop/src/StaffPractice.tsx), the shared SVG `Staff` component, and `staffNote` in music.ts. Timers and sound are cleaned up when leaving. Answer options are sampled from a finite shuffled list, avoiding the former unbounded random-selection loop.
 
@@ -267,9 +267,9 @@ In the working checkout, `origin` points to Aurynote-next and is the default pus
 | 0.4.3 | Refined staff reading with labeled challenge controls, a dedicated notation sheet, and clearer answer hierarchy. |
 | 0.4.4 | Rebuilt the app shell and studio around an editorial lesson card, functional note previews, honest microphone illustration, five real-data metrics, and four responsive practice entries. |
 | 0.4.5 | Expanded Your studio to fill the available desktop workspace while preserving responsive practice layouts. |
-| 0.4.6 | Restyled the desktop app with dark flat surfaces, an amber accent, serif display titles, mono numerals and staggered motion. Later added answer feedback, icon draw-in, piano press, note drop-in, hero drift, list stagger, tab crossfade and hover polish, all opacity/transform only. |
+| 0.4.6 | Restyled the desktop app with dark flat surfaces, an amber accent, serif display titles, mono numerals and staggered motion. Later added answer feedback, icon draw-in, piano press, note drop-in, hero drift, list stagger, tab crossfade and hover polish, all opacity/transform only. A wrong answer now follows the correct-answer flow (popup, 850ms, next question) with no review panel, countdown or comparison playback. |
 | Reliability cleanup | Validated saved pitch counts and dates, isolated ear difficulty from other modes, disabled unavailable harmony keys, and corrected scale-degree completion copy. |
-| Guided usability pass | Added a replayable click-through tour to the updated studio, reachable phone controls, paused staff review, microphone cancellation, and an isolated UI-test server. |
+| Guided usability pass | Added a replayable click-through tour to the updated studio, reachable phone controls, staff auto-advance that pauses in Settings and the tour, microphone cancellation, and an isolated UI-test server. |
 | Song charts | Added ordered, editable chord changes with instrument-aware note charts, sequential playback, local persistence, and full PNG export. |
 | Separate practice data | Isolated continued-development progress from the submitted site, including when both share a GitHub Pages origin. |
 | Continued development | Created an independent repository and Pages site on main, preserving the submitted repository, deployment, and local practice data. |
