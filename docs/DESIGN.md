@@ -21,7 +21,7 @@ The app runs locally in Electron with React and TypeScript. It works without an 
 | Primary action | Filled amber button with a clear verb | Amber `#ffc857` with dark ink; Start, Next, playback and completion actions |
 | Selection | Make the chosen mode visibly different | Amber selection: the active destination has an amber left bar, and segmented controls use an amber tint; selected pattern has a left border. Enabled but unselected options (segmented chips, toggle labels, small captions) use the muted `#b4b9c0`, at least 4.5:1 on their panels; faded styling is reserved for `:disabled` controls |
 | Success | Green plus words and a check symbol | Brief “Correct!” popup with a check; solid green answer border |
-| Mistake | Warm rust plus words and a different border | Dashed answer border; “Your answer”; rust feedback panel |
+| Mistake | Warm rust plus words and a different border | Dashed answer border; “Your answer”; rust feedback panel; same popup as success in rust with an X and “Incorrect” |
 | Music identity | Show root, degree, note and symbol separately | Root tile, degree labels, chord symbol, keyboard markers |
 | Decoration | None that carries no information | Only elements that show something: the hero staff strip, playback and microphone waveforms, staff notation, keyboard markers, and Lucide icons. No circles, blobs, arcs, bars, hatch lines, glows or sprigs |
 | Motion | Short transitions that explain state changes | Staggered screen entry, nav indicator grow-in, card hover lift, dialog panel-in and sheet-in, progress fill, button transitions, playback wave, question entry, review countdown. A global reduced-motion rule disables animation and transitions |
@@ -78,7 +78,7 @@ Settings is a compact native modal dialog with two labeled sections. Playback co
 
 Opening Settings stops current playback, pauses question advancement, and stops microphone input. Closing it restores keyboard focus to the invoking button. Escape, Close, Done, or a backdrop click dismiss the dialog; native modal behavior keeps Tab focus inside. Microphone input requires a new Start action afterward. Key or notation changes begin a fresh practice screen while preserving recorded progress.
 
-The shared success popup is centered near the top of the viewport, green with a check and “Correct!” text. It does not take focus or capture clicks. A short entry/exit animation lasts 850 milliseconds; reduced-motion mode displays it without animation. Its status role announces success. Ear training and staff reading share it; microphone matching retains its steady-match state and manual next-note control.
+The shared result popup is centered near the top of the viewport. A correct answer shows it in green with a check and “Correct!”; a wrong answer shows the identical popup in rust with an X and “Incorrect”, alongside the review panel. It does not take focus or capture clicks. A short entry/exit animation lasts 850 milliseconds; reduced-motion mode displays it without animation. Its status role announces the result. Ear training and staff reading share it; microphone matching retains its steady-match state and manual next-note control.
 
 ## Practice activity calendar
 
