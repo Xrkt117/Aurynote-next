@@ -337,7 +337,6 @@ strong {
   max-width: 1200px;
   margin: 0 auto;
   padding: 42px 44px 38px;
-  animation: page-in 0.28s ease;
 }
 
 .panel-top {
@@ -1353,7 +1352,7 @@ strong {
 @keyframes page-in {
   from {
     opacity: 0;
-    transform: translateY(5px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -3745,3 +3744,11 @@ progress::-moz-progress-bar {
   text-transform: uppercase;
   color: var(--muted);
 }
+
+/* motion: entry (opacity/transform only) */
+.page > *:not(.listen-area):not(.staff-sheet) {
+  animation: page-in 0.28s var(--ease) both;
+}
+.page > :nth-child(2) { animation-delay: 60ms; }
+.page > :nth-child(3) { animation-delay: 120ms; }
+.page > :nth-child(n + 4) { animation-delay: 180ms; }
