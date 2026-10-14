@@ -3797,3 +3797,9 @@ button svg.lucide-arrow-right {
 button:hover:not(:disabled) svg.lucide-arrow-right {
   transform: translateX(3px);
 }
+
+/* motion: segmented selection (sliding indicator skipped, needs JS measurement) */
+.segmented button {
+  box-shadow: inset 0 0 0 1px transparent;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.16s;
+}
