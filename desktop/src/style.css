@@ -3827,3 +3827,11 @@ button:hover:not(:disabled) svg.lucide-arrow-right {
     animation-name: sheet-in;
   }
 }
+
+/* motion: buttons and bars */
+button.primary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.studio-progress i {
+  transition: width 0.4s var(--ease);
+}
