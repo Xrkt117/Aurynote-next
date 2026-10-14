@@ -3726,3 +3726,8 @@ progress::-moz-progress-bar {
 #root .achievement.earned .achievement-state {
   color: var(--green);
 }
+
+#root :is(.studio-lesson-number, .studio-metric strong, .studio-card-heading > span, .page-heading .tag, .achievement strong, .journey-number, .stats-row strong, .activity-heading > span, .calendar-footer, .panel-top .eyebrow, .staff-toolbar .eyebrow, .milestones h2 small) {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
