@@ -3787,6 +3787,17 @@ button.primary:active:not(:disabled) {
   animation: choice-shake 107ms ease-in-out 3;
 }
 
+/* motion: popup icon draw-in */
+@keyframes icon-draw {
+  from { stroke-dashoffset: 40; }
+  to { stroke-dashoffset: 0; }
+}
+.correct-popup svg *,
+.wrong-popup svg * {
+  stroke-dasharray: 40;
+  animation: icon-draw 300ms var(--ease) 180ms both;
+}
+
 /* motion: global kill switch */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
