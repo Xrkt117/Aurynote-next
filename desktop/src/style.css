@@ -678,8 +678,8 @@ strong {
   opacity: 0.8;
 }
 .feedback.mistake {
-  background: #fbf1eb;
-  color: #a3573f;
+  background: rgba(224,138,108,.12);
+  color: #e08a6c;
 }
 .countdown {
   position: absolute;
@@ -703,15 +703,15 @@ strong {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #e6e9df;
+  background: var(--panel-2);
 }
 .tiny-dots i.right,
 .result-dots i.right {
-  background: #83a487;
+  background: var(--green);
 }
 .tiny-dots i.wrong,
 .result-dots i.wrong {
-  background: #c89782;
+  background: var(--mistake);
 }
 .session-complete {
   min-height: 650px;
@@ -732,11 +732,11 @@ strong {
   height: 78px;
   width: 78px;
   border-radius: 50%;
-  border: 1px solid #d1debf;
-  background: #edf2e4;
+  border: 1px solid var(--rule);
+  background: var(--panel-2);
   display: grid;
   place-items: center;
-  color: #6d8751;
+  color: var(--accent);
 }
 .result-dots i {
   width: 11px;
@@ -746,7 +746,7 @@ strong {
   width: 100%;
   height: auto;
   max-height: 265px;
-  color: #3b4232;
+  color: var(--fg);
   margin: 0;
 }
 .staff-panel {
@@ -761,7 +761,7 @@ strong {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  background: #fcfcf9;
+  background: var(--bg);
 }
 .staff-toolbar > div:first-child {
   display: flex;
@@ -789,7 +789,7 @@ strong {
   padding-inline: 12px;
 }
 .staff-stage {
-  background: #f4f5ef;
+  background: var(--panel-2);
   border-bottom: 1px solid var(--line);
   padding: 15px 24px 20px;
 }
@@ -806,10 +806,10 @@ strong {
   width: min(100%, 820px);
   margin: 0 auto;
   padding: 2px 26px 0;
-  border: 1px solid #d7dacd;
+  border: 1px solid var(--rule);
   border-radius: 6px;
-  background: #fff;
-  box-shadow: 0 2px 8px #30352a0a;
+  background: var(--panel);
+  box-shadow: none;
   animation: question-arrive 0.2s ease-out;
 }
 .staff-sheet .staff {
@@ -843,7 +843,7 @@ strong {
 }
 .staff-answers .note-choice {
   height: 88px;
-  background: #fdfdfb;
+  background: var(--panel);
 }
 .staff-answers .note-choice > span {
   font-size: 31px;
@@ -856,8 +856,8 @@ strong {
 }
 .segmented {
   display: flex;
-  background: #f0f2eb;
-  border: 1px solid #e4e7dc;
+  background: var(--panel-2);
+  border: 1px solid var(--rule);
   border-radius: 6px;
   padding: 3px;
   gap: 2px;
