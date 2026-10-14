@@ -14,7 +14,7 @@ function createWindow() {
     height: 900,
     minWidth: 880,
     minHeight: 680,
-    backgroundColor: "#f8f8f5",
+    backgroundColor: "#0b0c0e",
     title: "aurynote",
     show: process.env.AURYNOTE_TEST_MODE !== "1",
     autoHideMenuBar: true,
