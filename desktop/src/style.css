@@ -2024,9 +2024,9 @@ select {
   min-width: 44px;
 }
 .note-picker button[aria-pressed="true"] {
-  background: var(--ink);
-  color: white;
-  border-color: var(--ink);
+  background: var(--sel);
+  color: #fff;
+  border-color: var(--accent);
   opacity: 1;
 }
 .practice-config p {
