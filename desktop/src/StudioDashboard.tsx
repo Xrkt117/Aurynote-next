@@ -179,7 +179,7 @@ export default function StudioDashboard() {
       <header className="studio-intro">
         <div>
           <span className="eyebrow">PRACTICE</span>
-          <h1>Train your ear</h1>
+          <h1>Train your <em className="accent-word">ear</em></h1>
           <p>Practice pitch recognition, notation, harmony, and playback.</p>
         </div>
         <div className="studio-score" aria-hidden="true">

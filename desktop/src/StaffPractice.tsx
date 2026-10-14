@@ -71,7 +71,7 @@ export default function StaffPractice() {
       <div className="page-heading">
         <div>
           <span className="eyebrow">Notation</span>
-          <h1>Staff reading</h1>
+          <h1>Staff <em className="accent-word">reading</em></h1>
           <p>Identify the displayed note by name.</p>
         </div>
         <Tag>

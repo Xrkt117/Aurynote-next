@@ -195,7 +195,7 @@ export default function Ear() {
           <Check size={38} />
         </div>
         <span className="eyebrow">Results</span>
-        <h1>Session complete</h1>
+        <h1>Session <em className="accent-word">complete</em></h1>
         <p>
           {Math.round((results.filter(Boolean).length / goal) * 100)}% correct ·{" "}
           {results.filter(Boolean).length} of {goal} answers across{" "}

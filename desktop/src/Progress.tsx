@@ -34,7 +34,7 @@ export default function Progress() {
       <div className="page-heading">
         <div>
           <span className="eyebrow">Saved locally</span>
-          <h1>Your progress</h1>
+          <h1>Your <em className="accent-word">progress</em></h1>
           <p>Review practice volume, accuracy, pitch results, and lessons.</p>
         </div>
         <button onClick={exportData}>

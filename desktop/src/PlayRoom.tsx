@@ -159,7 +159,7 @@ export default function PlayRoom() {
       <div className="page-heading">
         <div>
           <span className="eyebrow">Microphone practice</span>
-          <h1>Pitch matching</h1>
+          <h1><em className="accent-word">Pitch</em> matching</h1>
           <p>
             Microphone pitch matching: listen to the target, then play or sing
             one steady note.

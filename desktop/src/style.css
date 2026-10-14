@@ -3708,3 +3708,10 @@ progress::-moz-progress-bar {
   letter-spacing: -0.015em;
   color: #fff;
 }
+
+.accent-word {
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 600;
+}

@@ -80,7 +80,7 @@ export default function Explore() {
       <div className="page-heading">
         <div>
           <span className="eyebrow">Reference</span>
-          <h1>Scales and chords</h1>
+          <h1>Scales and <em className="accent-word">chords</em></h1>
           <p>
             Explore note spellings, hear patterns, or build a song’s chord
             changes.
