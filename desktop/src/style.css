@@ -1829,7 +1829,8 @@ strong {
   width: 100%;
   margin-top: 18px;
 }
-.correct-popup {
+.correct-popup,
+.wrong-popup {
   position: fixed;
   top: 108px;
   left: 50%;
@@ -1847,6 +1848,10 @@ strong {
   font-size: 21px;
   pointer-events: none;
   animation: correct-pop 0.85s ease both;
+}
+.wrong-popup {
+  border-color: var(--mistake);
+  color: var(--mistake);
 }
 @keyframes correct-pop {
   0% {
@@ -1901,7 +1906,8 @@ select {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .correct-popup {
+  .correct-popup,
+  .wrong-popup {
     animation: none !important;
   }
 }
@@ -3676,7 +3682,7 @@ progress::-moz-progress-bar {
 }
 
 /* motion: entry (opacity/transform only) */
-.page > *:not(.listen-area):not(.staff-sheet):not(.correct-popup) {
+.page > *:not(.listen-area):not(.staff-sheet):not(.correct-popup):not(.wrong-popup) {
   animation: page-in 0.28s var(--ease) both;
 }
 .page > :nth-child(2) { animation-delay: 60ms; }

@@ -68,6 +68,7 @@ export default function StaffPractice() {
   return (
     <div className="page">
       {result === true && !practicePaused && <CorrectPopup />}
+      {result === false && !practicePaused && <CorrectPopup correct={false} />}
       <div className="page-heading">
         <div>
           <span className="eyebrow">Notation</span>

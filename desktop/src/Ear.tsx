@@ -244,6 +244,9 @@ export default function Ear() {
   return (
     <div className="page lesson-page">
       {phase === "result" && right && !practicePaused && <CorrectPopup />}
+      {phase === "result" && !right && !practicePaused && (
+        <CorrectPopup correct={false} />
+      )}
       <div className="page-heading">
         <div>
           <span className="eyebrow">
