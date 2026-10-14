@@ -29,7 +29,7 @@ export default function PracticeActivity() {
         </span>
       </div>
       <GitHubCalendar
-        colors={["#1a1c20", "#4a3d1c", "#8a6a22", "#d4a03e", "#ffc857"]}
+        colors={["#25282d", "#4a3d1c", "#8a6a22", "#d4a03e", "#ffc857"]}
         data={data}
         today={today}
         activityLabel="practice answers"

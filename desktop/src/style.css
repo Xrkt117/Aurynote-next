@@ -674,7 +674,6 @@ strong {
 }
 .feedback > span {
   font-size: 10px;
-  opacity: 0.8;
 }
 .feedback.mistake {
   background: rgba(224,138,108,.12);
