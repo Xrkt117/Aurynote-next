@@ -140,10 +140,16 @@ h3,
 p {
   margin: 0;
 }
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
 h1 {
-  font-weight: 500;
   font-size: 44px;
-  letter-spacing: -1.8px;
   line-height: 1.12;
 }
 h1 em,
@@ -152,14 +158,10 @@ h2 em {
 }
 h2 {
   font-size: 23px;
-  letter-spacing: -0.7px;
-  font-weight: 500;
   line-height: 1.25;
 }
 h3 {
   font-size: 15px;
-  letter-spacing: -0.2px;
-  font-weight: 600;
 }
 p {
   font-size: 13px;
@@ -176,11 +178,18 @@ strong {
   font-size: 11px;
   line-height: 1.6;
 }
-.eyebrow {
+.eyebrow,
+.achievement-state,
+.studio-stats-label,
+.studio-card-heading .tag,
+.global-controls .key-select > span {
   font-size: 11px;
-  letter-spacing: 0;
   font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
   color: var(--muted);
+}
+.eyebrow {
   display: block !important;
   line-height: 1.5;
 }
@@ -254,7 +263,6 @@ strong {
   justify-content: flex-start;
 }
 .sidebar nav > .eyebrow {
-  font-size: 8px;
   margin: 0 12px 14px;
 }
 .sidebar nav button {
@@ -372,10 +380,6 @@ strong {
 .stats-row > div:last-child {
   border: 0;
 }
-.stats-row .eyebrow {
-  font-size: 8px;
-  letter-spacing: 1.2px;
-}
 .stats-row strong {
   display: block;
   font-size: 28px;
@@ -398,7 +402,6 @@ strong {
   gap: 20px;
 }
 .section-heading .eyebrow {
-  font-size: 8px;
   margin-bottom: 7px;
 }
 .section-heading h2 {
@@ -450,9 +453,6 @@ strong {
 .panel-top {
   margin-bottom: 16px;
 }
-.panel-top .eyebrow {
-  font-size: 9px;
-}
 .lesson-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 225px;
@@ -472,7 +472,6 @@ strong {
   padding: 19px 3px;
 }
 .settings-card .eyebrow {
-  font-size: 8px;
   margin-bottom: 14px;
 }
 .toggle-row {
@@ -905,7 +904,6 @@ strong {
   margin: 12px 0 26px;
 }
 .list-label {
-  font-size: 8px;
   margin-bottom: 10px;
 }
 .pattern-list > button {
@@ -941,10 +939,7 @@ strong {
   margin: 23px 0;
 }
 .harmony-title h2 {
-  font-family: inherit;
   font-size: 44px;
-  font-weight: 400;
-  letter-spacing: -1px;
 }
 .harmony-title h2 > span {
   font-family: inherit;
@@ -1210,9 +1205,7 @@ strong {
   gap: 14px;
 }
 .empty h3 {
-  font-family: inherit;
   font-size: 25px;
-  font-weight: 500;
 }
 .empty p {
   font-size: 12px;
@@ -1628,10 +1621,6 @@ strong {
   .stats-row strong small {
     font-size: 8px;
   }
-  .stats-row .eyebrow {
-    font-size: 7px;
-    letter-spacing: 0.7px;
-  }
   .lesson-aside {
     display: none;
   }
@@ -1748,10 +1737,6 @@ strong {
 .tone-grid button.active span {
   color: white;
 }
-.panel-top > .eyebrow {
-  color: var(--muted);
-  font-weight: 700;
-}
 @media (prefers-reduced-motion: reduce) {
   .listen-area {
     animation: none;
@@ -1772,11 +1757,6 @@ strong {
 .global-controls .key-select {
   display: grid;
   gap: 5px;
-}
-.global-controls .key-select > span {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ink);
 }
 .global-controls .key-select select {
   max-width: 340px;
@@ -2100,15 +2080,10 @@ select {
 }
 .achievement-state {
   display: block;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-  color: var(--muted);
   margin: 10px 0;
 }
 .achievement.earned .achievement-state {
   color: #5fbf8a;
-  font-weight: 700;
 }
 .achievement h3 {
   font-size: 15px;
@@ -2350,7 +2325,6 @@ body {
 }
 .global-controls .key-select > span {
   margin-right: 4px;
-  font-size: 9px;
 }
 .global-controls .key-select > svg {
   margin-right: -2px;
@@ -2389,12 +2363,9 @@ body {
 }
 .studio-intro .eyebrow {
   margin-bottom: 8px;
-  color: var(--muted);
 }
 .studio-intro h1 {
   font-size: clamp(43px, 4vw, 58px);
-  font-weight: 400;
-  letter-spacing: -2.7px;
   line-height: 1;
 }
 .studio-intro p {
@@ -2496,9 +2467,6 @@ body {
   border: 0;
   border-radius: 20px;
   background: var(--panel-2);
-  color: var(--fg);
-  font-size: 11px;
-  font-weight: 700;
 }
 .studio-lesson-title {
   position: relative;
@@ -2526,8 +2494,6 @@ body {
 }
 .studio-lesson-title h2 {
   font-size: 25px;
-  font-weight: 400;
-  letter-spacing: -0.5px;
 }
 .studio-lesson-title p {
   margin-top: 5px;
@@ -2690,7 +2656,6 @@ body {
 .studio-mic-card h2 {
   margin-top: 9px;
   font-size: 24px;
-  font-weight: 400;
 }
 .studio-mic-card > p {
   max-width: 370px;
@@ -2813,8 +2778,6 @@ body {
   position: absolute;
   left: 20px;
   top: 16px;
-  font-size: 12px;
-  font-weight: 600;
 }
 .studio-metrics {
   display: grid;
@@ -2907,15 +2870,11 @@ body {
   gap: 20px;
   margin-bottom: 12px;
 }
-.page.dashboard .eyebrow {
-  font-size: 12px;
-}
 .studio-section-heading .eyebrow {
   margin-bottom: 4px;
 }
 .studio-section-heading h2 {
   font-size: 25px;
-  font-weight: 400;
 }
 .studio-exercise-grid {
   display: grid;
@@ -3272,10 +3231,6 @@ body {
   justify-content: space-between;
   gap: 12px;
 }
-.tour-heading .eyebrow {
-  font-size: 10px;
-  color: var(--muted);
-}
 .tour-icon {
   display: grid;
   place-items: center;
@@ -3607,9 +3562,6 @@ body {
     border: 0;
     padding: 0 18px;
   }
-  .stats-row .eyebrow {
-    font-size: 10px;
-  }
   .stats-row strong small {
     display: inline;
     margin-left: 8px;
@@ -3700,13 +3652,6 @@ progress::-moz-progress-bar {
   background: var(--rule);
 }
 
-#root :is(h1, h2, h3) {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  color: #fff;
-}
-
 .accent-word {
   color: var(--accent);
   font-family: var(--font-display);
@@ -3714,34 +3659,20 @@ progress::-moz-progress-bar {
   font-weight: 600;
 }
 
-#root :is(.eyebrow, .achievement-state, .studio-stats-label, .studio-card-heading .tag) {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-#root .achievement.earned .achievement-state {
+.achievement.earned .achievement-state {
   color: var(--green);
 }
 
-#root :is(.studio-lesson-number, .studio-metric strong, .studio-card-heading > span, .page-heading .tag, .achievement strong, .journey-number, .stats-row strong, .activity-heading > span, .calendar-footer, .panel-top .eyebrow, .staff-toolbar .eyebrow, .milestones h2 small) {
+.studio-lesson-number, .studio-metric strong, .studio-card-heading > span, .page-heading .tag, .achievement strong, .journey-number, .stats-row strong, .activity-heading > span, .calendar-footer, .panel-top .eyebrow, .staff-toolbar .eyebrow, .milestones h2 small {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
 
-#root .current-page {
+.current-page {
   font-family: var(--font-display);
   font-size: 18px;
   font-weight: 600;
   letter-spacing: -0.015em;
-}
-#root .global-controls .key-select > span {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: var(--muted);
 }
 
 /* motion: entry (opacity/transform only) */
