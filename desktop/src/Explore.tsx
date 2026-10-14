@@ -119,7 +119,7 @@ export default function Explore() {
       {kind === "song" ? (
         <ChordProgression />
       ) : (
-        <div className="explore-layout">
+        <div className="explore-layout" key={kind}>
           <aside className="pattern-list">
             <label className="eyebrow" htmlFor="concert-key">
               Concert key

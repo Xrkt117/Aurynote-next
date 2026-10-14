@@ -3967,6 +3967,15 @@ button.primary:active:not(:disabled) {
 .calendar-body .flex.gap-1 > div:nth-child(51) { animation-delay: 400ms; }
 .calendar-body .flex.gap-1 > div:nth-child(n + 52) { animation-delay: 400ms; }
 
+/* motion: tab panel crossfade (panels remount when the tab changes) */
+@keyframes panel-fade {
+  from { opacity: 0; transform: translateY(6px); }
+}
+.explore-layout,
+.song-builder {
+  animation: panel-fade 200ms var(--ease) both;
+}
+
 /* motion: global kill switch */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
