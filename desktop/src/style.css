@@ -1338,7 +1338,7 @@ strong {
   gap: 20px;
   z-index: 100;
   border-radius: 7px;
-  box-shadow: 0 5px 25px #0002;
+  box-shadow: none;
   font-size: 12px;
 }
 .toast button {
@@ -3200,8 +3200,8 @@ body {
   border-left: 3px solid var(--mistake);
   border-radius: 4px;
   padding: 14px 16px;
-  color: #813d28;
-  background: #fbece7;
+  color: #e08a6c;
+  background: rgba(224,138,108,.12);
   text-align: left;
 }
 .tour-invite {
@@ -3210,7 +3210,7 @@ body {
   gap: 14px;
   padding: 16px 18px;
   margin-bottom: 24px;
-  background: #eff1e8;
+  background: var(--panel-2);
   border: 1px solid var(--line);
   border-radius: 6px;
 }
@@ -3246,13 +3246,13 @@ body {
   overflow: hidden;
 }
 .tour-dialog::backdrop {
-  background: #171b1875;
+  background: rgba(0,0,0,0.50);
 }
 .tour-highlight {
   position: fixed;
-  border: 2px solid white;
+  border: 2px solid var(--accent);
   border-radius: 8px;
-  box-shadow: 0 0 0 2px #25262255;
+  box-shadow: none;
   pointer-events: none;
 }
 .tour-card {
@@ -3264,7 +3264,7 @@ body {
   border-radius: 10px;
   padding: 24px;
   background: var(--paper);
-  box-shadow: 0 12px 48px #171b1826;
+  box-shadow: none;
 }
 .tour-heading {
   display: flex;
@@ -3281,7 +3281,7 @@ body {
   place-items: center;
   width: 52px;
   height: 52px;
-  background: #eff1e8;
+  background: var(--panel-2);
   border-radius: 8px;
   margin: 18px 0;
 }
@@ -3299,7 +3299,7 @@ body {
 }
 .tour-card .tour-hint {
   font-size: 12px;
-  border-left: 2px solid #a5af96;
+  border-left: 2px solid #3a3e45;
   padding-left: 12px;
   margin: 18px 0 22px;
 }
@@ -3385,7 +3385,7 @@ body {
     padding: 18px;
     border: 1px solid var(--line);
     border-radius: 6px;
-    background: white;
+    background: var(--panel);
   }
   .explore-layout {
     grid-template-columns: minmax(0, 1fr);
@@ -3486,7 +3486,7 @@ body {
   min-height: 20px;
   margin-top: 8px;
   font-size: 12px;
-  color: #35462a;
+  color: var(--fg);
 }
 .song-empty {
   display: grid;
@@ -3515,8 +3515,8 @@ body {
   border-radius: 6px;
 }
 .chord-order-list .playing-change {
-  background: #eaf0e0;
-  border-color: #596b46;
+  background: var(--panel-2);
+  border-color: var(--accent);
 }
 .change-number {
   font-size: 12px;
@@ -3553,7 +3553,7 @@ body {
   border-radius: 6px;
 }
 .song-chart-scroll:focus-visible {
-  outline: 2px solid #73884e;
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 .progression-chart {
@@ -3638,7 +3638,7 @@ body {
   text-align: center;
   font-size: 12px;
   font-weight: 600;
-  color: #353e2b;
+  color: var(--fg);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
