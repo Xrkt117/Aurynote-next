@@ -3780,3 +3780,20 @@ progress::-moz-progress-bar {
   from { transform: scaleY(0); }
   to { transform: scaleY(1); }
 }
+
+/* motion: hover lift and arrow nudge */
+.studio-exercise-card,
+.pattern-list > button {
+  transition: background 0.16s, color 0.16s, border-color 0.16s, transform 0.16s var(--ease);
+}
+.studio-exercise-card:hover:not(:disabled),
+.pattern-list > button:hover:not(:disabled) {
+  border-color: var(--muted);
+  transform: translateY(-2px);
+}
+button svg.lucide-arrow-right {
+  transition: transform 0.16s var(--ease);
+}
+button:hover:not(:disabled) svg.lucide-arrow-right {
+  transform: translateX(3px);
+}
