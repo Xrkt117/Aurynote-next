@@ -24,7 +24,7 @@ The app runs locally in Electron with React and TypeScript. It works without an 
 | Mistake | Warm rust plus words and a different border | Dashed answer border; “Your answer”; rust feedback panel; same popup as success in rust with an X and “Incorrect” |
 | Music identity | Show root, degree, note and symbol separately | Root tile, degree labels, chord symbol, keyboard markers |
 | Decoration | None that carries no information | Only elements that show something: the hero staff strip, playback and microphone waveforms, staff notation, keyboard markers, and Lucide icons. No circles, blobs, arcs, bars, hatch lines, glows or sprigs |
-| Motion | Short transitions that explain state changes | Staggered screen entry, nav indicator grow-in, card hover lift, dialog panel-in and sheet-in, progress fill, button transitions, playback wave, question entry, review countdown. A global reduced-motion rule disables animation and transitions |
+| Motion | Short transitions that explain state changes | Staggered screen entry, nav indicator grow-in, card hover lift, dialog panel-in and sheet-in, progress fill, button transitions, playback wave, question entry, review countdown, answer pop and shake, popup icon draw-in, piano key press, note drop-in, list and grid stagger, tab panel crossfade, hover polish, and a subtle infinite drift on the decorative hero notes (the only looping motion). A global reduced-motion rule disables animation and transitions |
 
 Keep the dark flat foundation, with amber reserved for primary actions and selection. Green `#5fbf8a` and rust `#e08a6c` still communicate meaning, always with text or symbols; they are not general decoration. Do not rely on color alone. Keep practice-task controls direct, and avoid large rounded pills, excessive shadows, long paragraphs, and unrelated visual treatments for equivalent controls.
 
@@ -267,7 +267,7 @@ In the working checkout, `origin` points to Aurynote-next and is the default pus
 | 0.4.3 | Refined staff reading with labeled challenge controls, a dedicated notation sheet, and clearer answer hierarchy. |
 | 0.4.4 | Rebuilt the app shell and studio around an editorial lesson card, functional note previews, honest microphone illustration, five real-data metrics, and four responsive practice entries. |
 | 0.4.5 | Expanded Your studio to fill the available desktop workspace while preserving responsive practice layouts. |
-| 0.4.6 | Restyled the desktop app with dark flat surfaces, an amber accent, serif display titles, mono numerals and staggered motion. |
+| 0.4.6 | Restyled the desktop app with dark flat surfaces, an amber accent, serif display titles, mono numerals and staggered motion. Later added answer feedback, icon draw-in, piano press, note drop-in, hero drift, list stagger, tab crossfade and hover polish, all opacity/transform only. |
 | Reliability cleanup | Validated saved pitch counts and dates, isolated ear difficulty from other modes, disabled unavailable harmony keys, and corrected scale-degree completion copy. |
 | Guided usability pass | Added a replayable click-through tour to the updated studio, reachable phone controls, paused staff review, microphone cancellation, and an isolated UI-test server. |
 | Song charts | Added ordered, editable chord changes with instrument-aware note charts, sequential playback, local persistence, and full PNG export. |
