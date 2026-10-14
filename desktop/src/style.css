@@ -749,6 +749,9 @@ strong {
   color: var(--fg);
   margin: 0;
 }
+.staff text {
+  fill: currentColor;
+}
 .staff-panel {
   padding: 0;
   overflow: hidden;
