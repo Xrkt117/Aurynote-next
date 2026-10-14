@@ -3835,3 +3835,14 @@ button.primary:active:not(:disabled) {
 .studio-progress i {
   transition: width 0.4s var(--ease);
 }
+
+/* motion: global kill switch */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  .sidebar nav button.active::after {
+    transform: none !important;
+  }
+}
