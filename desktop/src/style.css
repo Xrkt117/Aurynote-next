@@ -3816,6 +3816,16 @@ button.primary:active:not(:disabled) {
   transform: scale(1);
 }
 
+/* motion: note drop-in (staff-sheet is keyed per question) */
+@keyframes note-drop {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+.staff g,
+.studio-note-staff ellipse,
+.studio-note-staff .note-stem {
+  animation: note-drop 240ms var(--ease) both;
+}
+
 /* motion: global kill switch */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
