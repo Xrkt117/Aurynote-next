@@ -49,11 +49,11 @@ button {
   align-items: center;
   justify-content: center;
   gap: 9px;
-  border: 1px solid #d9dbd2;
-  border-radius: 6px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
   padding: 11px 16px;
-  background: #fff;
-  color: var(--ink);
+  background: transparent;
+  color: var(--muted);
   font-size: 13px;
   font-weight: 500;
   transition:
@@ -63,8 +63,9 @@ button {
     transform 0.16s;
 }
 button:hover:not(:disabled) {
-  border-color: #898d7d;
-  background: #f1f2eb;
+  border-color: var(--muted);
+  background: var(--hover);
+  color: #fff;
 }
 button:active:not(:disabled) {
   transform: translateY(1px);
@@ -77,17 +78,21 @@ button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible {
-  outline: 2px solid #73884e;
-  outline-offset: 4px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 button.primary {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+  font-weight: 600;
   padding: 13px 20px;
 }
 button.primary:hover:not(:disabled) {
-  background: #41443b;
+  background: #ffd57e;
+  border-color: #ffd57e;
+  color: var(--accent-ink);
+  transform: translateY(-2px);
 }
 button.text-button {
   padding: 7px 0;
@@ -95,6 +100,7 @@ button.text-button {
   background: transparent;
   font-size: 12px;
   justify-content: flex-start;
+  color: var(--muted);
 }
 button.icon-button {
   width: 36px;
@@ -105,27 +111,28 @@ button.icon-button {
 }
 select {
   border: 1px solid var(--line);
-  background: #fff;
-  border-radius: 5px;
+  background: var(--panel);
+  border-radius: var(--radius);
   padding: 9px 28px 9px 12px;
   color: var(--ink);
   font-size: 13px;
 }
 input[type="range"] {
-  accent-color: var(--ink);
+  accent-color: var(--accent);
   height: 3px;
 }
 input[type="checkbox"] {
-  accent-color: var(--ink);
+  accent-color: var(--accent);
   width: 16px;
   height: 16px;
 }
 input[type="text"],
 input:not([type]) {
   border: 1px solid var(--line);
-  border-radius: 5px;
+  border-radius: var(--radius);
   padding: 12px;
-  background: white;
+  background: var(--panel);
+  color: var(--fg);
 }
 h1,
 h2,
