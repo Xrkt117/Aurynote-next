@@ -3826,6 +3826,18 @@ button.primary:active:not(:disabled) {
   animation: note-drop 240ms var(--ease) both;
 }
 
+/* motion: hero note drift (the only infinite decorative motion) */
+@keyframes note-drift {
+  0%, 100% { transform: translateY(-3px); }
+  50% { transform: translateY(3px); }
+}
+.studio-score span {
+  animation: note-drift 5s ease-in-out infinite;
+}
+.studio-score span:nth-child(2) { animation-duration: 4s; animation-delay: -1.3s; }
+.studio-score span:nth-child(3) { animation-duration: 6s; animation-delay: -2.6s; }
+.studio-score span:nth-child(4) { animation-duration: 4.6s; animation-delay: -0.7s; }
+
 /* motion: global kill switch */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
