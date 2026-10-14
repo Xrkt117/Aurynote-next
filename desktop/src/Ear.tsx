@@ -8,9 +8,7 @@ import {
   Check,
   Minus,
   Plus,
-  X,
   Volume2,
-  Pause,
 } from "lucide-react";
 import { useStudio } from "./context";
 import { lessons, noteName, sounding, weightedNote } from "./music";
@@ -29,8 +27,7 @@ export default function Ear() {
     [results, setResults] = useState<boolean[]>([]),
     [degree, setDegree] = useState(false),
     [level, setLevel] = useState(profile.level),
-    [custom, setCustom] = useState(false),
-    [paused, setPaused] = useState(false);
+    [custom, setCustom] = useState(false);
   const natural = [0, 2, 4, 5, 7, 9, 11];
   const pool = custom
     ? degree
@@ -52,10 +49,10 @@ export default function Ear() {
     [],
   );
   useEffect(() => {
-    if (phase !== "result" || paused || busy || practicePaused) return;
-    const timer = setTimeout(next, choice === target ? 850 : 3200);
+    if (phase !== "result" || busy || practicePaused) return;
+    const timer = setTimeout(next, 850);
     return () => clearTimeout(timer);
-  }, [phase, paused, busy, practicePaused]);
+  }, [phase, busy, practicePaused]);
   const label = (n: number) =>
     degree
       ? `${[0, 2, 4, 5, 7, 9, 11].indexOf(n) + 1}${n === 0 ? " · root" : ""}`
@@ -98,7 +95,6 @@ export default function Ear() {
     setChoice(null);
     setActive([]);
     setPhase("quiz");
-    setPaused(false);
     answerLock.current = false;
     void play(
       degree
@@ -150,12 +146,7 @@ export default function Ear() {
     setResults((r) => [...r, n === target]);
     setProfile((p) => record(p, target, n === target, "ear"));
     setPhase("result");
-    if (n !== target)
-      void play([60 + n, 60 + target], true, [
-        `Your answer · ${noteName(n)}`,
-        `Correct note · ${noteName(target)}`,
-      ]);
-    else setActive([target]);
+    setActive([target]);
   }
   function configure(nextLevel = level) {
     generation.current++;
@@ -167,14 +158,6 @@ export default function Ear() {
     setPhase("learn");
     setResults([]);
     setChoice(null);
-    setPaused(false);
-  }
-  function compare() {
-    setPaused(true);
-    void play([60 + choice!, 60 + target], true, [
-      `Your answer · ${noteName(choice!)}`,
-      `Correct note · ${noteName(target)}`,
-    ]);
   }
   function resize(n: number) {
     configure();
@@ -245,7 +228,10 @@ export default function Ear() {
     <div className="page lesson-page">
       {phase === "result" && right && !practicePaused && <CorrectPopup />}
       {phase === "result" && !right && !practicePaused && (
-        <CorrectPopup correct={false} />
+        <CorrectPopup
+          correct={false}
+          detail={`The note was ${noteName(target)}.`}
+        />
       )}
       <div className="page-heading">
         <div>
@@ -457,27 +443,6 @@ export default function Ear() {
                 : undefined
             }
           />
-          {phase === "result" && !right && (
-            <div className="feedback mistake" role="status">
-              <div>
-                <X size={19} />
-                <strong>Not quite · {label(target)}</strong>
-              </div>
-              <span>
-                {paused
-                  ? "Paused for a closer listen."
-                  : busy
-                    ? "Comparing your note with the answer…"
-                    : "Next question in 3.2 seconds"}
-              </span>
-              {!paused && !busy && (
-                <i
-                  className="countdown"
-                  style={{ animationDuration: "3.2s" }}
-                />
-              )}
-            </div>
-          )}
           <div className="lesson-actions">
             {phase !== "learn" && (
               <button onClick={() => configure()}>Change practice</button>
@@ -491,22 +456,6 @@ export default function Ear() {
                 <RotateCcw size={15} />
                 Replay note
               </button>
-            ) : !right ? (
-              <>
-                <button onClick={() => setPaused((p) => !p)}>
-                  <Pause size={15} />
-                  {paused ? "Resume" : "Pause"}
-                </button>
-                {!right && (
-                  <button onClick={compare}>
-                    <Volume2 size={15} />
-                    Compare again
-                  </button>
-                )}
-                <button className="primary" onClick={next}>
-                  Next <ArrowRight size={15} />
-                </button>
-              </>
             ) : null}
           </div>
         </section>

@@ -653,41 +653,6 @@ strong {
 .lesson-actions button {
   font-size: 11px;
 }
-.feedback {
-  position: relative;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 7px;
-  margin: 22px 0 0;
-  padding: 17px 10px 20px;
-  overflow: hidden;
-  font-size: 13px;
-}
-.feedback > div {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.feedback > span {
-  font-size: 10px;
-}
-.feedback.mistake {
-  background: rgba(224,138,108,.12);
-  color: #e08a6c;
-}
-.countdown {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  background: currentColor;
-  width: 100%;
-  transform-origin: left;
-  animation: countdown linear forwards;
-}
 .tiny-dots,
 .result-dots {
   display: flex;
@@ -1359,14 +1324,6 @@ strong {
     transform: scaleY(1);
   }
 }
-@keyframes countdown {
-  from {
-    transform: scaleX(1);
-  }
-  to {
-    transform: scaleX(0);
-  }
-}
 @keyframes pulse {
   50% {
     opacity: 0.4;
@@ -1649,9 +1606,6 @@ strong {
     transition: none !important;
     scroll-behavior: auto !important;
   }
-  .countdown {
-    animation: none !important;
-  }
 }
 
 .sidebar nav button.active {
@@ -1715,11 +1669,6 @@ strong {
 .note-choice small {
   min-height: 18px;
   font-size: 11px;
-}
-.feedback.mistake {
-  border-left: 5px solid #e08a6c;
-  background: rgba(224,138,108,.12);
-  color: #e08a6c;
 }
 .tone-grid button.root-tone {
   border: 2px solid var(--accent);
@@ -3998,4 +3947,12 @@ button.primary:active:not(:disabled) {
   .sidebar nav button.active::after {
     transform: none !important;
   }
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

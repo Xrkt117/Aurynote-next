@@ -27,7 +27,7 @@ test("dashboard, guided feedback, progress, and tenor transposition", async ({
   const c = page.getByRole("button", { name: "C 01", exact: true });
   await expect(c).toBeEnabled({ timeout: 10000 });
   await c.click();
-  await expect(page.locator(".feedback")).toBeVisible();
+  await expect(page.locator(".wrong-popup")).toBeVisible();
   await expect
     .poll(() =>
       page.evaluate(() => {
@@ -38,7 +38,6 @@ test("dashboard, guided feedback, progress, and tenor transposition", async ({
       }),
     )
     .toBe(1);
-  await page.getByRole("button", { name: "Pause", exact: true }).click();
   await page.screenshot({
     path: "artifacts/feedback.png",
     fullPage: true,

@@ -1,6 +1,6 @@
 import CorrectPopup from "./CorrectPopup";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, Pause, Play, Volume2 } from "lucide-react";
+import { ArrowRight, Volume2 } from "lucide-react";
 import { useStudio } from "./context";
 import { staffNote, sounding } from "./music";
 import { record } from "./store";
@@ -17,16 +17,15 @@ export default function StaffPractice() {
     [question, setQuestion] = useState(() => staffNote(30)),
     [options, setOptions] = useState(["E", "C", "G", "B"]),
     [result, setResult] = useState<boolean | null>(null),
-    [paused, setPaused] = useState(false),
     [round, setRound] = useState(1),
     [score, setScore] = useState({ correct: 0, total: 0 });
   const locked = useRef(false);
   useEffect(() => () => voice.stop(), []);
   useEffect(() => {
-    if (result === null || practicePaused || paused) return;
-    const timer = setTimeout(() => next(), result ? 850 : 3200);
+    if (result === null || practicePaused) return;
+    const timer = setTimeout(() => next(), 850);
     return () => clearTimeout(timer);
-  }, [result, practicePaused, paused]);
+  }, [result, practicePaused]);
   function next(newBass = bass, newAcc = accidentals) {
     voice.stop();
     const q = staffNote(
@@ -43,7 +42,6 @@ export default function StaffPractice() {
     );
     setText("");
     setChoice(null);
-    setPaused(false);
     setResult(null);
     setRound((n) => n + 1);
     locked.current = false;
@@ -68,7 +66,12 @@ export default function StaffPractice() {
   return (
     <div className="page">
       {result === true && !practicePaused && <CorrectPopup />}
-      {result === false && !practicePaused && <CorrectPopup correct={false} />}
+      {result === false && !practicePaused && (
+        <CorrectPopup
+          correct={false}
+          detail={`The note was ${question.name}.`}
+        />
+      )}
       <div className="page-heading">
         <div>
           <span className="eyebrow">Notation</span>
@@ -199,7 +202,6 @@ export default function StaffPractice() {
             <button
               className="staff-listen"
               onClick={() => {
-                if (result === false) setPaused(true);
                 void voice
                   .play(
                     [sounding(question.midi, profile.tuning, profile.written)],
@@ -256,28 +258,7 @@ export default function StaffPractice() {
               ))}
             </div>
           )}
-          {result === false && (
-            <div className="feedback mistake" role="status">
-              <strong>Answer: {question.name}</strong>
-              <span>
-                Your answer: {choice}.{" "}
-                {paused ? "Paused for review." : "Next note in 3.2 seconds."}
-              </span>
-              {!paused && !practicePaused && (
-                <i
-                  className="countdown"
-                  style={{ animationDuration: "3.2s" }}
-                />
-              )}
-            </div>
-          )}
           <div className="staff-footer-actions">
-            {result === false && (
-              <button onClick={() => setPaused((p) => !p)}>
-                {paused ? <Play size={16} /> : <Pause size={16} />}
-                {paused ? "Resume" : "Pause"}
-              </button>
-            )}
             <button className="text-button" onClick={() => next()}>
               {result === null ? "Skip note" : "Next note"}{" "}
               <ArrowRight size={16} />

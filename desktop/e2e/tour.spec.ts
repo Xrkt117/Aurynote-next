@@ -59,7 +59,7 @@ test("tour can be completed, replayed, and dismissed without changing practice d
   await expect(trigger).toBeFocused();
 });
 
-test("tour pauses a review and keeps the current question and score", async ({
+test("tour pauses a wrong-answer advance and keeps the current question and score", async ({
   page,
 }) => {
   await page.goto("/");
@@ -68,10 +68,10 @@ test("tour pauses a review and keeps the current question and score", async ({
     .click();
   await page.getByRole("button", { name: "C", exact: true }).click();
   await page.getByRole("button", { name: "Quick tour", exact: true }).click();
-  await page.waitForTimeout(3500);
+  await page.waitForTimeout(1500);
   await expect(page.getByText("Question 01", { exact: true })).toBeAttached();
   await page.getByRole("button", { name: "Skip tour", exact: true }).click();
-  await expect(page.locator(".feedback")).toContainText("Your answer: C");
+  await expect(page.locator(".wrong-choice")).toContainText("Your answer");
   await expect(page.getByText("0 / 1 correct", { exact: true })).toBeVisible();
   await expect(page.getByText("Question 02", { exact: true })).toBeVisible();
 });

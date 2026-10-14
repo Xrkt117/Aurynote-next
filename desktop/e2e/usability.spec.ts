@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("staff review can be paused and question generation remains bounded", async ({
+test("wrong staff answer advances and question generation remains bounded", async ({
   page,
 }) => {
   await page.addInitScript(() => {
@@ -12,11 +12,10 @@ test("staff review can be paused and question generation remains bounded", async
     .click();
   await page.getByRole("button", { name: "C", exact: true }).click();
   await expect(page.locator(".wrong-choice")).toContainText("Your answer");
-  await page.getByRole("button", { name: "Pause", exact: true }).click();
-  await page.waitForTimeout(3500);
-  await expect(page.getByText("Question 01", { exact: true })).toBeVisible();
-  await page.getByRole("button", { name: "Next note", exact: true }).click();
-  await expect(page.getByText("Question 02", { exact: true })).toBeVisible();
+  await expect(page.locator(".wrong-popup")).toBeVisible();
+  await expect(page.getByText("Question 02", { exact: true })).toBeVisible({
+    timeout: 2000,
+  });
   await expect(page.locator(".answer-grid button")).toHaveCount(4);
   await page.getByRole("button", { name: "C", exact: true }).click();
   await expect(page.locator(".correct-popup")).toBeVisible();
