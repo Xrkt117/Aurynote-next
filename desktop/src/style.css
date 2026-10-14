@@ -2252,7 +2252,7 @@ body {
 .sidebar {
   width: 214px;
   padding: 24px 18px 22px;
-  background: #fcfbf8;
+  background: var(--bg);
 }
 .main-shell {
   width: calc(100% - 214px);
@@ -2279,16 +2279,14 @@ body {
   padding: 11px 13px;
   border: 1px solid transparent;
   border-radius: 8px;
-  color: #666b62;
+  color: var(--muted);
   font-size: 12px;
 }
 .sidebar nav button.active {
-  border-color: #8b9b70;
-  background: #242821;
+  border-color: transparent;
+  background: var(--sel);
   color: #fff;
-  box-shadow:
-    inset 0 0 0 2px #f7f7f1,
-    0 0 0 1px #8b9b70;
+  box-shadow: inset 3px 0 var(--accent);
 }
 .sidebar nav button.active svg {
   color: #fff;
@@ -2301,17 +2299,17 @@ body {
   margin: 0 0 12px;
   padding: 18px;
   overflow: hidden;
-  border: 0;
-  border-radius: 18px;
-  background: linear-gradient(145deg, #f6f5f0, #fff 68%);
-  box-shadow: 0 8px 30px #30382a0a;
+  border-radius: var(--radius);
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  box-shadow: none;
 }
 .daily-note p {
   position: relative;
   text-wrap: balance;
   z-index: 1;
   margin: 0;
-  color: #565a50;
+  color: var(--muted);
   font-size: 15px;
   font-style: normal;
   line-height: 1.38;
@@ -2324,8 +2322,8 @@ body {
 .topbar {
   height: 64px;
   padding: 0 31px;
-  background: #fcfbf8e8;
-  backdrop-filter: blur(12px);
+  background: var(--bg);
+  backdrop-filter: none;
 }
 .topbar-context {
   display: flex;
@@ -2361,13 +2359,13 @@ body {
   width: 205px;
   max-width: 205px;
   height: 38px;
-  border-color: #d3d5cf;
-  background: #fff;
+  border-color: var(--rule);
+  background: var(--panel);
 }
 .settings-trigger {
   height: 38px;
-  border-color: #d3d5cf;
-  background: #fff;
+  border-color: var(--rule);
+  background: var(--panel);
 }
 .page.dashboard {
   width: 100%;
@@ -2391,7 +2389,7 @@ body {
 }
 .studio-intro .eyebrow {
   margin-bottom: 8px;
-  color: #5d6458;
+  color: var(--muted);
 }
 .studio-intro h1 {
   font-size: clamp(43px, 4vw, 58px);
@@ -2409,7 +2407,7 @@ body {
   width: 56%;
   height: 98px;
   margin-top: 2px;
-  color: #858d77;
+  color: var(--muted);
   opacity: 0.74;
 }
 .studio-score::before {
@@ -2419,7 +2417,7 @@ body {
   background: repeating-linear-gradient(
     to bottom,
     transparent 0 10px,
-    #c5c9bc 11px 12px
+    #3a3e45 11px 12px
   );
   mask-image: linear-gradient(
     to right,
@@ -2460,9 +2458,9 @@ body {
 .studio-mic-card,
 .studio-stats,
 .studio-exercise-card {
-  border: 1px solid #d9dbd4;
-  background: #fffefa;
-  box-shadow: 0 12px 34px #2f35290a;
+  border: 1px solid var(--rule);
+  background: var(--panel);
+  box-shadow: none;
 }
 .studio-lesson-card,
 .studio-mic-card {
@@ -2497,8 +2495,8 @@ body {
   padding: 6px 14px;
   border: 0;
   border-radius: 20px;
-  background: #edf0e6;
-  color: #283022;
+  background: var(--panel-2);
+  color: var(--fg);
   font-size: 11px;
   font-weight: 700;
 }
@@ -2515,7 +2513,7 @@ body {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  color: #3d4737;
+  color: var(--fg);
   font-size: 57px;
   letter-spacing: -2px;
   line-height: 1;
@@ -2555,13 +2553,13 @@ body {
   align-items: center;
   gap: 11px;
   padding: 12px 13px;
-  border: 1px solid #d9ded0;
+  border: 1px solid var(--rule);
   border-radius: 7px;
-  background: #f7f8f1e8;
+  background: var(--bg);
 }
 .studio-note.introduced {
-  border-color: #cbd3bd;
-  background: #f1f4ea;
+  border-color: var(--rule);
+  background: var(--panel-2);
 }
 .studio-note strong {
   display: block;
@@ -2578,10 +2576,10 @@ body {
 .studio-note-staff {
   width: 100%;
   max-width: 92px;
-  color: #1d221b;
+  color: var(--fg);
 }
 .studio-note-staff line {
-  stroke: #bec3b8;
+  stroke: #6b7078;
   stroke-width: 1;
 }
 .studio-note-staff ellipse {
@@ -2595,13 +2593,13 @@ body {
   width: 36px;
   height: 36px;
   padding: 0;
-  border-color: #d9ded0;
+  border-color: var(--rule);
   border-radius: 50%;
-  background: #f7f8f1;
+  background: var(--bg);
 }
 .studio-note-play[aria-pressed="true"] {
-  background: #283023;
-  color: #fff;
+  background: var(--accent);
+  color: var(--accent-ink);
 }
 .studio-lesson-notes.compact .studio-note {
   grid-template-columns: 1fr;
@@ -2631,7 +2629,7 @@ body {
   min-width: 180px;
   justify-content: space-between;
   border-radius: 7px;
-  background: linear-gradient(145deg, #34402e, #232a20);
+  background: var(--accent);
 }
 .studio-preview-button {
   padding: 0;
@@ -2644,9 +2642,9 @@ body {
   width: 39px;
   height: 39px;
   place-items: center;
-  border: 1px solid #d5d8cf;
+  border: 1px solid var(--rule);
   border-radius: 50%;
-  background: #fafaf6;
+  background: var(--bg);
 }
 .studio-preview-button > span:last-child {
   display: grid;
@@ -2673,7 +2671,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   padding: 24px 28px;
-  background: linear-gradient(135deg, #f7f8f1, #f1f4e9);
+  background: var(--panel);
 }
 .studio-mic-heading {
   display: flex;
@@ -2686,8 +2684,8 @@ body {
   height: 39px;
   place-items: center;
   border-radius: 50%;
-  background: #e4e9db;
-  color: #45543a;
+  background: var(--panel-2);
+  color: var(--fg);
 }
 .studio-mic-card h2 {
   margin-top: 9px;
@@ -2735,14 +2733,14 @@ body {
   width: 2px;
   flex: 1 0 2px;
   border-radius: 2px;
-  background: #b3bca5;
+  background: #3a3e45;
 }
 .studio-wave-cursor {
   position: absolute;
   left: 56%;
   width: 2px;
   height: 76px;
-  background: #47513f;
+  background: var(--accent);
 }
 .studio-pitch-preview {
   position: absolute;
@@ -2752,10 +2750,10 @@ body {
   min-height: 83px;
   place-items: center;
   padding: 9px;
-  border: 1px solid #e0e3da;
+  border: 1px solid var(--rule);
   border-radius: 8px;
-  background: #fffef9;
-  box-shadow: 0 5px 15px #2830200c;
+  background: var(--panel);
+  box-shadow: none;
 }
 .studio-pitch-preview strong {
   font-size: 24px;
@@ -2774,10 +2772,10 @@ body {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #dfe2d9;
+  background: #1d2024;
 }
 .studio-pitch-preview b:first-child {
-  background: #77975c;
+  background: var(--accent);
 }
 .studio-mic-footer {
   position: relative;
@@ -2801,7 +2799,7 @@ body {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #789b5b;
+  background: var(--accent);
 }
 .studio-mic-footer .text-button {
   font-size: 12px;
@@ -2829,7 +2827,7 @@ body {
   min-height: 78px;
   align-items: start;
   padding: 0 18px;
-  border-right: 1px solid #e1e2dc;
+  border-right: 1px solid var(--rule);
 }
 .studio-metric:last-child {
   border: 0;
@@ -2840,7 +2838,7 @@ body {
   height: 39px;
   place-items: center;
   border-radius: 50%;
-  background: #f0f1eb;
+  background: var(--panel-2);
 }
 .studio-metric > div {
   min-width: 0;
@@ -2878,12 +2876,12 @@ body {
   margin-top: 8px;
   overflow: hidden;
   border-radius: 5px;
-  background: #e7e8e1;
+  background: var(--panel-2);
 }
 .studio-progress i {
   display: block;
   height: 100%;
-  background: #82996b;
+  background: var(--accent);
 }
 .studio-note-progress {
   display: flex;
@@ -2894,10 +2892,10 @@ body {
   width: 8px;
   height: 4px;
   border-radius: 3px;
-  background: #e1e3db;
+  background: #1d2024;
 }
 .studio-note-progress i.filled {
-  background: #82996b;
+  background: var(--accent);
 }
 .studio-exercises {
   margin: 0;
@@ -2933,8 +2931,8 @@ body {
   text-align: left;
 }
 .studio-exercise-card:hover:not(:disabled) {
-  border-color: #9da791;
-  background: #fffefa;
+  border-color: #3a3e45;
+  background: var(--panel);
   transform: translateY(-2px);
 }
 .studio-exercise-icon {
@@ -2950,7 +2948,7 @@ body {
   height: 35px;
   place-items: center;
   border-radius: 50%;
-  background: #f3f3ed;
+  background: var(--panel-2);
 }
 .studio-exercise-card > strong {
   position: relative;
@@ -3049,7 +3047,7 @@ body {
     border-right: 0;
   }
   .studio-metric:nth-child(3) {
-    border-right: 1px solid #e1e2dc;
+    border-right: 1px solid var(--rule);
   }
 }
 @media (max-width: 650px) {
@@ -3150,7 +3148,7 @@ body {
   .studio-metric:nth-child(4) {
     padding: 0 3px 15px;
     border-right: 0;
-    border-bottom: 1px solid #e1e2dc;
+    border-bottom: 1px solid var(--rule);
   }
   .studio-metric:last-child {
     padding-bottom: 0;
