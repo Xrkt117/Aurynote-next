@@ -3798,6 +3798,24 @@ button.primary:active:not(:disabled) {
   animation: icon-draw 300ms var(--ease) 180ms both;
 }
 
+/* motion: piano key press and markers */
+.piano-key {
+  transition: background 0.14s, translate 120ms var(--ease), filter 120ms;
+}
+.piano-key.sounding,
+.piano-key:active:not(:disabled) {
+  translate: 0 2px;
+  filter: brightness(0.85);
+}
+.piano-key .key-marker {
+  transform: scale(0.4);
+  transition: opacity var(--t), transform var(--t) var(--ease);
+}
+.piano-key.in-scale .key-marker,
+.piano-key.sounding .key-marker {
+  transform: scale(1);
+}
+
 /* motion: global kill switch */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
