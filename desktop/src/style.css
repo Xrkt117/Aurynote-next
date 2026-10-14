@@ -191,10 +191,10 @@ strong {
   letter-spacing: 1px;
   line-height: 1.2;
   padding: 7px 9px;
-  background: #f2f3ec;
-  border: 1px solid #e6e8de;
+  background: var(--panel-2);
+  border: 1px solid var(--rule);
   border-radius: 4px;
-  color: #686e5d;
+  color: var(--muted);
   font-weight: 500;
   white-space: nowrap;
 }
@@ -217,7 +217,7 @@ strong {
   flex-shrink: 0;
   border-right: 1px solid var(--line);
   padding: 34px 23px 23px;
-  background: #fcfcf9;
+  background: var(--bg);
   position: fixed;
   left: 0;
   top: 0;
@@ -237,14 +237,15 @@ strong {
 .brand-mark {
   width: 35px;
   height: 35px;
-  background: #262923;
+  background: var(--panel-2);
+  border: 1px solid var(--rule);
   border-radius: 8px;
   color: white;
   display: grid;
   place-items: center;
 }
 .brand-dot {
-  color: #8e9a71;
+  color: var(--accent);
 }
 .brand-button {
   padding: 0;
@@ -270,8 +271,8 @@ strong {
   gap: 12px;
 }
 .sidebar nav button.active {
-  background: #eceee5;
-  color: #30372a;
+  background: var(--panel-2);
+  color: var(--fg);
   font-weight: 600;
 }
 .sidebar nav button.active svg {
@@ -286,7 +287,7 @@ strong {
 }
 .sidebar-bottom > .text-button {
   font-size: 11px;
-  color: #858a7b;
+  color: var(--muted);
   margin: 0 10px;
 }
 .offline {
@@ -295,7 +296,7 @@ strong {
   align-items: center;
   font-size: 8px;
   letter-spacing: 0.15px;
-  color: #a1a595;
+  color: var(--muted);
   margin: 20px 7px 0;
 }
 .main-shell {
@@ -328,7 +329,7 @@ strong {
 .global-controls select {
   font-size: 11px;
   background: transparent;
-  border-color: #dbded3;
+  border-color: var(--rule);
   padding-top: 7px;
   padding-bottom: 7px;
 }
