@@ -1,19 +1,36 @@
 :root {
   font-family: Inter, "Segoe UI", Arial, sans-serif;
-  color: #252622;
-  background: #f8f8f5;
+  color: var(--fg);
+  background: var(--bg);
   font-synthesis: none;
   font-weight: 400;
-  --ink: #252622;
-  --muted: #60645d;
-  --line: #d1d4ca;
-  --paper: #fff;
-  --green: #317052;
-  --mistake: #a3573f;
-  --canvas: #faf9f5;
-  --olive-ink: #35402f;
-  --olive-soft: #eef1e7;
-  --olive-line: #cfd5c4;
+  color-scheme: dark;
+  --bg: #0b0c0e;
+  --panel: #121316;
+  --panel-2: #17191d;
+  --fg: #e8e9eb;
+  --muted: #b4b9c0;
+  --rule: #2a2d33;
+  --accent: #ffc857;
+  --accent-ink: #14110a;
+  --hover: rgba(255, 255, 255, 0.06);
+  --sel: rgba(255, 200, 87, 0.12);
+  --green: #5fbf8a;
+  --mistake: #e08a6c;
+  --radius: 4px;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --t: 200ms;
+  --font-ui: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: ui-serif, "New York", "Iowan Old Style", Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* old names, kept working */
+  --ink: var(--fg);
+  --line: var(--rule);
+  --paper: var(--panel);
+  --canvas: var(--bg);
+  --olive-ink: var(--fg);
+  --olive-soft: var(--panel-2);
+  --olive-line: var(--rule);
 }
 * {
   box-sizing: border-box;

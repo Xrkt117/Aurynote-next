@@ -9,26 +9,27 @@
   --color-popover: var(--card);
   --color-popover-foreground: var(--foreground);
   --color-primary: var(--primary);
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #eff0ea;
+  --color-primary-foreground: #14110a;
+  --color-secondary: #17191d;
   --color-secondary-foreground: var(--foreground);
-  --color-muted: #eff0ea;
-  --color-muted-foreground: #60645d;
-  --color-accent: #e7eddd;
+  --color-muted: #17191d;
+  --color-muted-foreground: #b4b9c0;
+  --color-accent: #1d2024;
   --color-accent-foreground: var(--foreground);
-  --color-destructive: #a3573f;
-  --color-border: #d1d4ca;
-  --color-input: #858a7d;
-  --color-ring: #73884e;
+  --color-destructive: #e08a6c;
+  --color-border: #2a2d33;
+  --color-input: #3a3e45;
+  --color-ring: #ffc857;
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
   --radius-xl: 10px;
 }
 :root {
-  --background: #f8f8f5;
-  --foreground: #252622;
-  --card: #fff;
-  --primary: #252622;
-  --radius: 6px;
+  --background: #0b0c0e;
+  --foreground: #e8e9eb;
+  --card: #121316;
+  --primary: #ffc857;
+  --radius: 4px;
+  --ring: #ffc857;
 }
