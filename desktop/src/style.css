@@ -3731,3 +3731,17 @@ progress::-moz-progress-bar {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
 }
+
+#root .current-page {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+#root .global-controls .key-select > span {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
